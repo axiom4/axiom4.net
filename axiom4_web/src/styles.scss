@@ -1,1 +1,83 @@
-/* You can add global styles to this file, and also import other style files */
+/* stylelint-disable selector-list-comma-newline-after */
+@import 'bootstrap/scss/bootstrap';
+
+body {
+  background: linear-gradient(45deg, hsla(200, 0%, 0%, 0.95) 25%, transparent 25%, transparent 75%, hsla(200, 0%, 0%, 0.95) 75%, hsla(200, 0%, 0%, 0.95)), linear-gradient(45deg, hsla(200, 0%, 0%, 0.95) 25%, transparent 25%, transparent 75%, hsla(200, 0%, 0%, 0.95) 75%, hsla(200, 0%, 0%, 0.95)) 10px 10px;
+  background-size: 20px 20px;
+  background-color: hsla(200, 0%, 0%, 0.95);
+  background-color: rgba(0, 0, 0, .95);
+  color: white;
+  background-position: initial initial;
+  background-repeat: initial initial;
+  font: 100%/1.5 sans-serif;
+}
+
+a {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+#mainNav {
+  border-bottom: 1px solid #e9ecef;
+}
+
+#mainNav .navbar-brand {
+  font-weight: 800;
+  font-size: 28px;
+  color: #fff
+}
+
+#mainNav .navbar-brand-sub {
+  font-size: 16px;
+  left: -5px;
+  position: relative;
+}
+
+#mainNav .navbar-toggler {
+  font-size: 16px;
+  font-weight: 800;
+  padding: 13px;
+  text-transform: uppercase;
+  color: #fff
+}
+
+#mainNav .navbar-nav>li.nav-item>a {
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase
+}
+
+
+.footer {
+  /* position: absolute;
+  bottom: 0; */
+  margin-top: 64px;
+  width: 100%;
+  font-size: 80%;
+  /* Set the fixed height of the footer here */
+  text-align: center;
+}
+
+.footer a {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.modal-content {
+  background-color: black;
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4)
+}
