@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CookiePolicyService } from '../../services/cookie-policy.service';
 
 @Component({
@@ -6,6 +6,8 @@ import { CookiePolicyService } from '../../services/cookie-policy.service';
   templateUrl: './cookie-policy.component.html',
   styleUrls: ['./cookie-policy.component.scss']
 })
-export class CookiePolicyComponent {
+export class CookiePolicyComponent implements OnInit {
   constructor(public cookiePolicyService: CookiePolicyService) { }
+  ngOnInit(): void {
+  }
 }

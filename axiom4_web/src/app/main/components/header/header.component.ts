@@ -6,11 +6,18 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
+  showMenu = false;
+
   @ViewChild('navmenu') navmenu: ElementRef | undefined;
 
-  hideMenu() {
+  toogleMenu() {
     if (this.navmenu)
-      this.navmenu.nativeElement.classList.remove('show');
+      if (this.showMenu)
+        this.navmenu.nativeElement.classList.remove('show');
+      else
+        this.navmenu.nativeElement.classList.add('show');
+
+    this.showMenu = !this.showMenu;
   }
 
 }

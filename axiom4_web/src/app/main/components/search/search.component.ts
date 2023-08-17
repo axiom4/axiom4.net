@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { SearchModalComponent } from '../search-modal/search-modal.component';
 
@@ -9,9 +9,7 @@ import { SearchModalComponent } from '../search-modal/search-modal.component';
 })
 export class SearchComponent implements OnInit {
   modalRef: NgbModalRef | undefined;
-  debounceTime = 300;
   opened = false;
-  @Output('click.single') singleClick = new EventEmitter();
 
   ngOnInit() { }
 

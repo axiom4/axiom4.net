@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,7 +8,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { MainModule } from './main/main.module';
 import { UtilsModule } from './utils/utils.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
+import { ConfigService } from './utils';
+
+export function ConfigLoader(configService: ConfigService) {
+  // Note: this factory need to return a function (that return a promise)
+  return () => configService.configLoad();
+}
 
 @NgModule({
   declarations: [
@@ -23,7 +29,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     UtilsModule,
     NgbModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    ConfigService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: ConfigLoader,
+      deps: [ConfigService],
+      multi: true
+    }
+  ], bootstrap: [AppComponent]
 })
 export class AppModule { }
