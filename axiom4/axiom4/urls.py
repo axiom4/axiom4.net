@@ -14,8 +14,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from rest_framework.schemas import get_schema_view
+
+from rest_framework import permissions
+from Blog import urls as blog_urls
+
+schema_url_patterns = [
+    path('blog/', include(blog_urls.urlpatterns)),
+    # path('list/', include(blacklist_out_management_urls.urlpatterns)),
+]
 
 urlpatterns = [
+    path("blog/", include(blog_urls.urlpatterns)),
     path('admin/', admin.site.urls),
+    path('', get_schema_view(
+         title="Axiom4.net API",
+         description="API app Axiom4.net",
+         version="1.0.0",
+         patterns=schema_url_patterns,
+         public=True,
+         permission_classes=[permissions.AllowAny],
+         # authentication_classes=[
+         #     authentication.SessionAuthentication,
+         #     authentication.BasicAuthentication
+         # ]
+         ), name='openapi-schema'),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
