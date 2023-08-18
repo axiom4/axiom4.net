@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BlogService, RetrievePageRequestParams } from 'src/app/modules/core/api/v1';
+import { MarkdownService } from 'ngx-markdown';
+import { BlogService, Page, RetrievePageRequestParams } from 'src/app/modules/core/api/v1';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
-  styleUrls: ['./page.component.scss']
+  styleUrls: ['./page.component.scss'],
+  providers: [MarkdownService]
 })
 export class PageComponent implements OnInit {
+  page: Page | undefined
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -20,6 +23,7 @@ export class PageComponent implements OnInit {
       }
       this.blogService.retrievePage(params).subscribe({
         next: (page) => {
+          this.page = page
           console.log(page)
         },
         error: (error) => {

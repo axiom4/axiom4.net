@@ -24,6 +24,9 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
+    "marked": "^4.3.0",
+    "ngx-markdown": "^16.0.0",
+    "prismjs": "^1.29.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -34,6 +37,7 @@
     "@angular/compiler-cli": "^16.2.0",
     "@angular/localize": "^16.2.0",
     "@types/jasmine": "~4.3.0",
+    "@types/marked": "^4.3.1",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

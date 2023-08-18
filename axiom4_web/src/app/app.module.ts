@@ -11,6 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ConfigService } from './modules/utils';
 import { ConfigurationParameters, Configuration, ApiModule } from './modules/core/api/v1';
+import { MarkdownModule } from 'ngx-markdown';
 
 var config: ConfigService;
 
@@ -35,6 +36,7 @@ export function apiConfigFactory(): Configuration {
   ],
   imports: [
     ApiModule.forRoot(apiConfigFactory),
+    MarkdownModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

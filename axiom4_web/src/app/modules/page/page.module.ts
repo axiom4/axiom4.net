@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { PageRoutingModule } from './page-routing.module';
 import { PageComponent } from './components/page/page.component';
-import { BrowserModule } from '@angular/platform-browser';
+import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 
 
 @NgModule({
@@ -12,7 +12,11 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
   imports: [
     CommonModule,
-    PageRoutingModule
+    PageRoutingModule,
+    MarkdownModule.forChild()
+  ],
+  providers: [
+
   ]
 })
 export class PageModule { }
