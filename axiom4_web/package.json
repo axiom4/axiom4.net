@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "generate:api": "openapi-generator-cli generate  -p supportsES6=true,withInterfaces=true,useSingleRequestParameter=true -i http://127.0.0.1:8000/?format=openapi -g typescript-angular -o src/app/modules/core/api/v1"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.1",
+    "@openapitools/openapi-generator-cli": "^2.7.0",
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.3.1",
     "bootstrap-icons": "^1.10.5",
