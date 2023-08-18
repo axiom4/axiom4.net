@@ -1,8 +1,8 @@
 from rest_framework import viewsets
 from django.contrib.auth.models import User, Group
-from .models import Page
+from .models import Page, Post
 from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
+from .serializers import PostSerializer, UserSerializer, GroupSerializer
 
 from .serializers import PageSerializer
 
@@ -25,7 +25,14 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class PagetViewset(viewsets.ModelViewSet):
+class PageViewset(viewsets.ModelViewSet):
     queryset = Page.objects.all()
     serializer_class = PageSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    lookup_field = "tag"
+
+
+class PostViewset(viewsets.ModelViewSet):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]

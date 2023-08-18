@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigService, CookiePolicy, CookiePolicyService } from './modules/utils';
-import { Conditional } from '@angular/compiler';
 import { BlogService } from './modules/core/api/v1';
 
 @Component({
@@ -9,13 +8,10 @@ import { BlogService } from './modules/core/api/v1';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private configService: ConfigService, public cookiePolicyService: CookiePolicyService, private blogService: BlogService) { }
+  constructor(private configService: ConfigService, public cookiePolicyService: CookiePolicyService) { }
 
   ngOnInit(): void {
     this.showCookiePolicyAlert();
-    this.blogService.listPages().subscribe(pages => {
-      console.log(pages)
-    })
   }
 
   showCookiePolicyAlert() {

@@ -11,6 +11,8 @@ index.ts
 model/group.ts
 model/models.ts
 model/page.ts
+model/pageAuthor.ts
+model/post.ts
 model/user.ts
 param.ts
 variables.ts

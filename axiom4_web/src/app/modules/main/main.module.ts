@@ -4,9 +4,11 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SearchComponent } from './components/search/search.component';
-import { SearchModalComponent } from './components/search-modal/search-modal.component';
-import { NgbActiveModal, NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { MainPageComponent } from './components/main-page/main-page.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -15,15 +17,20 @@ import { FormsModule } from '@angular/forms';
     HeaderComponent,
     FooterComponent,
     SearchComponent,
+    PageNotFoundComponent,
+    MainPageComponent,
   ],
   imports: [
     FormsModule,
     CommonModule,
+    RouterModule
   ],
   exports: [
     HeaderComponent,
     FooterComponent,
     SearchComponent,
+    PageNotFoundComponent,
+    MainPageComponent
   ],
   providers: [
     NgbActiveModal

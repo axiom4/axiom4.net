@@ -11,15 +11,12 @@
  */
 
 
-export interface User { 
+export interface Post { 
     readonly id?: number;
     readonly url?: string;
-    /**
-     * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
-     */
-    username: string;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
+    author: string;
+    title: string;
+    body: string;
+    readonly created_at?: string;
 }
 

@@ -15,6 +15,7 @@ import { Observable }                                        from 'rxjs';
 
 import { Group } from '../model/models';
 import { Page } from '../model/models';
+import { Post } from '../model/models';
 import { User } from '../model/models';
 
 
@@ -29,6 +30,10 @@ export interface CreatePageRequestParams {
     page?: Page;
 }
 
+export interface CreatePostRequestParams {
+    post?: Post;
+}
+
 export interface CreateUserRequestParams {
     user?: User;
 }
@@ -38,6 +43,10 @@ export interface DestroyGroupRequestParams {
 }
 
 export interface DestroyPageRequestParams {
+    tag: string;
+}
+
+export interface DestroyPostRequestParams {
     id: string;
 }
 
@@ -51,8 +60,13 @@ export interface PartialUpdateGroupRequestParams {
 }
 
 export interface PartialUpdatePageRequestParams {
-    id: string;
+    tag: string;
     page?: Page;
+}
+
+export interface PartialUpdatePostRequestParams {
+    id: string;
+    post?: Post;
 }
 
 export interface PartialUpdateUserRequestParams {
@@ -65,6 +79,10 @@ export interface RetrieveGroupRequestParams {
 }
 
 export interface RetrievePageRequestParams {
+    tag: string;
+}
+
+export interface RetrievePostRequestParams {
     id: string;
 }
 
@@ -78,8 +96,13 @@ export interface UpdateGroupRequestParams {
 }
 
 export interface UpdatePageRequestParams {
-    id: string;
+    tag: string;
     page?: Page;
+}
+
+export interface UpdatePostRequestParams {
+    id: string;
+    post?: Post;
 }
 
 export interface UpdateUserRequestParams {
@@ -108,6 +131,13 @@ export interface BlogServiceInterface {
 
     /**
      * 
+     * 
+* @param requestParameters
+     */
+    createPost(requestParameters: CreatePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
+
+    /**
+     * 
      * API endpoint that allows users to be viewed or edited.
 * @param requestParameters
      */
@@ -126,6 +156,13 @@ export interface BlogServiceInterface {
 * @param requestParameters
      */
     destroyPage(requestParameters: DestroyPageRequestParams, extraHttpRequestParams?: any): Observable<{}>;
+
+    /**
+     * 
+     * 
+* @param requestParameters
+     */
+    destroyPost(requestParameters: DestroyPostRequestParams, extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 
@@ -148,6 +185,12 @@ export interface BlogServiceInterface {
 
     /**
      * 
+     * 
+*/
+    listPosts(extraHttpRequestParams?: any): Observable<Array<Post>>;
+
+    /**
+     * 
      * API endpoint that allows users to be viewed or edited.
 */
     listUsers(extraHttpRequestParams?: any): Observable<Array<User>>;
@@ -165,6 +208,13 @@ export interface BlogServiceInterface {
 * @param requestParameters
      */
     partialUpdatePage(requestParameters: PartialUpdatePageRequestParams, extraHttpRequestParams?: any): Observable<Page>;
+
+    /**
+     * 
+     * 
+* @param requestParameters
+     */
+    partialUpdatePost(requestParameters: PartialUpdatePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
 
     /**
      * 
@@ -189,6 +239,13 @@ export interface BlogServiceInterface {
 
     /**
      * 
+     * 
+* @param requestParameters
+     */
+    retrievePost(requestParameters: RetrievePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
+
+    /**
+     * 
      * API endpoint that allows users to be viewed or edited.
 * @param requestParameters
      */
@@ -207,6 +264,13 @@ export interface BlogServiceInterface {
 * @param requestParameters
      */
     updatePage(requestParameters: UpdatePageRequestParams, extraHttpRequestParams?: any): Observable<Page>;
+
+    /**
+     * 
+     * 
+* @param requestParameters
+     */
+    updatePost(requestParameters: UpdatePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
 
     /**
      * 

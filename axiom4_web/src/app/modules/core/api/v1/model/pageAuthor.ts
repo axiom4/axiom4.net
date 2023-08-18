@@ -11,7 +11,7 @@
  */
 
 
-export interface User { 
+export interface PageAuthor { 
     readonly id?: number;
     readonly url?: string;
     /**
