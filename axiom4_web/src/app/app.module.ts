@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule, SecurityContext } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -36,7 +36,9 @@ export function apiConfigFactory(): Configuration {
   ],
   imports: [
     ApiModule.forRoot(apiConfigFactory),
-    MarkdownModule.forRoot(),
+    MarkdownModule.forRoot({
+      sanitize: SecurityContext.NONE
+    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

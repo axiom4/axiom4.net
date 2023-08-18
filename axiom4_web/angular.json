@@ -31,7 +31,7 @@
             ],
             "styles": [
               "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
-              "node_modules/prismjs/themes/prism-dark.min.css",
+              "node_modules/prismjs/themes/prism-coy.min.css",
               "src/styles.scss"
             ],
             "scripts": [
