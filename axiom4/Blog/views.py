@@ -14,6 +14,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = ['get']
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -23,6 +24,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = ['get']
 
 
 class PageViewset(viewsets.ModelViewSet):
@@ -30,9 +32,11 @@ class PageViewset(viewsets.ModelViewSet):
     serializer_class = PageSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = "tag"
+    http_method_names = ['get']
 
 
 class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = ['get']
