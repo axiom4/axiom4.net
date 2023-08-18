@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigService, CookiePolicy, CookiePolicyService } from './utils';
+import { ConfigService, CookiePolicy, CookiePolicyService } from './modules/utils';
 import { Conditional } from '@angular/compiler';
 
 @Component({

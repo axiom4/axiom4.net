@@ -5,11 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { MainModule } from './main/main.module';
-import { UtilsModule } from './utils/utils.module';
+import { MainModule } from './modules/main/main.module';
+import { UtilsModule } from './modules/utils/utils.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { ConfigService } from './utils';
+import { ConfigService } from './modules/utils';
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)

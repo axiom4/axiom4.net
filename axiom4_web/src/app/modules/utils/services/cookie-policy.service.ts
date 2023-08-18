@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
-import { ConfigService } from 'src/app/utils/services/config.service';
-import { CookiePolicy } from '../../utils/models/cooke-policy';
+import { ConfigService } from 'src/app/modules/utils/services/config.service';
+import { CookiePolicy } from '../models/cooke-policy';
 
 @Injectable()
 export class CookiePolicyService implements OnInit {
