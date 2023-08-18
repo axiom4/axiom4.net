@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule, SecurityContext } from '@angular/core';
+import { APP_INITIALIZER, NgModule, SecurityContext, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ConfigService } from './modules/utils';
 import { ConfigurationParameters, Configuration, ApiModule } from './modules/core/api/v1';
 import { MarkdownModule } from 'ngx-markdown';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 var config: ConfigService;
 
@@ -45,7 +46,13 @@ export function apiConfigFactory(): Configuration {
     FormsModule,
     MainModule,
     UtilsModule,
-    NgbModule
+    NgbModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     ConfigService,

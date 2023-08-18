@@ -14,7 +14,7 @@
       <span class="navbar-brand-sub">.NET</span>
     </a>
 
-    <app-search></app-search>
+    <app-search style="margin: 0 auto"></app-search>
 
     <div #navmenu class="offcanvas-lg offcanvas-end flex-grow-1" tabindex="-1" aria-labelledby="bdNavbarOffcanvasLabel" data-bs-scroll="false">
 
@@ -22,11 +22,11 @@
         <ul class="navbar-nav flex-row flex-wrap ms-md-auto">
 
           <li class="nav-item mt-1 col-12 col-lg-auto">
-            <a class="nav-link" aria-label="Home Page" routerLink='/'>Home</a>
+            <a class="nav-link" aria-label="Home Page" (click)="toogleMenu()" routerLink='/'>Home</a>
           </li>
 
           <li class="nav-item mt-1 col-12 col-lg-auto">
-            <a class="nav-link" aria-label="About Me" routerLink='pages/about'>About</a>
+            <a class="nav-link" aria-label="About Me" (click)="toogleMenu()" routerLink='pages/about'>About</a>
           </li>
 
           <li class="nav-item py-1 col-12 col-lg-auto">
