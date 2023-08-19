@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     "corsheaders",
-    'Blog'
+    'Blog',
+    'ImageUpload'
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,6 @@ CORS_ALLOW_METHODS = [
     'POST',
     'PUT',
 ]
+
+MEDIA_ROOT = 'media'
+MEDIA_URL = '/media/'
