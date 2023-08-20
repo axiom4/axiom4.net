@@ -32,6 +32,7 @@ import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables'
 import { Configuration }                                     from '../configuration';
 import {
     BlogServiceInterface,
+    ListPostsRequestParams,
     RetrieveGroupRequestParams,
     RetrievePageRequestParams,
     RetrievePostRequestParams,
@@ -214,13 +215,21 @@ export class BlogService implements BlogServiceInterface {
 
     /**
      * 
+     * @param requestParameters
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listPosts(observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Post>>;
-    public listPosts(observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Post>>>;
-    public listPosts(observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Post>>>;
-    public listPosts(observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Post>>;
+    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Post>>>;
+    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Post>>>;
+    public listPosts(requestParameters: ListPostsRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        const search = requestParameters.search;
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (search !== undefined && search !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>search, 'search');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -257,6 +266,7 @@ export class BlogService implements BlogServiceInterface {
         return this.httpClient.request<Array<Post>>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,
@@ -452,6 +462,13 @@ export class BlogService implements BlogServiceInterface {
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling retrievePost.');
         }
+        const search = requestParameters.search;
+
+        let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (search !== undefined && search !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>search, 'search');
+        }
 
         let localVarHeaders = this.defaultHeaders;
 
@@ -488,6 +505,7 @@ export class BlogService implements BlogServiceInterface {
         return this.httpClient.request<Post>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
+                params: localVarQueryParameters,
                 responseType: <any>responseType_,
                 withCredentials: this.configuration.withCredentials,
                 headers: localVarHeaders,

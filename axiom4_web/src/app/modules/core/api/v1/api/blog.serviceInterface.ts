@@ -22,6 +22,10 @@ import { User } from '../model/models';
 import { Configuration }                                     from '../configuration';
 
 
+export interface ListPostsRequestParams {
+    search?: string;
+}
+
 export interface RetrieveGroupRequestParams {
     id: string;
 }
@@ -32,6 +36,7 @@ export interface RetrievePageRequestParams {
 
 export interface RetrievePostRequestParams {
     id: string;
+    search?: string;
 }
 
 export interface RetrieveUserRequestParams {
@@ -58,8 +63,9 @@ export interface BlogServiceInterface {
     /**
      * 
      * 
-*/
-    listPosts(extraHttpRequestParams?: any): Observable<Array<Post>>;
+* @param requestParameters
+     */
+    listPosts(requestParameters: ListPostsRequestParams, extraHttpRequestParams?: any): Observable<Array<Post>>;
 
     /**
      * 
