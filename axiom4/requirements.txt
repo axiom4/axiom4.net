@@ -13,6 +13,7 @@ hyperlink==21.0.0
 idna==3.4
 incremental==22.10.0
 mysqlclient==2.2.0
+Pillow==10.0.0
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
 pycparser==2.21
