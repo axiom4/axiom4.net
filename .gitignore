@@ -46,4 +46,6 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
-/axiom4/media
+axiom4/media
+axiom4/static
+run
