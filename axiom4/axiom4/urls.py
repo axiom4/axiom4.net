@@ -43,5 +43,12 @@ urlpatterns = [
          #     authentication.BasicAuthentication
          # ]
          ), name='openapi-schema'),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(r'mdeditor/', include('mdeditor.urls'))
+]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL,
+        document_root=settings.MEDIA_ROOT
+    )
