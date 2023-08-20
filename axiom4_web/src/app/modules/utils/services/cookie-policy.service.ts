@@ -1,7 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { ConfigService } from 'src/app/modules/utils/services/config.service';
 import { CookiePolicy } from '../models/cooke-policy';
-import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class CookiePolicyService implements OnInit {
@@ -13,7 +12,7 @@ export class CookiePolicyService implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.analiticsID = this.configService.getConfiguration()?.axiom4_blog_google_analitics_id;
+    this.analiticsID = this.configService.getConfiguration()?.trackingID;
     console.log(this.analiticsID)
   }
 
@@ -37,10 +36,10 @@ export class CookiePolicyService implements OnInit {
   loadScript() {
     let gaScript = document.createElement('script');
     gaScript.setAttribute('async', 'true');
-    gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${environment.trackingID}`);
+    gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.analiticsID}`);
 
     let gaScript2 = document.createElement('script');
-    gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${environment.trackingID}\');`;
+    gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.analiticsID}\');`;
     const head = <HTMLHeadElement>document.head;
 
     head.appendChild(gaScript);
