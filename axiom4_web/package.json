@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --subresource-integrity",
+    "build": "ng build --subresource-integrity --inline-style-language css",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "generate:api": "openapi-generator-cli generate  -p supportsES6=true,withInterfaces=true,useSingleRequestParameter=true -i http://127.0.0.1:8000/?format=openapi -g typescript-angular -o src/app/modules/core/api/v1"
