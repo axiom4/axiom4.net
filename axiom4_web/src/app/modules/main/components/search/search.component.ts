@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { SearchModalComponent } from '../search-modal/search-modal.component';
+import { PostSearchComponent } from 'src/app/modules/blog/components/post-search/post-search.component';
 
 @Component({
   selector: 'app-search',
@@ -23,9 +23,8 @@ export class SearchComponent implements OnInit {
   constructor(private _modalService: NgbModal) { }
 
   open() {
-    this.modalRef = this._modalService.open(SearchModalComponent, { size: 'lg' });
+    this.modalRef = this._modalService.open(PostSearchComponent, { size: 'lg' });
     this.modalRef.dismissed.subscribe(() => {
-      console.log("search dismissed")
       this.opened = false;
     })
 

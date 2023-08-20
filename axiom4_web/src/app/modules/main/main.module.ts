@@ -9,6 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { RouterModule } from '@angular/router';
+import { BlogModule } from '../blog/blog.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 
@@ -23,6 +25,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     FormsModule,
     CommonModule,
+    BlogModule,
     RouterModule
   ],
   exports: [
