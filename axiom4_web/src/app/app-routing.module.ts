@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: () => import('./modules/page/page.module').then(m => m.PageModule)
   },
   {
+    path: 'blog',
+    loadChildren: () => import('./modules/blog/blog.module').then(m => m.BlogModule)
+  },
+  {
     path: '',
     pathMatch: 'full',
     component: MainPageComponent

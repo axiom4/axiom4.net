@@ -22,58 +22,6 @@ import { User } from '../model/models';
 import { Configuration }                                     from '../configuration';
 
 
-export interface CreateGroupRequestParams {
-    group?: Group;
-}
-
-export interface CreatePageRequestParams {
-    page?: Page;
-}
-
-export interface CreatePostRequestParams {
-    post?: Post;
-}
-
-export interface CreateUserRequestParams {
-    user?: User;
-}
-
-export interface DestroyGroupRequestParams {
-    id: string;
-}
-
-export interface DestroyPageRequestParams {
-    tag: string;
-}
-
-export interface DestroyPostRequestParams {
-    id: string;
-}
-
-export interface DestroyUserRequestParams {
-    id: string;
-}
-
-export interface PartialUpdateGroupRequestParams {
-    id: string;
-    group?: Group;
-}
-
-export interface PartialUpdatePageRequestParams {
-    tag: string;
-    page?: Page;
-}
-
-export interface PartialUpdatePostRequestParams {
-    id: string;
-    post?: Post;
-}
-
-export interface PartialUpdateUserRequestParams {
-    id: string;
-    user?: User;
-}
-
 export interface RetrieveGroupRequestParams {
     id: string;
 }
@@ -90,86 +38,10 @@ export interface RetrieveUserRequestParams {
     id: string;
 }
 
-export interface UpdateGroupRequestParams {
-    id: string;
-    group?: Group;
-}
-
-export interface UpdatePageRequestParams {
-    tag: string;
-    page?: Page;
-}
-
-export interface UpdatePostRequestParams {
-    id: string;
-    post?: Post;
-}
-
-export interface UpdateUserRequestParams {
-    id: string;
-    user?: User;
-}
-
 
 export interface BlogServiceInterface {
     defaultHeaders: HttpHeaders;
     configuration: Configuration;
-
-    /**
-     * 
-     * API endpoint that allows groups to be viewed or edited.
-* @param requestParameters
-     */
-    createGroup(requestParameters: CreateGroupRequestParams, extraHttpRequestParams?: any): Observable<Group>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    createPage(requestParameters: CreatePageRequestParams, extraHttpRequestParams?: any): Observable<Page>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    createPost(requestParameters: CreatePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
-
-    /**
-     * 
-     * API endpoint that allows users to be viewed or edited.
-* @param requestParameters
-     */
-    createUser(requestParameters: CreateUserRequestParams, extraHttpRequestParams?: any): Observable<User>;
-
-    /**
-     * 
-     * API endpoint that allows groups to be viewed or edited.
-* @param requestParameters
-     */
-    destroyGroup(requestParameters: DestroyGroupRequestParams, extraHttpRequestParams?: any): Observable<{}>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    destroyPage(requestParameters: DestroyPageRequestParams, extraHttpRequestParams?: any): Observable<{}>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    destroyPost(requestParameters: DestroyPostRequestParams, extraHttpRequestParams?: any): Observable<{}>;
-
-    /**
-     * 
-     * API endpoint that allows users to be viewed or edited.
-* @param requestParameters
-     */
-    destroyUser(requestParameters: DestroyUserRequestParams, extraHttpRequestParams?: any): Observable<{}>;
 
     /**
      * 
@@ -200,34 +72,6 @@ export interface BlogServiceInterface {
      * API endpoint that allows groups to be viewed or edited.
 * @param requestParameters
      */
-    partialUpdateGroup(requestParameters: PartialUpdateGroupRequestParams, extraHttpRequestParams?: any): Observable<Group>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    partialUpdatePage(requestParameters: PartialUpdatePageRequestParams, extraHttpRequestParams?: any): Observable<Page>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    partialUpdatePost(requestParameters: PartialUpdatePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
-
-    /**
-     * 
-     * API endpoint that allows users to be viewed or edited.
-* @param requestParameters
-     */
-    partialUpdateUser(requestParameters: PartialUpdateUserRequestParams, extraHttpRequestParams?: any): Observable<User>;
-
-    /**
-     * 
-     * API endpoint that allows groups to be viewed or edited.
-* @param requestParameters
-     */
     retrieveGroup(requestParameters: RetrieveGroupRequestParams, extraHttpRequestParams?: any): Observable<Group>;
 
     /**
@@ -250,33 +94,5 @@ export interface BlogServiceInterface {
 * @param requestParameters
      */
     retrieveUser(requestParameters: RetrieveUserRequestParams, extraHttpRequestParams?: any): Observable<User>;
-
-    /**
-     * 
-     * API endpoint that allows groups to be viewed or edited.
-* @param requestParameters
-     */
-    updateGroup(requestParameters: UpdateGroupRequestParams, extraHttpRequestParams?: any): Observable<Group>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    updatePage(requestParameters: UpdatePageRequestParams, extraHttpRequestParams?: any): Observable<Page>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    updatePost(requestParameters: UpdatePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
-
-    /**
-     * 
-     * API endpoint that allows users to be viewed or edited.
-* @param requestParameters
-     */
-    updateUser(requestParameters: UpdateUserRequestParams, extraHttpRequestParams?: any): Observable<User>;
 
 }

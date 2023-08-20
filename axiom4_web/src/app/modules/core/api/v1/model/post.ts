@@ -9,12 +9,13 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { PageAuthor } from './pageAuthor';
 
 
 export interface Post { 
     readonly id?: number;
     readonly url?: string;
-    author: string;
+    author?: PageAuthor;
     title: string;
     body: string;
     readonly created_at?: string;

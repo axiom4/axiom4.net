@@ -7,5 +7,5 @@
       <small>author: <strong>{{ page.author?.username }} - <cite title="Source Title">{{ page.created_at | date }}</cite></strong></small>
     </figcaption>
   </figure>
-  <markdown class="mt-4" *ngIf="page">{{ page.body }}</markdown>
+  <markdown class="mt-4">{{ page.body }}</markdown>
 </article>

@@ -42,6 +42,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         read_only=True, view_name='post-detail')
 
+    author = UserSerializer(read_only=True)
+
     class Meta:
         fields = (
             "id",

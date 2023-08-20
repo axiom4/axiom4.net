@@ -4,7 +4,7 @@ import { PageComponent } from './components/page/page.component';
 import { BlogService } from '../core/api/v1';
 
 const routes: Routes = [
-  { path: '', component: PageComponent },
+  { path: '', pathMatch: 'full', redirectTo: "/404" },
   { path: ':tag', component: PageComponent }
 ];
 

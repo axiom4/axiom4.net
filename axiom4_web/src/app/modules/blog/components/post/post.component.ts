@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
+import { ActivatedRoute, Event, Router, NavigationEnd } from '@angular/router';
 import { MarkdownService } from 'ngx-markdown';
 import { Subscription } from 'rxjs';
-import { BlogService, Page, RetrievePageRequestParams } from 'src/app/modules/core/api/v1';
+import { BlogService, Post, RetrievePostRequestParams } from 'src/app/modules/core/api/v1';
 
 @Component({
-  selector: 'app-page',
-  templateUrl: './page.component.html',
-  styleUrls: ['./page.component.scss'],
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.scss'],
   providers: [MarkdownService]
 })
-export class PageComponent implements OnInit, OnDestroy {
-  page: Page | undefined;
+export class PostComponent implements OnInit, OnDestroy {
+  post: Post | undefined;
   currentRoute: string | undefined;
   subscription: Subscription | undefined;
 
@@ -28,30 +28,30 @@ export class PageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const tag = this.route.snapshot.paramMap.get('tag');
-    if (tag) {
-      this.getPage(tag)
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.getPage(id)
     }
 
     this.subscription = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        const tag = this.route.snapshot.paramMap.get('tag');
-        if (tag) {
-          this.page = undefined
-          this.getPage(tag)
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+          this.post = undefined
+          this.getPage(id)
         }
       }
     });
   }
 
-  getPage(tag: string) {
-    const params: RetrievePageRequestParams = {
-      tag: tag
+  getPage(id: string) {
+    const params: RetrievePostRequestParams = {
+      id: id
     }
-    this.blogService.retrievePage(params).subscribe({
-      next: (page) => {
-        this.page = page
-        this.title.setTitle(page.title)
+    this.blogService.retrievePost(params).subscribe({
+      next: (post) => {
+        this.post = post
+        this.title.setTitle(post.title)
       },
       error: (error) => {
         this.router.navigate(['/notfound'])
