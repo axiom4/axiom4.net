@@ -31,18 +31,18 @@ export class CookiePolicyService implements OnInit {
   }
 
   loadScript() {
-    this.analiticsID = this.configService.getConfiguration()?.trackingID
+    // this.analiticsID = this.configService.getConfiguration()?.trackingID
 
-    let gaScript = document.createElement('script');
-    gaScript.setAttribute('async', 'true');
-    gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.analiticsID}`);
+    // let gaScript = document.createElement('script');
+    // gaScript.setAttribute('async', 'true');
+    // gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.analiticsID}`);
 
-    let gaScript2 = document.createElement('script');
-    gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.analiticsID}\');`;
-    const head = <HTMLHeadElement>document.head;
+    // let gaScript2 = document.createElement('script');
+    // gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.analiticsID}\');`;
+    // const head = <HTMLHeadElement>document.head;
 
-    head.appendChild(gaScript);
-    head.appendChild(gaScript2);
+    // head.appendChild(gaScript);
+    // head.appendChild(gaScript2);
   }
 
   close() {
