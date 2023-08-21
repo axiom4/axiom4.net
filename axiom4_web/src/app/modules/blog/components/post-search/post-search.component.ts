@@ -40,10 +40,9 @@ export class PostSearchComponent implements OnInit {
         }
         this.blogService.listPosts(params).subscribe(posts => {
           this.posts = posts
-          if (posts.length == 0) {
-
-          }
         })
+      } else {
+        this.posts = []
       }
     })
     this.subscriptions.push(subscription);
