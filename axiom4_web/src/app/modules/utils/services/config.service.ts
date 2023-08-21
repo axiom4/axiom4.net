@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Configuration } from '../models/configuration';
 import { environment } from 'src/environments/environment';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +10,9 @@ export class ConfigService {
   config: Configuration | undefined;
   constructor() { }
 
-  configLoad() {
+  configLoad(): Observable<Configuration> {
     this.config = environment
-    // this.http.get<Configuration>(url)
-    //   .subscribe(config => {
-    //     this.config = config;
-    //     resolve();
-    //   });
+    return of(this.config);
   }
 
   getConfiguration(): Configuration | undefined {

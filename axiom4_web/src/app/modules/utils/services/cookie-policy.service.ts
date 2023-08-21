@@ -11,10 +11,7 @@ export class CookiePolicyService implements OnInit {
     private configService: ConfigService) {
   }
 
-  ngOnInit(): void {
-    this.analiticsID = this.configService.getConfiguration()?.trackingID;
-    console.log(this.analiticsID)
-  }
+  ngOnInit(): void { }
 
   show(cookiePolicyAlert: CookiePolicy) {
     const cookiePolicy = localStorage.getItem('cookie-policy');
@@ -34,6 +31,8 @@ export class CookiePolicyService implements OnInit {
   }
 
   loadScript() {
+    this.analiticsID = this.configService.getConfiguration()?.trackingID
+
     let gaScript = document.createElement('script');
     gaScript.setAttribute('async', 'true');
     gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.analiticsID}`);
