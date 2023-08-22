@@ -137,27 +137,40 @@ code {
 
 
 .bd-search {
-  position: relative;
+  position: absolute;
+  top: .875rem;
+  width: 280px;
 }
 
 @media (min-width: 992px) {
   .bd-search {
     position: absolute;
-    top: .875rem;
-    left: 50%;
-    width: 200px;
-    margin-left: -100px;
+    left: calc(50% - 140px);
+    // width: 280px;
+    // margin-left: -100px;
   }
 }
 
-@media (min-width: 1200px) {
+@media (max-width: 992px) {
   .bd-search {
-    width: 280px;
-    margin-left: -140px;
+    position: absolute;
+    right: 28px;
+    // left: calc(50% - 140px);
+    // width: 280px;
+    // margin-left: -100px;
   }
 }
 
-
+@media (max-width: 512px) {
+  .bd-search {
+    position: relative;
+    top: 0;
+    right: auto;
+    // left: calc(50% - 140px);
+    // width: 280px;
+    // margin-left: -100px;
+  }
+}
 
 .DocSearch-Button {
   align-items: center;
@@ -277,4 +290,10 @@ article {
   -moz-hyphens: auto;
   hyphens: auto;
   text-align: justify;
+}
+
+article img {
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
 }
