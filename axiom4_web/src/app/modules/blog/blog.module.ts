@@ -7,6 +7,7 @@ import { MarkdownModule } from 'ngx-markdown';
 import { PostSearchComponent } from './components/post-search/post-search.component';
 import { FormsModule } from '@angular/forms';
 import { ApiModule } from '../core/api/v1';
+import { NgbModule, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ApiModule } from '../core/api/v1';
     CommonModule,
     MarkdownModule.forChild(),
     BlogRoutingModule,
+    NgbModule,
     FormsModule
   ],
   providers: [CommonModule],

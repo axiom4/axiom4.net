@@ -21,6 +21,8 @@ import { Observable }                                        from 'rxjs';
 // @ts-ignore
 import { Group } from '../model/group';
 // @ts-ignore
+import { ListPosts200Response } from '../model/listPosts200Response';
+// @ts-ignore
 import { Page } from '../model/page';
 // @ts-ignore
 import { Post } from '../model/post';
@@ -219,13 +221,23 @@ export class BlogService implements BlogServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<Array<Post>>;
-    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<Array<Post>>>;
-    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<Array<Post>>>;
+    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<ListPosts200Response>;
+    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpResponse<ListPosts200Response>>;
+    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<HttpEvent<ListPosts200Response>>;
     public listPosts(requestParameters: ListPostsRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext}): Observable<any> {
+        const page = requestParameters.page;
+        const pageSize = requestParameters.pageSize;
         const search = requestParameters.search;
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
+        if (page !== undefined && page !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>page, 'page');
+        }
+        if (pageSize !== undefined && pageSize !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>pageSize, 'page_size');
+        }
         if (search !== undefined && search !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>search, 'search');
@@ -263,7 +275,7 @@ export class BlogService implements BlogServiceInterface {
         }
 
         let localVarPath = `/blog/posts`;
-        return this.httpClient.request<Array<Post>>('get', `${this.configuration.basePath}${localVarPath}`,
+        return this.httpClient.request<ListPosts200Response>('get', `${this.configuration.basePath}${localVarPath}`,
             {
                 context: localVarHttpContext,
                 params: localVarQueryParameters,

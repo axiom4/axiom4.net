@@ -242,8 +242,14 @@ svg.DocSearch-Search-Icon {
   border-color: #ffe484;
 }
 
+.search-input-group .clean_btn {
+  position: absolute;
+  right: 10px;
+  top: 4px !important;
+}
 
 .search-input-group .input-group-text {
+  top: 2px;
   padding-top: 10px;
   padding-left: 18px;
   background-color: rgba(0, 0, 0, 0);
@@ -258,6 +264,7 @@ svg.DocSearch-Search-Icon {
   color: white;
   border-left: none;
   padding-left: 55px;
+  padding-right: 55px;
   height: 50px;
   font-size: 24px;
 }

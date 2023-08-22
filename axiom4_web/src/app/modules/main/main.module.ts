@@ -10,7 +10,6 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { RouterModule } from '@angular/router';
 import { BlogModule } from '../blog/blog.module';
-import { BrowserModule } from '@angular/platform-browser';
 
 
 

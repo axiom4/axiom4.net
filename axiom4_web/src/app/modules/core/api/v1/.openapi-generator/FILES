@@ -9,6 +9,7 @@ encoder.ts
 git_push.sh
 index.ts
 model/group.ts
+model/listPosts200Response.ts
 model/models.ts
 model/page.ts
 model/pageAuthor.ts

@@ -1,6 +1,9 @@
 <div class="modal-header">
   <div class="search-input-group input-group ms-2 me-2">
-    <input #search id="searchText" type="text" class="form-control" placeholder="Search" [(ngModel)]="searchText" (keyup)="onInput($event)">
+    <input #search id="searchText" type="text" class="form-control" autocomplete="off" placeholder="Search" [(ngModel)]="searchText" (keyup)="onInput($event)" aria-describedby="button-addon2">
+    <div class="input-group-text form-label clean_btn">
+      <button class="btn-close" type="button" id="button-addon2" (click)="onClear()"><kbd>X</kbd></button>
+    </div>
     <div class="input-group-text form-label">
       <svg width="28" height="28" class="DocSearch-Search-Icon" viewBox="0 0 20 20">
         <path fill="currentColor" d="M14.386 14.386l4.0877 4.0877-4.0877-4.0877c-2.9418 2.9419-7.7115 2.9419-10.6533 0-2.9419-2.9418-2.9419-7.7115 0-10.6533 2.9418-2.9419 7.7115-2.9419 10.6533 0 2.9419 2.9418 2.9419 7.7115 0 10.6533z" stroke="currentColor" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -23,4 +26,5 @@
   <ul>
     <li *ngFor="let post of posts"><a routerLink="/blog/posts/{{ post.id }}" (click)="close()">{{ post.title }}</a></li>
   </ul>
+  <ngb-pagination *ngIf="posts.length > 0" class="d-flex justify-content-end" size="sm" [collectionSize]="collectionSize" [maxSize]="6" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="pageChange()" aria-label="Default pagination"></ngb-pagination>
 </div>

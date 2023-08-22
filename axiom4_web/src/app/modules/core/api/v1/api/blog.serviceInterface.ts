@@ -14,6 +14,7 @@ import { HttpHeaders }                                       from '@angular/comm
 import { Observable }                                        from 'rxjs';
 
 import { Group } from '../model/models';
+import { ListPosts200Response } from '../model/models';
 import { Page } from '../model/models';
 import { Post } from '../model/models';
 import { User } from '../model/models';
@@ -23,6 +24,8 @@ import { Configuration }                                     from '../configurat
 
 
 export interface ListPostsRequestParams {
+    page?: number;
+    pageSize?: number;
     search?: string;
 }
 
@@ -65,7 +68,7 @@ export interface BlogServiceInterface {
      * 
 * @param requestParameters
      */
-    listPosts(requestParameters: ListPostsRequestParams, extraHttpRequestParams?: any): Observable<Array<Post>>;
+    listPosts(requestParameters: ListPostsRequestParams, extraHttpRequestParams?: any): Observable<ListPosts200Response>;
 
     /**
      * 
