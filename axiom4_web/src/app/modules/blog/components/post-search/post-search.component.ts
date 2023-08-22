@@ -34,7 +34,7 @@ export class PostSearchComponent implements OnInit {
 
   ngOnInit(): void {
     const subscription = this.trigger.subscribe(currentValue => {
-      if (currentValue != '') {
+      if (currentValue != '' && currentValue.length > 3) {
         const params: ListPostsRequestParams = {
           search: currentValue
         }
@@ -57,6 +57,7 @@ export class PostSearchComponent implements OnInit {
   }
 
   onInput(e: any) {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
     this.inputValue.next(e.target.value);
   }
 
