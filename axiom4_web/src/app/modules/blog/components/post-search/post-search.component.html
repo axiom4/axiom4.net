@@ -9,13 +9,13 @@
   </div>
 </div>
 <div class="modal-body">
-  <div [hidden]="searchText != ''">
+  <div [hidden]="!show_search">
     <h3>What do you want to search?</h3>
     <p>
       <span class="text-danger">Please enter a phrase or keyword to search the blog.</span>
     </p>
   </div>
-  <div [hidden]="searchText == '' || posts.length > 0">
+  <div [hidden]="!show_not_found">
     <p>
       <span class="text-danger">No results found.</span>
     </p>

@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() { }
 
-  @HostListener('window:keydown.meta.f', ['$event'])
+  @HostListener('window:keydown.control.f', ['$event'])
   public onKeyUp(eventData: KeyboardEvent) {
     eventData.preventDefault();
     eventData.stopImmediatePropagation();

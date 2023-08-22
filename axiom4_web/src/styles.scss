@@ -270,3 +270,11 @@ svg.DocSearch-Search-Icon {
 .app-search {
   margin: 0 auto;
 }
+
+article {
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  text-align: justify;
+}
