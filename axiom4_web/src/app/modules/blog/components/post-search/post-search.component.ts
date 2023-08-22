@@ -34,6 +34,7 @@ export class PostSearchComponent implements OnInit {
 
   ngOnInit(): void {
     const subscription = this.trigger.subscribe(currentValue => {
+      console.log(currentValue, currentValue.length)
       if (currentValue != '' && currentValue.length > 3) {
         const params: ListPostsRequestParams = {
           search: currentValue
