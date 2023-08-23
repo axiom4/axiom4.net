@@ -17,6 +17,8 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
             "title",
             "body",
             "created_at",
+            'image',
+            'summary'
         )
 
         model = Post

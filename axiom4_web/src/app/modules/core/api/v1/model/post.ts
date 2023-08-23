@@ -19,5 +19,7 @@ export interface Post {
     title: string;
     body: string;
     readonly created_at?: string;
+    image?: Blob | null;
+    summary?: string | null;
 }
 
