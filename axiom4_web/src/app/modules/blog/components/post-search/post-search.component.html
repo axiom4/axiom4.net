@@ -1,8 +1,8 @@
 <div class="modal-header">
   <div class="search-input-group input-group ms-2 me-2">
-    <input #search id="searchText" type="text" class="form-control" autocomplete="off" placeholder="Search" [(ngModel)]="searchText" (keyup)="onInput($event)" aria-describedby="button-addon2">
+    <input #search id="searchText" type="text" class="form-control" autocomplete="off" placeholder="Search" [(ngModel)]="searchText" (keyup)="onInput($event)" aria-describedby="button-clear">
     <div class="input-group-text form-label clean_btn">
-      <button class="btn-close" type="button" id="button-addon2" (click)="onClear()"><kbd>X</kbd></button>
+      <button class="btn-close" type="button" id="button-clear" (click)="onClear()"><kbd>X</kbd></button>
     </div>
     <div class="input-group-text form-label">
       <svg width="28" height="28" class="DocSearch-Search-Icon" viewBox="0 0 20 20">

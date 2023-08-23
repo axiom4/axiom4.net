@@ -101,5 +101,6 @@ export class PostSearchComponent implements OnInit {
 
   pageChange() {
     this.searchPosts(this.searchText);
+    this._search.focus();
   }
 }
