@@ -307,8 +307,15 @@ article h5 {
   margin: 40px 20px 10px 0;
 }
 
+article ol,
+article ul,
+article dl {
+  padding-left: 1rem;
+}
+
 article ol li,
 article ul li {
+  text-align: left;
   margin: 10px 30px;
 }
 
