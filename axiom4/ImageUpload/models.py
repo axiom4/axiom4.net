@@ -10,7 +10,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
 
 
-def user_directory_path(instance, filename):
+def directory_path(instance, filename):
     print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return 'posts/{0}/{1}.jpg'.format(instance.post.id, instance.short_name)
@@ -29,7 +29,7 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 
 class ImageUpload(models.Model):
     title = models.CharField(max_length=250, null=False)
-    image = models.ImageField(null=False, upload_to=user_directory_path)
+    image = models.ImageField(null=False, upload_to=directory_path)
     short_name = models.CharField(max_length=20, null=False)
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

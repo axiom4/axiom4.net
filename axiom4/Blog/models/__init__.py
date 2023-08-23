@@ -1,2 +1,2 @@
 from .Page import Page
-from .Post import Post
+from .Post import Post, image_directory_path

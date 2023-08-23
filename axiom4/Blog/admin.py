@@ -24,12 +24,15 @@ class PageAdmin(admin.ModelAdmin):
 
 class PostAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('title', 'author')
-    search_fields = ['title',]
+    fields = ['title', 'summary', 'author', 'image', 'image_tag', 'body']
+
+    list_display = ('title', 'summary', 'image', 'image_tag', 'author')
+    search_fields = ['title', 'summary']
     inlines = [ImageInline, ]
     formfield_overrides = {
         models.TextField: {'widget': MDEditorWidget}
     }
+    readonly_fields = ['image_tag']
 
 
 admin.site.register(Page, PageAdmin)
