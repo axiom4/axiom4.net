@@ -29,6 +29,7 @@
               "src/robots.txt",
               "src/sitemap.xml",
               "src/favicon.ico",
+              "src/favicon.png",
               "src/assets",
               "src/manifest.webmanifest"
             ],
