@@ -299,6 +299,19 @@ article {
   text-align: justify;
 }
 
+article h3 {
+  margin-top: 20px;
+}
+
+article h5 {
+  margin: 40px 20px 10px 0;
+}
+
+article ol li,
+article ul li {
+  margin: 10px 30px;
+}
+
 article img {
   display: block;
   margin: 20px auto;
