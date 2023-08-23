@@ -5,7 +5,7 @@ import { CookiePolicy } from '../models/cooke-policy';
 @Injectable()
 export class CookiePolicyService implements OnInit {
   cookiePolicyAlert: CookiePolicy | undefined
-  analiticsID: string | undefined;
+  googleTag: string | undefined;
 
   constructor(
     private configService: ConfigService) {
@@ -31,14 +31,14 @@ export class CookiePolicyService implements OnInit {
   }
 
   loadScript() {
-    this.analiticsID = this.configService.getConfiguration()?.trackingID
+    this.googleTag = this.configService.getConfiguration()?.googleTag
 
     let gaScript = document.createElement('script');
     gaScript.setAttribute('async', 'true');
-    gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.analiticsID}`);
+    gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.googleTag}`);
 
     let gaScript2 = document.createElement('script');
-    gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.analiticsID}\');`;
+    gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.googleTag}\');`;
     const head = <HTMLHeadElement>document.head;
 
     head.appendChild(gaScript);

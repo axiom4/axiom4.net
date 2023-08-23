@@ -27,6 +27,7 @@ export interface ListPostsRequestParams {
     page?: number;
     pageSize?: number;
     search?: string;
+    ordering?: string;
 }
 
 export interface RetrieveGroupRequestParams {
@@ -40,6 +41,7 @@ export interface RetrievePageRequestParams {
 export interface RetrievePostRequestParams {
     id: string;
     search?: string;
+    ordering?: string;
 }
 
 export interface RetrieveUserRequestParams {

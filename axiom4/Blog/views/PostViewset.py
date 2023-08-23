@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from Blog.models import Post
 from rest_framework import permissions
 from Blog.serializers import PostSerializer
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.pagination import PageNumberPagination
 
 
@@ -16,9 +16,11 @@ class PostViewset(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    filter_backends = [SearchFilter]
+    filter_backends = [SearchFilter, OrderingFilter]
     http_method_names = ['get']
     pagination_class = PostPagination
+
+    ordering_fields = '__all__'
 
     search_fields = [
         '$title',

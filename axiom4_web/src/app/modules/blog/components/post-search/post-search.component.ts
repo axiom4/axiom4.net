@@ -3,12 +3,12 @@ import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 import { BlogService, ListPostsRequestParams, Post } from 'src/app/modules/core/api/v1';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfigService } from 'src/app/modules/utils';
 
 @Component({
   selector: 'app-post-search',
   templateUrl: './post-search.component.html',
   styleUrls: ['./post-search.component.scss'],
-  providers: [NgbPagination]
 })
 export class PostSearchComponent implements OnInit {
   posts: Post[] = []
@@ -16,7 +16,7 @@ export class PostSearchComponent implements OnInit {
   show_not_found = false;
 
   currentPage = 1;
-  pageSize = 1;
+  pageSize = this.configService.getConfiguration()?.pageSize || 1
   collectionSize = 0;
 
   _search: any
@@ -40,7 +40,7 @@ export class PostSearchComponent implements OnInit {
 
   subscriptions: Subscription[] = []
 
-  constructor(public modal: NgbModal, private blogService: BlogService) { }
+  constructor(public modal: NgbModal, private blogService: BlogService, private configService: ConfigService) { }
 
   ngOnInit(): void {
     this.trigger.subscribe(currentValue => {

@@ -228,6 +228,7 @@ export class BlogService implements BlogServiceInterface {
         const page = requestParameters.page;
         const pageSize = requestParameters.pageSize;
         const search = requestParameters.search;
+        const ordering = requestParameters.ordering;
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
@@ -241,6 +242,10 @@ export class BlogService implements BlogServiceInterface {
         if (search !== undefined && search !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>search, 'search');
+        }
+        if (ordering !== undefined && ordering !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>ordering, 'ordering');
         }
 
         let localVarHeaders = this.defaultHeaders;
@@ -475,11 +480,16 @@ export class BlogService implements BlogServiceInterface {
             throw new Error('Required parameter id was null or undefined when calling retrievePost.');
         }
         const search = requestParameters.search;
+        const ordering = requestParameters.ordering;
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (search !== undefined && search !== null) {
           localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
             <any>search, 'search');
+        }
+        if (ordering !== undefined && ordering !== null) {
+          localVarQueryParameters = this.addToHttpParams(localVarQueryParameters,
+            <any>ordering, 'ordering');
         }
 
         let localVarHeaders = this.defaultHeaders;

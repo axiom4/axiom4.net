@@ -8,12 +8,14 @@ import { PostSearchComponent } from './components/post-search/post-search.compon
 import { FormsModule } from '@angular/forms';
 import { ApiModule } from '../core/api/v1';
 import { NgbModule, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { PostListComponent } from './components/post-list/post-list.component';
 
 
 @NgModule({
   declarations: [
     PostComponent,
-    PostSearchComponent
+    PostSearchComponent,
+    PostListComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { NgbModule, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
   ],
   providers: [CommonModule],
   exports: [
-    PostSearchComponent
+    PostSearchComponent,
+    PostListComponent
   ]
 })
 export class BlogModule { }

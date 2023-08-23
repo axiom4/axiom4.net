@@ -1,0 +1,11 @@
+<article *ngFor="let post of posts" class="mt-4">
+  <figure class="text-left">
+    <blockquote class="blockquote">
+      <h1>{{ post.title }}</h1>
+    </blockquote>
+    <figcaption class="blockquote-footer">
+      <small>author: <strong>{{ post.author?.username }} - <cite title="Source Title">{{ post.created_at | date }}</cite></strong></small>
+    </figcaption>
+  </figure>
+  <markdown class="mt-4">{{ post.body }}</markdown>
+</article>
