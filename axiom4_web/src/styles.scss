@@ -299,6 +299,14 @@ article {
   text-align: justify;
 }
 
+article a {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+article a:visited {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 article h3 {
   margin-top: 20px;
 }
