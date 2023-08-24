@@ -7,20 +7,25 @@ import { BlogService, ListPostsRequestParams, Post, PostPreview } from 'src/app/
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  posts: PostPreview[] = []
+  page: number = 1;
+  numOfPages: number = 3;
+  posts: PostPreview[] = [];
 
   constructor(private blogService: BlogService) { }
 
   ngOnInit(): void {
+    this.loadPostPreview();
+  }
+
+  loadPostPreview() {
     const params: ListPostsRequestParams = {
-      page: 1,
-      pageSize: 5,
+      page: this.page,
+      pageSize: this.numOfPages,
       ordering: "-created_at"
     }
 
     this.blogService.listPosts(params).subscribe(response => {
-      this.posts = response.results || []
+      this.posts = response.results || [];
     })
   }
-
 }

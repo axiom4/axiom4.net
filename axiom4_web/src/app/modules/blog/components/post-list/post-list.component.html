@@ -1,13 +1,14 @@
-<article *ngFor="let post of posts" class="mt-4">
-  <figure class="text-left">
-    <blockquote class="blockquote">
-      <h1>{{ post.title }}</h1>
-    </blockquote>
-    <figcaption class="blockquote-footer">
-      <small>author: <strong>{{ post.author?.username }} - <cite title="Source Title">{{ post.created_at | date }}</cite></strong></small>
-    </figcaption>
-  </figure>
-  <img src="{{ post.image }}" alt="{{ post.title }}" />
-  <p class="mt-4">{{ post.summary }}</p>
-  <a [routerLink]="['/blog/posts', post.id]" routerLinkActive="router-link-active">continue to read...</a>
-</article>
+<ngb-carousel class="mt-4" [interval]="2000">
+  <ng-template *ngFor="let post of posts" ngbSlide>
+    <div class="picsum-img-wrapper text-center">
+      <img src="{{ post.image }}" alt="{{ post.title }}" />
+    </div>
+    <div class="carousel-caption">
+      <h3>{{ post.title }}</h3>
+      <p>
+        {{ post.summary }}...&nbsp;
+        <a [routerLink]="['/blog/posts', post.id]" routerLinkActive="router-link-active">continue to read </a>
+      </p>
+    </div>
+  </ng-template>
+</ngb-carousel>\
