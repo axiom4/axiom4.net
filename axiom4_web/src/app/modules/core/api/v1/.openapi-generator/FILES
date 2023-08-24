@@ -14,6 +14,7 @@ model/models.ts
 model/page.ts
 model/pageAuthor.ts
 model/post.ts
+model/postPreview.ts
 model/user.ts
 param.ts
 variables.ts

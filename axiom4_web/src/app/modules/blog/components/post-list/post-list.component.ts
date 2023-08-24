@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogService, ListPostsRequestParams, Post } from 'src/app/modules/core/api/v1';
+import { BlogService, ListPostsRequestParams, Post, PostPreview } from 'src/app/modules/core/api/v1';
 
 @Component({
   selector: 'app-post-list',
@@ -7,7 +7,7 @@ import { BlogService, ListPostsRequestParams, Post } from 'src/app/modules/core/
   styleUrls: ['./post-list.component.scss']
 })
 export class PostListComponent implements OnInit {
-  posts: Post[] = []
+  posts: PostPreview[] = []
 
   constructor(private blogService: BlogService) { }
 

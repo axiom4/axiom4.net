@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
-import { BlogService, ListPostsRequestParams, Post } from 'src/app/modules/core/api/v1';
+import { BlogService, ListPostsRequestParams, Post, PostPreview } from 'src/app/modules/core/api/v1';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from 'src/app/modules/utils';
 
@@ -11,7 +11,7 @@ import { ConfigService } from 'src/app/modules/utils';
   styleUrls: ['./post-search.component.scss'],
 })
 export class PostSearchComponent implements OnInit {
-  posts: Post[] = []
+  posts: PostPreview[] = []
   show_search = true;
   show_not_found = false;
 

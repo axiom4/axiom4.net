@@ -9,13 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PostPreview } from './postPreview';
+import { PageAuthor } from './pageAuthor';
 
 
-export interface ListPosts200Response { 
-    count?: number;
-    next?: string | null;
-    previous?: string | null;
-    results?: Array<PostPreview>;
+export interface PostPreviewList { 
+    readonly id?: number;
+    readonly url?: string;
+    author?: PageAuthor;
+    title: string;
+    readonly created_at?: string;
+    image?: Blob | null;
+    summary?: string | null;
 }
 
