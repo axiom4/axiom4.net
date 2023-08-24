@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import User
+from . import Category
 
 from PIL import Image
 from io import BytesIO
@@ -33,6 +34,7 @@ class Post(models.Model):
     body = models.TextField()
     summary = models.CharField(max_length=250, null=True, blank=True, )
     image = models.ImageField(null=True, upload_to=image_directory_path)
+    category = models.ManyToManyField(Category)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Page, Post
+from .models import Page, Post, Category
 from ImageUpload.models import ImageUpload
 
 from django.db import models
@@ -24,7 +24,8 @@ class PageAdmin(admin.ModelAdmin):
 
 class PostAdmin(admin.ModelAdmin):
     save_on_top = True
-    fields = ['title', 'summary', 'author', 'image', 'image_tag', 'body']
+    fields = ['title', 'summary', 'author',
+              'image', 'image_tag', 'category', 'body']
 
     list_display = ('title', 'summary', 'image', 'image_tag', 'author')
     search_fields = ['title', 'summary']
@@ -35,5 +36,10 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = ['image_tag']
 
 
+class CategoryAdmin(admin.ModelAdmin):
+    fields = ['name']
+
+
 admin.site.register(Page, PageAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Category, CategoryAdmin)
