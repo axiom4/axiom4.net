@@ -1,0 +1,5 @@
+<div class="mt-5">
+  <ul class="cloud" role="navigation" aria-label="Webdev tag cloud">
+    <li *ngFor="let category of categories"><a [attr.data-weight]="category.weight" [routerLink]="['/blog/search', category.id]" routerLinkActive="router-link-active">{{ category.name }}</a></li>
+  </ul>
+</div>

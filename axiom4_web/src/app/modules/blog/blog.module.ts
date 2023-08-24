@@ -9,13 +9,15 @@ import { FormsModule } from '@angular/forms';
 import { ApiModule } from '../core/api/v1';
 import { NgbModule, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { PostListComponent } from './components/post-list/post-list.component';
+import { TagCloudComponent } from './components/tag-cloud/tag-cloud.component';
 
 
 @NgModule({
   declarations: [
     PostComponent,
     PostSearchComponent,
-    PostListComponent
+    PostListComponent,
+    TagCloudComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { PostListComponent } from './components/post-list/post-list.component';
   providers: [CommonModule],
   exports: [
     PostSearchComponent,
-    PostListComponent
+    PostListComponent,
+    TagCloudComponent
   ]
 })
 export class BlogModule { }

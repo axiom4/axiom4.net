@@ -383,42 +383,114 @@ article td {
   bottom: 0
 }
 
-.tag-cloud a.size-1 {
-  font-size: 1.1em
+@media (max-width: 1400px) {
+  .carousel-caption {
+    right: 9%;
+    left: 9%;
+  }
 }
 
-.tag-cloud a.size-2 {
-  font-size: 1.2em
+@media (max-width: 1200px) {
+  .carousel-caption {
+    right: 0%;
+    left: 0%;
+  }
 }
 
-.tag-cloud a.size-3 {
-  font-size: 1.3em
+ul.cloud {
+  width: 60%;
+  margin: auto;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  line-height: 2.5rem;
 }
 
-.tag-cloud a.size-4 {
-  font-size: 1.4em
+ul.cloud a {
+  opacity: calc((15 - (9 - var(--size))) / 15);
+
+  // color: #a33;
+  display: block;
+  font-size: calc(var(--size) * 0.25rem + 0.5rem);
+  padding: 0.125rem 0.25rem;
+  text-decoration: none;
+  position: relative;
 }
 
-.tag-cloud a.size-5 {
-  font-size: 1.5em
+ul.cloud a[data-weight="1"] {
+  --size: 0.75;
 }
 
-.tag-cloud a.size-6 {
-  font-size: 1.6em
+ul.cloud a[data-weight="2"] {
+  --size: 1.5;
 }
 
-.tag-cloud a.size-7 {
-  font-size: 1.7em
+ul.cloud a[data-weight="3"] {
+  --size: 2.25;
 }
 
-.tag-cloud a.size-8 {
-  font-size: 1.8em
+ul.cloud a[data-weight="4"] {
+  --size: 3.0;
 }
 
-.tag-cloud a.size-9 {
-  font-size: 1.9em
+ul.cloud a[data-weight="5"] {
+  --size: 3.75;
 }
 
-.tag-cloud a.size-10 {
-  font-size: 2em
+ul.cloud a[data-weight="6"] {
+  --size: 4.5;
+}
+
+ul.cloud a[data-weight="7"] {
+  --size: 5.25;
+}
+
+ul.cloud a[data-weight="8"] {
+  --size: 6.0;
+}
+
+ul.cloud a[data-weight="9"] {
+  --size: 6.75;
+}
+
+ul.cloud a[data-weight="10"] {
+  --size: 7.5;
+}
+
+ul.cloud a {
+  --size: 4;
+  font-size: calc(var(--size) * 0.25rem + 0.5rem);
+  /* ... */
+}
+
+ul.cloud[data-show-value] a::after {
+  content: " (" attr(data-weight) ")";
+  font-size: 1rem;
+}
+
+ul.cloud a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  background: var(--color);
+  transform: translate(-50%, 0);
+  opacity: 0.15;
+  transition: width 0.25s;
+}
+
+ul.cloud a:focus::before,
+ul.cloud a:hover::before {
+  width: 100%;
+}
+
+@media (prefers-reduced-motion) {
+  ul.cloud * {
+    transition: none !important;
+  }
 }
