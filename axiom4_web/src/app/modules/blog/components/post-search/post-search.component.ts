@@ -55,7 +55,7 @@ export class PostSearchComponent implements OnInit {
       const params: ListPostsRequestParams = {
         search: currentValue,
         page: this.currentPage,
-        pageSize: this.pageSize,
+        pageSize: this.pageSize
       }
       this.subscriptions.forEach(sub => sub.unsubscribe());
       const subscription = this.blogService.listPosts(params).subscribe(value => {

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from Blog.models import Post
-from Blog.serializers import UserSerializer
+from Blog.serializers import UserSerializer, CategorySerializer
 
 
 class PostSerializer(serializers.HyperlinkedModelSerializer):
@@ -8,6 +8,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
         read_only=True, view_name='post-detail')
 
     author = UserSerializer(read_only=True)
+    categories = serializers.StringRelatedField(many=True)
 
     class Meta:
         fields = (
@@ -18,6 +19,7 @@ class PostSerializer(serializers.HyperlinkedModelSerializer):
             "body",
             "created_at",
             'image',
+            'categories',
             'summary'
         )
 

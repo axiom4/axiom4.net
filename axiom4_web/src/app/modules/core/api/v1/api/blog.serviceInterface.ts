@@ -13,6 +13,7 @@ import { HttpHeaders }                                       from '@angular/comm
 
 import { Observable }                                        from 'rxjs';
 
+import { Category } from '../model/models';
 import { Group } from '../model/models';
 import { ListPosts200Response } from '../model/models';
 import { Page } from '../model/models';
@@ -26,8 +27,13 @@ import { Configuration }                                     from '../configurat
 export interface ListPostsRequestParams {
     page?: number;
     pageSize?: number;
+    categoriesName?: string;
     search?: string;
     ordering?: string;
+}
+
+export interface RetrieveCategoryRequestParams {
+    id: string;
 }
 
 export interface RetrieveGroupRequestParams {
@@ -40,6 +46,7 @@ export interface RetrievePageRequestParams {
 
 export interface RetrievePostRequestParams {
     id: string;
+    categoriesName?: string;
     search?: string;
     ordering?: string;
 }
@@ -52,6 +59,12 @@ export interface RetrieveUserRequestParams {
 export interface BlogServiceInterface {
     defaultHeaders: HttpHeaders;
     configuration: Configuration;
+
+    /**
+     * 
+     * API endpoint that allows groups to be viewed or edited.
+*/
+    listCategorys(extraHttpRequestParams?: any): Observable<Array<Category>>;
 
     /**
      * 
@@ -77,6 +90,13 @@ export interface BlogServiceInterface {
      * API endpoint that allows users to be viewed or edited.
 */
     listUsers(extraHttpRequestParams?: any): Observable<Array<User>>;
+
+    /**
+     * 
+     * API endpoint that allows groups to be viewed or edited.
+* @param requestParameters
+     */
+    retrieveCategory(requestParameters: RetrieveCategoryRequestParams, extraHttpRequestParams?: any): Observable<Category>;
 
     /**
      * 

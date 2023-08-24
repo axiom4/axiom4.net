@@ -19,6 +19,7 @@ export interface PostPreview {
     title: string;
     readonly created_at?: string;
     image?: Blob | null;
+    readonly categories?: Array<string>;
     summary?: string | null;
 }
 

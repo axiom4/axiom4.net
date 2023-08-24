@@ -20,6 +20,7 @@ export interface Post {
     body: string;
     readonly created_at?: string;
     image?: Blob | null;
+    categories: Array<string>;
     summary?: string | null;
 }
 

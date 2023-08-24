@@ -1,3 +1,4 @@
+export * from './category';
 export * from './group';
 export * from './listPosts200Response';
 export * from './page';

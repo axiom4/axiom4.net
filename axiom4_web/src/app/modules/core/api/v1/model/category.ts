@@ -9,16 +9,11 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { PageAuthor } from './pageAuthor';
 
 
-export interface PostPreviewList { 
+export interface Category { 
     readonly id?: number;
-    readonly url?: string;
-    author?: PageAuthor;
-    title: string;
-    readonly created_at?: string;
-    image?: Blob | null;
-    summary?: string | null;
+    readonly posts?: string;
+    name: string;
 }
 
