@@ -501,6 +501,14 @@ ul.cloud a:hover::before {
   opacity: 0.8;
 }
 
+.post_card p {
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  text-align: justify;
+}
+
 .post_card:hover {
   cursor: pointer;
   opacity: 1;
