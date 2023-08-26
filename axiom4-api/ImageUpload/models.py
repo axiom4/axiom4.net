@@ -13,7 +13,7 @@ import sys
 def directory_path(instance, filename):
     print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'posts/{0}/{1}.jpg'.format(instance.post.id, instance.short_name)
+    return 'posts/{0}/{1}.webp'.format(instance.post.id, instance.short_name)
 
 
 def resize_image(image: Image.Image, width: int) -> Image.Image:
@@ -58,15 +58,15 @@ class ImageUpload(models.Model):
         image = resize_image(image=image, width=900)
 
         # after modifications, save it to the output
-        image.save(output, format='jpeg', quality=100)
+        image.save(output, format='webp', optimize=True, quality=75)
         output.seek(0)
 
         # change the imagefield value to be the newley modifed image value
         self.image = InMemoryUploadedFile(
             output,
             'ImageField',
-            "%s.jpg" % self.image.name.split('.')[0],
-            'image/jpeg',
+            "%s.webp" % self.image.name.split('.')[0],
+            'image/webp',
             sys.getsizeof(output),
             None
         )
