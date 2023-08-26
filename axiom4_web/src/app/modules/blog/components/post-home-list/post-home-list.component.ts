@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService, ListPostsRequestParams, Post, PostPreview } from 'src/app/modules/core/api/v1';
 
 @Component({
-  selector: 'app-post-list',
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.scss']
+  selector: 'app-post-home-list',
+  templateUrl: './post-home-list.component.html',
+  styleUrls: ['./post-home-list.component.scss']
 })
-export class PostListComponent implements OnInit {
+export class PostHomeListComponent implements OnInit {
   page: number = 1;
   numOfPages: number = 3;
   posts: PostPreview[] = [];

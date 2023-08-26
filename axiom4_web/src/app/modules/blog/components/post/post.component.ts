@@ -13,7 +13,6 @@ import { BlogService, Post, RetrievePostRequestParams } from 'src/app/modules/co
 })
 export class PostComponent implements OnInit, OnDestroy {
   post: Post | undefined;
-  currentRoute: string | undefined;
   subscription: Subscription | undefined;
 
   constructor(
@@ -30,7 +29,7 @@ export class PostComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.getPage(id)
+      this.getPost(id)
     }
 
     this.subscription = this.router.events.subscribe((event: Event) => {
@@ -38,13 +37,13 @@ export class PostComponent implements OnInit, OnDestroy {
         const id = this.route.snapshot.paramMap.get('id');
         if (id) {
           this.post = undefined
-          this.getPage(id)
+          this.getPost(id)
         }
       }
     });
   }
 
-  getPage(id: string) {
+  getPost(id: string) {
     const params: RetrievePostRequestParams = {
       id: id
     }
