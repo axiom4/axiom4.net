@@ -3,7 +3,7 @@ from .models import ImageUpload
 
 
 class ImageAdmin(admin.ModelAdmin):
-    fields = ['title', 'short_name', 'image', 'image_tag', 'post', 'author']
+    fields = [('title', 'short_name'), ('image', 'image_tag'), ('post', 'author')]
     list_display = ('title', 'short_name', 'post', 'image_tag')
     list_filter = ('post__title',)
     search_fields = ('title', 'short_name', 'post__title')
@@ -11,5 +11,9 @@ class ImageAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     readonly_fields = ['image_tag']
 
-
+    def get_form(self, request, obj=None, **kwargs):
+        form = super(ImageAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['author'].initial = request.user
+        return form
+    
 admin.site.register(ImageUpload, ImageAdmin)
