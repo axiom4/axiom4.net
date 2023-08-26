@@ -21,9 +21,25 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
+          "/media/**",
           "/assets/**",
           "/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api-performance",
+      "urls": [
+        "/api/blog/posts",
+        "/api/blog/pages",
+        "/apiblog/categories"
+      ],
+      "cacheConfig": {
+        "strategy": "performance",
+        "maxSize": 100,
+        "maxAge": "3d2h"
       }
     }
   ]
