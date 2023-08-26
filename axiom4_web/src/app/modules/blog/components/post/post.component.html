@@ -1,11 +1,19 @@
-<article *ngIf="post" class="mt-4">
-  <figure class="text-left">
-    <blockquote class="blockquote">
-      <h1>{{ post.title }}</h1>
-    </blockquote>
-    <figcaption class="blockquote-footer">
-      <small>author: <strong>{{ post.author?.username }} - <cite title="Source Title">{{ post.created_at | date }}</cite></strong></small>
-    </figcaption>
-  </figure>
-  <markdown class="mt-4">{{ post.body }}</markdown>
-</article>
+<div class="row mt-2">
+  <div class="article col-lg-9 p-lg-5 pt-1">
+    <article *ngIf="post">
+      <figure class="text-left">
+        <blockquote class="blockquote">
+          <h1>{{ post.title }}</h1>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+          <small>author: <strong>{{ post.author?.username }} - <cite title="Source Title">{{ post.created_at | date }}</cite></strong></small>
+        </figcaption>
+      </figure>
+      <markdown class="mt-4">{{ post.body }}</markdown>
+    </article>
+  </div>
+  <div class="col-lg-3">
+    <hr class="tag-cloud-separator">
+    <app-tag-cloud></app-tag-cloud>
+  </div>
+</div>

@@ -494,3 +494,17 @@ ul.cloud a:hover::before {
     transition: none !important;
   }
 }
+
+.tag-cloud-separator {
+  display: block;
+}
+
+@media (min-width: 992px) {
+  .article {
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .tag-cloud-separator {
+    display: none;
+  }
+}
