@@ -14,6 +14,7 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSize = 1
   collectionSize = 0;
+  notFound: boolean = false
 
   constructor(
     private route: ActivatedRoute,
@@ -37,6 +38,9 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
         const category = this.route.snapshot.paramMap.get('category');
         if (category) {
           this.serchPostByCategory(category)
+        } else {
+          this.notFound = true
+          this.posts = []
         }
       }
     });
@@ -63,7 +67,11 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
 
   pageChange() {
     const category = this.route.snapshot.paramMap.get('category');
-    if (category)
+    if (category) {
       this.serchPostByCategory(category);
+    } else {
+      this.notFound = true
+      this.posts = []
+    }
   }
 }

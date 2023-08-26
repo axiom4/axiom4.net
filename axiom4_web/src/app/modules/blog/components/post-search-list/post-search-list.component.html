@@ -1,8 +1,21 @@
 <div *ngIf="posts.length > 0">
-  <p>{{ posts | json }}</p>
+  <div class="mt-2 row row-cols-1 row-cols-md-3 g-4 mb-5">
+    <div *ngFor="let post of posts" class="col">
+      <div class="post_card card h-100  pt-1 ps-1 pe-1" [routerLink]="['/blog/posts', post.id]">
+        <img src="{{ post.image }}" class="card-img-top" alt="{{ post.title }}">
+        <div class="card-body">
+          <h5 class="card-title">{{ post.title }}</h5>
+          <p class="card-text">{{ post.summary }}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted"><strong>{{ post.author?.username}} - {{ post.created_at | date }}</strong></small>
+        </div>
+      </div>
+    </div>
+  </div>
   <ngb-pagination *ngIf="posts.length > 0" class="d-flex justify-content-end" size="sm" [collectionSize]="collectionSize" [maxSize]="6" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="pageChange()" aria-label="Default pagination"></ngb-pagination>
 </div>
-<div *ngIf="posts.length == 0">
+<div *ngIf="notFound">
   <div class="mt-5 text-center">
     <svg viewBox="0 0 50 50" width="300px" height="300px" data-name="Layer 1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" fill="#000000">
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>

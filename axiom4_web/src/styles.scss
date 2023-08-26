@@ -411,7 +411,7 @@ ul.cloud {
 
 ul.cloud a {
   opacity: calc((15 - (9 - var(--size))) / 15);
-
+  text-transform: capitalize;
   // color: #a33;
   display: block;
   font-size: calc(var(--size) * 0.25rem + 0.5rem);
@@ -507,4 +507,39 @@ ul.cloud a:hover::before {
   .tag-cloud-separator {
     display: none;
   }
+}
+
+.continue {
+  color: #ffe4848a;
+}
+
+.continue:hover {
+  color: #ffe484;
+}
+
+.post_card {
+  opacity: 0.8;
+}
+
+.post_card:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.post_search {
+  margin: 10px;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.post_search .title {
+  color: red;
+}
+
+.post_search p {
+  font-weight: normal;
 }

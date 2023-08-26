@@ -23,8 +23,14 @@
       <span class="text-danger">No results found.</span>
     </p>
   </div>
-  <ul>
-    <li *ngFor="let post of posts"><a routerLink="/blog/posts/{{ post.id }}" (click)="close()">{{ post.title }}</a></li>
+  <ul class="post_search">
+    <li *ngFor="let post of posts">
+      <a routerLink="/blog/posts/{{ post.id }}" (click)="close()">
+        <span class="title">{{ post.title }}</span>
+        <p>{{ post.summary }}</p>
+      </a>
+      <hr />
+    </li>
   </ul>
   <ngb-pagination *ngIf="posts.length > 0" class="d-flex justify-content-end" size="sm" [collectionSize]="collectionSize" [maxSize]="6" [(page)]="currentPage" [pageSize]="pageSize" (pageChange)="pageChange()" aria-label="Default pagination"></ngb-pagination>
 </div>
