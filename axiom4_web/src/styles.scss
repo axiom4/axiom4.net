@@ -377,26 +377,6 @@ article td {
   color: rgba(255, 255, 255, 0.725);
 }
 
-.carousel-caption {
-  padding: 20px;
-  background-color: rgba(0, 0, 0, 0.7);
-  bottom: 0
-}
-
-@media (max-width: 1399px) {
-  .carousel-caption {
-    right: 9%;
-    left: 9%;
-  }
-}
-
-@media (max-width: 1199px) {
-  .carousel-caption {
-    right: 0%;
-    left: 0%;
-  }
-}
-
 ul.cloud {
   width: 60%;
   margin: auto;
@@ -542,4 +522,40 @@ ul.cloud a:hover::before {
 
 .post_search p {
   font-weight: normal;
+}
+
+
+.carousel img {
+  border: 1px solid rgba(255, 255, 255, .2);
+
+}
+
+.carousel-caption {
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  bottom: 0;
+  // border: 1px solid rgba(255, 255, 255, .2);
+}
+
+@media (max-width: 1399px) {
+  .carousel-caption {
+    right: 9%;
+    left: 9%;
+  }
+}
+
+@media (max-width: 1199px) {
+  .carousel-caption {
+    right: 0%;
+    left: 0%;
+  }
+}
+
+
+.carousel-caption h3 {
+  color: #ffe484;
+}
+
+.carousel-indicators {
+  margin-bottom: 0.1rem;
 }

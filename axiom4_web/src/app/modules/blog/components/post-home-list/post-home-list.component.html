@@ -5,10 +5,10 @@
     </div>
     <div class="carousel-caption">
       <h3>{{ post.title }}</h3>
-      <p>
+      <p class="mb-0">
         {{ post.summary }}...&nbsp;
-        <a class="continue" [routerLink]="['/blog/posts', post.id]" routerLinkActive="router-link-active">continue to read </a>
       </p>
+      <a class="continue" [routerLink]="['/blog/posts', post.id]" routerLinkActive="router-link-active">continue to read </a>
     </div>
   </ng-template>
 </ngb-carousel>
