@@ -16,7 +16,7 @@ Hi everyone, with this project I want to share the source code of my personal bl
 ```bash
 # python3 -m venv ${PROJECT_HOME}/venv
 # source ${PROJECT_HOME}/venv/bin/activate
-# cd ${PROJECT_HOME}/axiom4
+# cd ${PROJECT_HOME}/axiom4-api
 # pip install -r requirements.txt
 # cd ${PROJECT_HOME}
 ```
@@ -24,7 +24,7 @@ Hi everyone, with this project I want to share the source code of my personal bl
 3. Install node modules
 
 ```bash
-# cd ${PROJECT_HOME}/axiom4_web
+# cd ${PROJECT_HOME}/axiom4-web
 # npm install
 # cd ${PROJECT_HOME}
 ```
@@ -33,7 +33,7 @@ Hi everyone, with this project I want to share the source code of my personal bl
 
 
 ```bash
-# cd ${PROJECT_HOME}/axiom4
+# cd ${PROJECT_HOME}/axiom4-api
 
 
 # ./manage.py makemigrations
@@ -86,7 +86,7 @@ Quit the server with CONTROL-C.
 
 
 ```bash
-# cd ${PROJECT_HOME}/axiom4_web
+# cd ${PROJECT_HOME}/axiom4-web
 
 # ng serve
 ✔ Browser application bundle generation complete.

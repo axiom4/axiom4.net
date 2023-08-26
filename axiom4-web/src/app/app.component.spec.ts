@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'axiom4_web'`, () => {
+  it(`should have as title 'axiom4-web'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('axiom4_web');
+    expect(app.title).toEqual('axiom4-web');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('axiom4_web app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('axiom4-web app is running!');
   });
 });

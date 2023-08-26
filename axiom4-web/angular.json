@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "axiom4_web": {
+    "axiom4-web": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/axiom4_web",
+            "outputPath": "dist/axiom4-web",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -90,10 +90,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "axiom4_web:build:production"
+              "browserTarget": "axiom4-web:build:production"
             },
             "development": {
-              "browserTarget": "axiom4_web:build:development"
+              "browserTarget": "axiom4-web:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -101,7 +101,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "axiom4_web:build"
+            "browserTarget": "axiom4-web:build"
           }
         },
         "test": {
