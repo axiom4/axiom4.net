@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { BlogService, ListPostsRequestParams, PostPreview } from 'src/app/modules/core/api/v1';
 import { Subscription } from 'rxjs';
+import { ConfigService, Configuration } from 'src/app/modules/utils';
 
 @Component({
   selector: 'app-post-search-list',
@@ -15,8 +16,10 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
   pageSize = 1
   collectionSize = 0;
   notFound: boolean = false
+  config: Configuration | undefined
 
   constructor(
+    private configService: ConfigService,
     private route: ActivatedRoute,
     private router: Router,
     private blogService: BlogService) { }
@@ -27,6 +30,9 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.config = this.configService.getConfiguration()
+    this.pageSize = this.config?.categoriesPageSize || 12;
+
     const category = this.route.snapshot.paramMap.get('category');
 
     if (category) {

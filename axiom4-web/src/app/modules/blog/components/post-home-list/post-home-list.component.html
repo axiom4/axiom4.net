@@ -1,4 +1,4 @@
-<ngb-carousel class="mt-4" [interval]="2000" aria-label="Last Post List">
+<ngb-carousel class="mt-4" [interval]="config?.carouselTime || 2000" aria-label="Last Post List">
   <ng-template *ngFor="let post of posts" ngbSlide>
     <div class="picsum-img-wrapper text-center">
       <img src="{{ post.image }}" alt="{{ post.title }}" />
@@ -8,7 +8,7 @@
       <p class="mb-0">
         {{ post.summary }}...&nbsp;
       </p>
-      <a class="continue" [routerLink]="['/blog/posts', post.id]" routerLinkActive="router-link-active">continue to read </a>
+      <a class="continue" [routerLink]="['/blog/posts', post.id]">continue to read </a>
     </div>
   </ng-template>
 </ngb-carousel>

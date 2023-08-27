@@ -1,14 +1,24 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ConfigService, Configuration } from 'src/app/modules/utils';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   showMenu = false;
+  config: Configuration | undefined;
+
+  constructor(private configService: ConfigService) { }
+
+  ngOnInit(): void {
+    this.config = this.configService.getConfiguration();
+  }
 
   @ViewChild('navmenu') navmenu: ElementRef | undefined;
+
+
 
   toogleMenu() {
     if (this.navmenu)

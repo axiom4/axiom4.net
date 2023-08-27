@@ -16,7 +16,7 @@ export class PostSearchComponent implements OnInit {
   show_not_found = false;
 
   currentPage = 1;
-  pageSize = this.configService.getConfiguration()?.pageSize || 1
+  pageSize = this.configService.getConfiguration()?.searchPageSize || 1
   collectionSize = 0;
 
   _search: any
