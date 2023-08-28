@@ -11,11 +11,38 @@ import sys
 
 from django.utils.html import mark_safe
 
+from django.core.files.storage import FileSystemStorage
+import os
+
+class OverwriteStorage(FileSystemStorage):
+
+    def get_available_name(self, name, max_length=None):
+        """Returns a filename that's free on the target storage system, and
+        available for new content to be written to.
+
+        Found at http://djangosnippets.org/snippets/976/
+
+        This file storage solves overwrite on upload problem. Another
+        proposed solution was to override the save method on the model
+        like so (from https://code.djangoproject.com/ticket/11663):
+
+        def save(self, *args, **kwargs):
+            try:
+                this = MyModelName.objects.get(id=self.id)
+                if this.MyImageFieldName != self.MyImageFieldName:
+                    this.MyImageFieldName.delete()
+            except: pass
+            super(MyModelName, self).save(*args, **kwargs)
+        """
+        # If the filename already exists, remove it as if it was a true file system
+        if self.exists(name):
+            os.remove(os.path.join(settings.MEDIA_ROOT, name))
+        return name
 
 def image_directory_path(instance, filename):
     print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'posts/{0}/{1}'.format(instance.id, filename)
+    return 'posts/{0}/{1}'.format(instance.id, "image_preview.webp")
 
 
 def resize_image(image: Image.Image, width: int) -> Image.Image:
@@ -33,7 +60,7 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     body = models.TextField()
     summary = models.CharField(max_length=250, null=True, blank=True)
-    image = models.ImageField(null=True, upload_to=image_directory_path)
+    image = models.ImageField(null=True, upload_to=image_directory_path, storage=OverwriteStorage())
     categories = models.ManyToManyField(Category)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE)

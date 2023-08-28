@@ -10,6 +10,34 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 import sys
 
 
+from django.core.files.storage import FileSystemStorage
+import os
+
+class OverwriteStorage(FileSystemStorage):
+
+    def get_available_name(self, name, max_length=None):
+        """Returns a filename that's free on the target storage system, and
+        available for new content to be written to.
+
+        Found at http://djangosnippets.org/snippets/976/
+
+        This file storage solves overwrite on upload problem. Another
+        proposed solution was to override the save method on the model
+        like so (from https://code.djangoproject.com/ticket/11663):
+
+        def save(self, *args, **kwargs):
+            try:
+                this = MyModelName.objects.get(id=self.id)
+                if this.MyImageFieldName != self.MyImageFieldName:
+                    this.MyImageFieldName.delete()
+            except: pass
+            super(MyModelName, self).save(*args, **kwargs)
+        """
+        # If the filename already exists, remove it as if it was a true file system
+        if self.exists(name):
+            os.remove(os.path.join(settings.MEDIA_ROOT, name))
+        return name
+
 def directory_path(instance, filename):
     print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
@@ -29,7 +57,7 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 
 class ImageUpload(models.Model):
     title = models.CharField(max_length=250, null=False)
-    image = models.ImageField(null=False, upload_to=directory_path)
+    image = models.ImageField(null=False, upload_to=directory_path, storage=OverwriteStorage())
     short_name = models.CharField(max_length=20, null=False)
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
