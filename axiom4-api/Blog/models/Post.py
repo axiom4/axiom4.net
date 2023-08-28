@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from . import Category
 
 from PIL import Image
+
 from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
@@ -42,7 +43,7 @@ class OverwriteStorage(FileSystemStorage):
 def image_directory_path(instance, filename):
     print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'posts/{0}/{1}'.format(instance.id, "image_preview.webp")
+    return 'posts/{0}/{1}'.format(instance.id, "image_preview.jpeg")
 
 
 def resize_image(image: Image.Image, width: int) -> Image.Image:
@@ -53,7 +54,7 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 
     height = image.height * width // image.width
 
-    return image.resize((width, height))
+    return image.resize((width, height), resample=Image.LANCZOS)
 
 
 class Post(models.Model):
@@ -83,16 +84,17 @@ class Post(models.Model):
 
         # Resize/modify the image
         image = resize_image(image=image, width=900)
+        image = image.convert('RGB')
 
         # after modifications, save it to the output
-        image.save(output, format='webp', optimize=False, quality=100)
+        image.save(output, format='jpeg', optimize=False, quality=100)
         output.seek(0)
 
         self.image = InMemoryUploadedFile(
             output,
             'ImageField',
             "%s.webp" % self.image.name.split('.')[0],
-            'image/webp',
+            'image/jpeg',
             sys.getsizeof(output),
             None
         )

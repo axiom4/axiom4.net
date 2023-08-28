@@ -41,7 +41,7 @@ class OverwriteStorage(FileSystemStorage):
 def directory_path(instance, filename):
     print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'posts/{0}/{1}.webp'.format(instance.post.id, instance.short_name)
+    return 'posts/{0}/{1}.jpeg'.format(instance.post.id, instance.short_name)
 
 
 def resize_image(image: Image.Image, width: int) -> Image.Image:
@@ -52,7 +52,7 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 
     height = image.height * width // image.width
 
-    return image.resize((width, height))
+    return image.resize((width, height), resample=Image.LANCZOS)
 
 
 class ImageUpload(models.Model):
@@ -84,9 +84,9 @@ class ImageUpload(models.Model):
 
         # Resize/modify the image
         image = resize_image(image=image, width=900)
-
+        image = image.convert('RGB')
         # after modifications, save it to the output
-        image.save(output, format='webp', optimize=False, quality=100)
+        image.save(output, format='jpeg', optimize=True, quality=100)
         output.seek(0)
 
         # change the imagefield value to be the newley modifed image value
@@ -94,7 +94,7 @@ class ImageUpload(models.Model):
             output,
             'ImageField',
             "%s.webp" % self.image.name.split('.')[0],
-            'image/webp',
+            'image/jpeg',
             sys.getsizeof(output),
             None
         )
