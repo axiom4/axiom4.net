@@ -41,9 +41,8 @@ class OverwriteStorage(FileSystemStorage):
         return name
 
 def image_directory_path(instance, filename):
-    print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'posts/{0}/{1}'.format(instance.id, "image_preview.jpeg")
+    return 'posts/{0}/{1}'.format(instance.id, "image_preview.webp")
 
 
 def resize_image(image: Image.Image, width: int) -> Image.Image:
@@ -84,17 +83,23 @@ class Post(models.Model):
 
         # Resize/modify the image
         image = resize_image(image=image, width=900)
-        image = image.convert('RGB')
 
         # after modifications, save it to the output
-        image.save(output, format='jpeg', optimize=False, quality=100)
+        image.save(
+            output, 
+            format='webp', 
+            optimize=True, 
+            lossless=True, 
+            quality=100,
+            method=6
+        )
         output.seek(0)
 
         self.image = InMemoryUploadedFile(
             output,
             'ImageField',
             "%s.webp" % self.image.name.split('.')[0],
-            'image/jpeg',
+            'image/webp',
             sys.getsizeof(output),
             None
         )
