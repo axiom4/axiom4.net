@@ -15,7 +15,7 @@ from django.utils.html import mark_safe
 def image_directory_path(instance, filename):
     print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
-    return 'posts/{0}/preview_image.webp'.format(instance.id)
+    return 'posts/{0}/{1}'.format(instance.id, filename)
 
 
 def resize_image(image: Image.Image, width: int) -> Image.Image:
@@ -58,10 +58,9 @@ class Post(models.Model):
         image = resize_image(image=image, width=900)
 
         # after modifications, save it to the output
-        image.save(output, format='webp', optimize=True, quality=90)
+        image.save(output, format='webp', optimize=True, quality=100)
         output.seek(0)
 
-        # change the imagefield value to be the newley modifed image value
         self.image = InMemoryUploadedFile(
             output,
             'ImageField',

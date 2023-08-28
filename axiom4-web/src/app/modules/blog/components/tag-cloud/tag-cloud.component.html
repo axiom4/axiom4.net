@@ -1,5 +1,5 @@
 <div class="mt-5">
-  <ul class="cloud" role="navigation" aria-label="Tag cloud">
+  <ul class="cloud" role="list" aria-label="Tag cloud">
     <li *ngFor="let category of categories">
       <a attr.aria-label="{{ category.name }}" [attr.data-weight]="category.weight" [routerLink]="['/blog/search', category.name]">
         {{ category.name }}

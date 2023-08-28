@@ -533,32 +533,25 @@ ul.cloud a:hover::before {
 }
 
 
-.carousel img {
-  border: 1px solid rgba(255, 255, 255, .2);
-
-}
-
 .carousel-caption {
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.7);
   bottom: 0;
-  // border: 1px solid rgba(255, 255, 255, .2);
+  left: 0;
+  right: 0;
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  border: 1px solid rgba(255, 255, 255, .2);
 }
 
-@media (max-width: 1399px) {
+@media (max-width: 572px) {
   .carousel-caption {
-    right: 9%;
-    left: 9%;
+    background-color: rgba(0, 0, 0, 0.0);
+    position: relative;
   }
 }
-
-@media (max-width: 1199px) {
-  .carousel-caption {
-    right: 0%;
-    left: 0%;
-  }
-}
-
 
 .carousel-caption h3 {
   color: #ffe484;
@@ -566,4 +559,12 @@ ul.cloud a:hover::before {
 
 .carousel-indicators {
   margin-bottom: 0.1rem;
+}
+
+.carousel img {
+  border: 1px solid rgba(255, 255, 255, .2);
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
