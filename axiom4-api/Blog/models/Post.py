@@ -85,7 +85,7 @@ class Post(models.Model):
         image = resize_image(image=image, width=900)
 
         # after modifications, save it to the output
-        image.save(output, format='webp', optimize=True, quality=100)
+        image.save(output, format='webp', optimize=False, quality=100)
         output.seek(0)
 
         self.image = InMemoryUploadedFile(

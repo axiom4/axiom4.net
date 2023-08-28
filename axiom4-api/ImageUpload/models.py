@@ -86,7 +86,7 @@ class ImageUpload(models.Model):
         image = resize_image(image=image, width=900)
 
         # after modifications, save it to the output
-        image.save(output, format='webp', optimize=True, quality=100)
+        image.save(output, format='webp', optimize=False, quality=100)
         output.seek(0)
 
         # change the imagefield value to be the newley modifed image value
