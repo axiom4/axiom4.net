@@ -55,7 +55,7 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 
     height = image.height * width // image.width
 
-    return image.resize((width, height), resample=Image.LANCZOS)
+    return image.resize((width, height), resample=Image.Resampling.LANCZOS)
 
 
 class Post(models.Model):
