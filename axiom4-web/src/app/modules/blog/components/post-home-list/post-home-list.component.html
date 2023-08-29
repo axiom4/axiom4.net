@@ -1,4 +1,4 @@
-<ngb-carousel class="mt-4" [interval]="config?.carouselTime || 2000" aria-label="Last Post List">
+<ngb-carousel class="mt-4" [interval]="config?.carouselTime || 2000" aria-label="Last Post List" [showNavigationIndicators]="false">
   <ng-template *ngFor="let post of posts" ngbSlide>
     <div class="picsum-img-wrapper text-center">
       <img class="carousel-img" src="{{ post.image }}" srcset="{{ post.image }} 480w, {{ post.image }} 1080w" sizes="50vw" alt="{{ post.title }}" />
