@@ -15,6 +15,7 @@ from django.utils.html import mark_safe
 from django.core.files.storage import FileSystemStorage
 import os
 
+
 class OverwriteStorage(FileSystemStorage):
 
     def get_available_name(self, name, max_length=None):
@@ -40,6 +41,7 @@ class OverwriteStorage(FileSystemStorage):
             os.remove(os.path.join(settings.MEDIA_ROOT, name))
         return name
 
+
 def image_directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return 'posts/{0}/{1}'.format(instance.id, "image_preview.webp")
@@ -60,7 +62,8 @@ class Post(models.Model):
     title = models.CharField(max_length=50)
     body = models.TextField()
     summary = models.CharField(max_length=250, null=True, blank=True)
-    image = models.ImageField(null=True, upload_to=image_directory_path, storage=OverwriteStorage())
+    image = models.ImageField(
+        null=True, upload_to=image_directory_path, storage=OverwriteStorage())
     categories = models.ManyToManyField(Category)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE)
@@ -86,12 +89,12 @@ class Post(models.Model):
 
         # after modifications, save it to the output
         image.save(
-            output, 
-            format='webp', 
-            optimize=True, 
-            lossless=True, 
-            quality=100,
-            method=6
+            output,
+            format='webp',
+            optimize=True,
+            lossless=False,
+            quality=75,
+            method=5
         )
         output.seek(0)
 
