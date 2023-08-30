@@ -31,18 +31,18 @@ export class CookiePolicyService implements OnInit {
   }
 
   loadScript() {
-    this.googleTag = this.configService.getConfiguration()?.googleTag
+    // this.googleTag = this.configService.getConfiguration()?.googleTag
 
-    let gaScript = document.createElement('script');
-    gaScript.setAttribute('async', 'true');
-    gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.googleTag}`);
+    // let gaScript = document.createElement('script');
+    // gaScript.setAttribute('async', 'true');
+    // gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.googleTag}`);
 
-    let gaScript2 = document.createElement('script');
-    gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.googleTag}\');`;
-    const head = <HTMLHeadElement>document.head;
+    // let gaScript2 = document.createElement('script');
+    // gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.googleTag}\');`;
+    // const head = <HTMLHeadElement>document.head;
 
-    head.appendChild(gaScript);
-    head.appendChild(gaScript2);
+    // head.appendChild(gaScript);
+    // head.appendChild(gaScript2);
   }
 
   close() {
