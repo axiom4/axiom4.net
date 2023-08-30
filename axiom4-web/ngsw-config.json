@@ -32,9 +32,10 @@
     {
       "name": "api-performance",
       "urls": [
-        "/api/blog/posts",
-        "/api/blog/pages",
-        "/apiblog/categories"
+        "/api/blog/posts/**",
+        "/api/blog/pages/**",
+        "/apiblog/categories/**",
+        "!https://www.googletagmanager.com/**"
       ],
       "cacheConfig": {
         "strategy": "performance",
