@@ -6,6 +6,12 @@
   "display": "standalone",
   "scope": "./",
   "start_url": "./",
+  "icons": {
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  },
   "icons": [
     {
       "src": "https://www.axiom4.net/assets/icons/icon-72x72.png",
