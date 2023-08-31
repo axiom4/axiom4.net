@@ -34,7 +34,8 @@
       "urls": [
         "/api/blog/posts/**",
         "/api/blog/pages/**",
-        "/apiblog/categories/**"
+        "/api/blog/categories/**",
+        "/blog/**"
       ],
       "cacheConfig": {
         "strategy": "performance",
