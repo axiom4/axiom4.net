@@ -14,7 +14,6 @@ import { HttpHeaders }                                       from '@angular/comm
 import { Observable }                                        from 'rxjs';
 
 import { Category } from '../model/models';
-import { Group } from '../model/models';
 import { ListPosts200Response } from '../model/models';
 import { Page } from '../model/models';
 import { Post } from '../model/models';
@@ -33,10 +32,6 @@ export interface ListPostsRequestParams {
 }
 
 export interface RetrieveCategoryRequestParams {
-    id: string;
-}
-
-export interface RetrieveGroupRequestParams {
     id: string;
 }
 
@@ -68,12 +63,6 @@ export interface BlogServiceInterface {
 
     /**
      * 
-     * API endpoint that allows groups to be viewed or edited.
-*/
-    listGroups(extraHttpRequestParams?: any): Observable<Array<Group>>;
-
-    /**
-     * 
      * 
 */
     listPages(extraHttpRequestParams?: any): Observable<Array<Page>>;
@@ -97,13 +86,6 @@ export interface BlogServiceInterface {
 * @param requestParameters
      */
     retrieveCategory(requestParameters: RetrieveCategoryRequestParams, extraHttpRequestParams?: any): Observable<Category>;
-
-    /**
-     * 
-     * API endpoint that allows groups to be viewed or edited.
-* @param requestParameters
-     */
-    retrieveGroup(requestParameters: RetrieveGroupRequestParams, extraHttpRequestParams?: any): Observable<Group>;
 
     /**
      * 

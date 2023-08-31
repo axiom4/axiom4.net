@@ -12,14 +12,9 @@
 
 
 export interface PageAuthor { 
-    readonly id?: number;
-    readonly url?: string;
     /**
      * Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.
      */
     username: string;
-    first_name?: string;
-    last_name?: string;
-    email?: string;
 }
 
