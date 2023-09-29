@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  axiom4:
+    image: axiom4
+    build:
+      context: .
+      dockerfile: ./Dockerfile
