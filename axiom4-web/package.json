@@ -19,7 +19,7 @@
     "@angular/platform-browser": "^16.2.11",
     "@angular/platform-browser-dynamic": "^16.2.11",
     "@angular/router": "^16.2.11",
-    "@angular/service-worker": "^16.2.11",
+    "@angular/service-worker": "^16.2.12",
     "@ng-bootstrap/ng-bootstrap": "^15.1.2",
     "@openapitools/openapi-generator-cli": "^2.7.0",
     "@popperjs/core": "^2.11.8",
