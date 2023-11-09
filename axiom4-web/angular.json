@@ -34,11 +34,9 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
-              "node_modules/prismjs/themes/prism-coy.min.css",
               "src/styles.scss"
             ],
             "scripts": [
-              "node_modules/marked/marked.min.js",
               "node_modules/prismjs/prism.js",
               "node_modules/prismjs/components.js"
             ],
