@@ -11,7 +11,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ConfigService } from './modules/utils';
 import { ConfigurationParameters, Configuration, ApiModule } from './modules/core/api/v1';
-import { MarkdownModule } from 'ngx-markdown';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
 var config: ConfigService;
@@ -33,13 +32,10 @@ export function apiConfigFactory(): Configuration {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     ApiModule.forRoot(apiConfigFactory),
-    MarkdownModule.forRoot({
-      sanitize: SecurityContext.NONE
-    }),
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,

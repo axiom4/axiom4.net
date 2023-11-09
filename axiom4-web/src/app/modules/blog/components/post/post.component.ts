@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Event, Router, NavigationEnd } from '@angular/router';
-import { MarkdownService } from 'ngx-markdown';
 import { Subscription } from 'rxjs';
 import { BlogService, Post, RetrievePostRequestParams } from 'src/app/modules/core/api/v1';
 
@@ -9,7 +8,6 @@ import { BlogService, Post, RetrievePostRequestParams } from 'src/app/modules/co
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss'],
-  providers: [MarkdownService]
 })
 export class PostComponent implements OnInit, OnDestroy {
   post: Post | undefined;

@@ -9,7 +9,7 @@
           <small>author: <strong>{{ post.author?.username }} - <cite title="Source Title">{{ post.created_at | date }}</cite></strong></small>
         </figcaption>
       </figure>
-      <markdown class="mt-4">{{ post.body }}</markdown>
+      <div class="mt-4" [innerHTML]="post.body | marked"></div>
     </article>
   </div>
   <div class="col-lg-3">

@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
-import { MarkdownService } from 'ngx-markdown';
 import { Subscription } from 'rxjs';
 import { BlogService, Page, RetrievePageRequestParams } from 'src/app/modules/core/api/v1';
 
@@ -9,7 +8,6 @@ import { BlogService, Page, RetrievePageRequestParams } from 'src/app/modules/co
   selector: 'app-page',
   templateUrl: './page.component.html',
   styleUrls: ['./page.component.scss'],
-  providers: [MarkdownService]
 })
 export class PageComponent implements OnInit, OnDestroy {
   page: Page | undefined;
