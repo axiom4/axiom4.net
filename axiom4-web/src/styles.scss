@@ -1,5 +1,7 @@
 /* stylelint-disable selector-list-comma-newline-after */
 @import 'bootstrap/scss/bootstrap';
+@import "~prismjs/plugins/toolbar/prism-toolbar.css";
+@import "~prismjs/themes/prism-coy.css";
 
 body {
   background: linear-gradient(45deg, hsla(200, 0%, 0%, 0.95) 25%, transparent 25%, transparent 75%, hsla(200, 0%, 0%, 0.95) 75%, hsla(200, 0%, 0%, 0.95)), linear-gradient(45deg, hsla(200, 0%, 0%, 0.95) 25%, transparent 25%, transparent 75%, hsla(200, 0%, 0%, 0.95) 75%, hsla(200, 0%, 0%, 0.95)) 10px 10px;

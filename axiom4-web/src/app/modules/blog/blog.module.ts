@@ -10,6 +10,7 @@ import { PostHomeListComponent } from './components/post-home-list/post-home-lis
 import { TagCloudComponent } from './components/tag-cloud/tag-cloud.component';
 import { PostSearchListComponent } from './components/post-search-list/post-search-list.component';
 import { MarkedPipe } from './marked.pipe';
+import { HighlightService } from './services/highlight.service';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { MarkedPipe } from './marked.pipe';
     NgbModule,
     FormsModule
   ],
-  providers: [CommonModule],
+  providers: [CommonModule, HighlightService],
   exports: [
     PostSearchComponent,
     PostHomeListComponent,
