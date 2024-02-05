@@ -14,13 +14,13 @@ djangorestframework==3.14.0
 hyperlink==21.0.0
 idna==3.6
 incremental==22.10.0
-mysqlclient==2.2.1
+mysqlclient==2.2.3
 pillow==10.2.0
 pyasn1==0.5.1
 pyasn1-modules==0.3.0
 pycparser==2.21
 pyOpenSSL==24.0.0
-pytz==2023.4
+pytz==2024.1
 PyYAML==6.0.1
 service-identity==24.1.0
 six==1.16.0
