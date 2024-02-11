@@ -4,11 +4,22 @@ import { Subject, Subscription, debounceTime, distinctUntilChanged } from 'rxjs'
 import { BlogService, ListPostsRequestParams, Post, PostPreview } from 'src/app/modules/core/api/v1';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { ConfigService } from 'src/app/modules/utils';
+import { RouterLink } from '@angular/router';
+import { NgFor, NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-post-search',
-  templateUrl: './post-search.component.html',
-  styleUrls: ['./post-search.component.scss'],
+    selector: 'app-post-search',
+    templateUrl: './post-search.component.html',
+    styleUrls: ['./post-search.component.scss'],
+    standalone: true,
+    imports: [
+        FormsModule,
+        NgFor,
+        RouterLink,
+        NgIf,
+        NgbPagination,
+    ],
 })
 export class PostSearchComponent implements OnInit {
   posts: PostPreview[] = []

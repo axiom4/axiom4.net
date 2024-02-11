@@ -3,9 +3,10 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PostSearchComponent } from 'src/app/modules/blog/components/post-search/post-search.component';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.scss'],
+    standalone: true
 })
 export class SearchComponent implements OnInit {
   modalRef: NgbModalRef | undefined;

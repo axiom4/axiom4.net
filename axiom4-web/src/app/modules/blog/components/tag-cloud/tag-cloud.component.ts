@@ -1,13 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService, Category } from 'src/app/modules/core/api/v1';
 import { CloudTacCategory } from '../../models/cloud-tag-category';
+import { RouterLink } from '@angular/router';
+import { NgFor } from '@angular/common';
 
 
 
 @Component({
-  selector: 'app-tag-cloud',
-  templateUrl: './tag-cloud.component.html',
-  styleUrls: ['./tag-cloud.component.scss']
+    selector: 'app-tag-cloud',
+    templateUrl: './tag-cloud.component.html',
+    styleUrls: ['./tag-cloud.component.scss'],
+    standalone: true,
+    imports: [NgFor, RouterLink]
 })
 export class TagCloudComponent implements OnInit {
   categories: CloudTacCategory[] = []

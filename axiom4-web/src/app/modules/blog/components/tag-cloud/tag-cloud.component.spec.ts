@@ -8,8 +8,8 @@ describe('TagCloudComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TagCloudComponent]
-    });
+    imports: [TagCloudComponent]
+});
     fixture = TestBed.createComponent(TagCloudComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

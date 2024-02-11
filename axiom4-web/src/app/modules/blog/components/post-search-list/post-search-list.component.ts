@@ -1,13 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Event, NavigationEnd, Router, RouterLink } from '@angular/router';
 import { BlogService, ListPostsRequestParams, PostPreview } from 'src/app/modules/core/api/v1';
 import { Subscription } from 'rxjs';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
+import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { NgIf, NgFor, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-post-search-list',
-  templateUrl: './post-search-list.component.html',
-  styleUrls: ['./post-search-list.component.scss']
+    selector: 'app-post-search-list',
+    templateUrl: './post-search-list.component.html',
+    styleUrls: ['./post-search-list.component.scss'],
+    standalone: true,
+    imports: [NgIf, NgFor, RouterLink, NgbPagination, TagCloudComponent, DatePipe]
 })
 export class PostSearchListComponent implements OnInit, OnDestroy {
   posts: PostPreview[] = []

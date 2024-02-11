@@ -3,11 +3,19 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BlogService, Page, RetrievePageRequestParams } from 'src/app/modules/core/api/v1';
+import { MarkedPipe } from '../../marked.pipe';
+import { NgIf, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-page',
-  templateUrl: './page.component.html',
-  styleUrls: ['./page.component.scss'],
+    selector: 'app-page',
+    templateUrl: './page.component.html',
+    styleUrls: ['./page.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        DatePipe,
+        MarkedPipe,
+    ],
 })
 export class PageComponent implements OnInit, OnDestroy {
   page: Page | undefined;

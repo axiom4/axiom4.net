@@ -7,15 +7,12 @@ import { MarkedPipe } from './marked.pipe';
 
 
 @NgModule({
-  declarations: [
-    PageComponent,
-    MarkedPipe
-  ],
-  imports: [
-    CommonModule,
-    PageRoutingModule,
-  ],
-  providers: [
-  ]
+    imports: [
+        CommonModule,
+        PageRoutingModule,
+        PageComponent,
+        MarkedPipe,
+    ],
+    providers: []
 })
 export class PageModule { }

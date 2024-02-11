@@ -14,28 +14,26 @@ import { BlogModule } from '../blog/blog.module';
 
 
 @NgModule({
-  declarations: [
-    HeaderComponent,
-    FooterComponent,
-    SearchComponent,
-    PageNotFoundComponent,
-    MainPageComponent,
-  ],
-  imports: [
-    FormsModule,
-    CommonModule,
-    BlogModule,
-    RouterModule
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-    SearchComponent,
-    PageNotFoundComponent,
-    MainPageComponent
-  ],
-  providers: [
-    NgbActiveModal
-  ]
+    imports: [
+        FormsModule,
+        CommonModule,
+        BlogModule,
+        RouterModule,
+        HeaderComponent,
+        FooterComponent,
+        SearchComponent,
+        PageNotFoundComponent,
+        MainPageComponent
+    ],
+    exports: [
+        HeaderComponent,
+        FooterComponent,
+        SearchComponent,
+        PageNotFoundComponent,
+        MainPageComponent
+    ],
+    providers: [
+        NgbActiveModal
+    ]
 })
 export class MainModule { }

@@ -13,25 +13,23 @@ import { MarkedPipe } from './marked.pipe';
 import { HighlightService } from './services/highlight.service';
 
 @NgModule({
-  declarations: [
-    PostComponent,
-    PostSearchComponent,
-    PostHomeListComponent,
-    TagCloudComponent,
-    PostSearchListComponent,
-    MarkedPipe
-  ],
-  imports: [
-    CommonModule,
-    BlogRoutingModule,
-    NgbModule,
-    FormsModule
-  ],
-  providers: [CommonModule, HighlightService],
-  exports: [
-    PostSearchComponent,
-    PostHomeListComponent,
-    TagCloudComponent
-  ]
+    imports: [
+        CommonModule,
+        BlogRoutingModule,
+        NgbModule,
+        FormsModule,
+        PostComponent,
+        PostSearchComponent,
+        PostHomeListComponent,
+        TagCloudComponent,
+        PostSearchListComponent,
+        MarkedPipe
+    ],
+    providers: [CommonModule, HighlightService],
+    exports: [
+        PostSearchComponent,
+        PostHomeListComponent,
+        TagCloudComponent
+    ]
 })
 export class BlogModule { }

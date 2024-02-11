@@ -8,8 +8,8 @@ describe('PostSearchListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PostSearchListComponent]
-    });
+    imports: [PostSearchListComponent]
+});
     fixture = TestBed.createComponent(PostSearchListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

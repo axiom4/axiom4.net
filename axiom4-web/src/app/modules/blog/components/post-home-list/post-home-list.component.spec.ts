@@ -8,8 +8,8 @@ describe('PostHomeListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PostHomeListComponent]
-    });
+    imports: [PostHomeListComponent]
+});
     fixture = TestBed.createComponent(PostHomeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -4,11 +4,21 @@ import { ActivatedRoute, Event, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BlogService, Post, RetrievePostRequestParams } from 'src/app/modules/core/api/v1';
 import { HighlightService } from '../../services/highlight.service';
+import { MarkedPipe } from '../../marked.pipe';
+import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
+import { NgIf, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-post',
-  templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss'],
+    selector: 'app-post',
+    templateUrl: './post.component.html',
+    styleUrls: ['./post.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        TagCloudComponent,
+        DatePipe,
+        MarkedPipe,
+    ],
 })
 export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
   post: Post | undefined;

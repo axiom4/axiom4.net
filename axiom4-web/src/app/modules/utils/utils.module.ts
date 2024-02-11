@@ -7,18 +7,16 @@ import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
-  declarations: [
-    CookiePolicyComponent
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule
-  ],
-  providers: [
-    CookiePolicyService
-  ],
-  exports: [
-    CookiePolicyComponent
-  ]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        CookiePolicyComponent
+    ],
+    providers: [
+        CookiePolicyService
+    ],
+    exports: [
+        CookiePolicyComponent
+    ]
 })
 export class UtilsModule { }

@@ -1,5 +1,5 @@
 import { APP_INITIALIZER, NgModule, SecurityContext, isDevMode } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,7 +57,8 @@ export function apiConfigFactory(): Configuration {
       useFactory: ConfigLoader,
       deps: [ConfigService],
       multi: true
-    }
+    },
+    provideClientHydration()
   ], bootstrap: [AppComponent]
 })
 export class AppModule { }
