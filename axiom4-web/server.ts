@@ -18,7 +18,9 @@ export function app(): express.Express {
     ? join(distFolder, 'index.original.html')
     : join(distFolder, 'index.html');
 
-  const commonEngine = new CommonEngine();
+  const commonEngine = new CommonEngine({
+    enablePerformanceProfiler: true,
+  });
 
   server.set('view engine', 'html');
   server.set('views', distFolder);
