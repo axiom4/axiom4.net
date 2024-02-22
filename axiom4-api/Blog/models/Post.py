@@ -61,7 +61,7 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 class Post(models.Model):
     title = models.CharField(max_length=50)
     body = models.TextField()
-    summary = models.CharField(max_length=250, null=True, blank=True)
+    summary = models.CharField(max_length=250, blank=True)
     image = models.ImageField(
         null=True, upload_to=image_directory_path, storage=OverwriteStorage())
     categories = models.ManyToManyField(Category)

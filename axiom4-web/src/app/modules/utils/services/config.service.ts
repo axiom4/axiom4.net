@@ -8,7 +8,6 @@ import { Observable, of } from 'rxjs';
 })
 export class ConfigService {
   config: Configuration | undefined;
-  constructor() { }
 
   configLoad(): Observable<Configuration> {
     this.config = environment

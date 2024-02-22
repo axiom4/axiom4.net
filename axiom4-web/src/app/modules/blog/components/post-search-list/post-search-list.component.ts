@@ -8,11 +8,10 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-post-search-list',
-    templateUrl: './post-search-list.component.html',
-    styleUrls: ['./post-search-list.component.scss'],
-    standalone: true,
-    imports: [NgIf, NgFor, RouterLink, NgbPagination, TagCloudComponent, DatePipe]
+  selector: 'app-post-search-list',
+  templateUrl: './post-search-list.component.html',
+  standalone: true,
+  imports: [NgIf, NgFor, RouterLink, NgbPagination, TagCloudComponent, DatePipe]
 })
 export class PostSearchListComponent implements OnInit, OnDestroy {
   posts: PostPreview[] = []
@@ -36,7 +35,7 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.config = this.configService.getConfiguration()
-    this.pageSize = this.config?.categoriesPageSize || 12;
+    this.pageSize = this.config?.categoriesPageSize ?? 12;
 
     const category = this.route.snapshot.paramMap.get('category');
 
@@ -66,8 +65,8 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
     }
     this.blogService.listPosts(params).subscribe({
       next: (response) => {
-        this.collectionSize = response.count || 0;
-        this.posts = response.results || [];
+        this.collectionSize = response.count ?? 0;
+        this.posts = response.results ?? [];
       },
       error: (error) => {
         this.router.navigate(['/notfound'])

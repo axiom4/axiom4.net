@@ -1,17 +1,15 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/modules/utils/services/config.service';
 import { CookiePolicy } from '../models/cooke-policy';
 
 @Injectable()
-export class CookiePolicyService implements OnInit {
+export class CookiePolicyService {
   cookiePolicyAlert: CookiePolicy | undefined
   googleTag: string | undefined;
 
   constructor(
     private configService: ConfigService) {
   }
-
-  ngOnInit(): void { }
 
   show(cookiePolicyAlert: CookiePolicy) {
     const cookiePolicy = localStorage.getItem('cookie-policy');

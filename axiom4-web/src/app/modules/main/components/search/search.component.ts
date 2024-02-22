@@ -1,18 +1,15 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PostSearchComponent } from 'src/app/modules/blog/components/post-search/post-search.component';
 
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.scss'],
-    standalone: true
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  standalone: true
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   modalRef: NgbModalRef | undefined;
   opened = false;
-
-  ngOnInit() { }
 
   @HostListener('window:keydown.control.f', ['$event'])
   public onKeyUp(eventData: KeyboardEvent) {

@@ -4,11 +4,10 @@ import { SearchComponent } from '../search/search.component';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss'],
-    standalone: true,
-    imports: [RouterLink, SearchComponent]
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  standalone: true,
+  imports: [RouterLink, SearchComponent]
 })
 export class HeaderComponent implements OnInit {
   showMenu = false;

@@ -51,3 +51,6 @@ axiom4-api/static
 run
 config/.env.app
 config/.env.db
+
+.scannerwork
+```

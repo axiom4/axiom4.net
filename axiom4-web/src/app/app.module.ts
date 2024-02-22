@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule, SecurityContext, isDevMode } from '@angular/core';
+import { APP_INITIALIZER, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,7 +13,7 @@ import { ConfigService } from './modules/utils';
 import { ConfigurationParameters, Configuration, ApiModule } from './modules/core/api/v1';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-var config: ConfigService;
+let config: ConfigService;
 
 export function ConfigLoader(configService: ConfigService) {
   // Note: this factory need to return a function (that return a promise)

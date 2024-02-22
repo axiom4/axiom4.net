@@ -25,7 +25,6 @@ from django.conf.urls.static import static
 
 schema_url_patterns = [
     path('blog/', include(blog_urls.urlpatterns)),
-    # path('list/', include(blacklist_out_management_urls.urlpatterns)),
 ]
 
 urlpatterns = [
@@ -38,11 +37,7 @@ urlpatterns = [
          version="1.0.0",
          patterns=schema_url_patterns,
          public=True,
-         permission_classes=[permissions.AllowAny],
-         # authentication_classes=[
-         #     authentication.SessionAuthentication,
-         #     authentication.BasicAuthentication
-         # ]
+         permission_classes=[permissions.AllowAny]
          ), name='openapi-schema'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

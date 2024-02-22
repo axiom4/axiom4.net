@@ -7,15 +7,14 @@ import { MarkedPipe } from '../../marked.pipe';
 import { NgIf, DatePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-page',
-    templateUrl: './page.component.html',
-    styleUrls: ['./page.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        DatePipe,
-        MarkedPipe,
-    ],
+  selector: 'app-page',
+  templateUrl: './page.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    DatePipe,
+    MarkedPipe,
+  ],
 })
 export class PageComponent implements OnInit, OnDestroy {
   page: Page | undefined;

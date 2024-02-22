@@ -33,6 +33,6 @@ EXPOSE 80
 ENV PYTHONDONTWRITEBYTECODE=1
 
 # RUN apk del build-deps
-
+USER supervisord
 # # Run supervisord
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

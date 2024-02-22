@@ -9,16 +9,15 @@ import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 import { NgIf, DatePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-post',
-    templateUrl: './post.component.html',
-    styleUrls: ['./post.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        TagCloudComponent,
-        DatePipe,
-        MarkedPipe,
-    ],
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  standalone: true,
+  imports: [
+    NgIf,
+    TagCloudComponent,
+    DatePipe,
+    MarkedPipe,
+  ],
 })
 export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
   post: Post | undefined;
