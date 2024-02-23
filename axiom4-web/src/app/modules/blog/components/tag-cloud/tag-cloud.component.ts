@@ -3,7 +3,6 @@ import { BlogService, Category } from 'src/app/modules/core/api/v1';
 import { CloudTacCategory } from '../../models/cloud-tag-category';
 import { RouterLink } from '@angular/router';
 import { NgFor } from '@angular/common';
-import { randomBytes } from 'crypto';
 
 
 @Component({
@@ -28,17 +27,12 @@ export class TagCloudComponent implements OnInit {
   shuffle(array: CloudTacCategory[]): CloudTacCategory[] {
 
     for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(this.secureRandomNumber() * (i + 1));
+      const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
   };
 
-  secureRandomNumber(): number {
-    const buffer = randomBytes(8); // genera 8 byte di dati casuali
-    const random = buffer.readBigUInt64BE(); // legge i dati come un grande intero senza segno
-    return Number(random) / Number(BigInt(1) << BigInt(64)); // normalizza il numero tra 0 e 1
-  }
 
   buildTagClod(categories: Category[]) {
 
@@ -71,3 +65,5 @@ export class TagCloudComponent implements OnInit {
   }
 
 }
+
+
