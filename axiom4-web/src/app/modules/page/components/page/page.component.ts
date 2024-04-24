@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { BlogService, Page, RetrievePageRequestParams } from 'src/app/modules/core/api/v1';
 import { MarkedPipe } from '../../marked.pipe';
 import { NgIf, DatePipe } from '@angular/common';
+import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
 
 @Component({
   selector: 'app-page',
@@ -16,16 +17,27 @@ import { NgIf, DatePipe } from '@angular/common';
     MarkedPipe,
   ],
 })
-export class PageComponent implements OnInit, OnDestroy {
+export class PageComponent implements OnInit, OnDestroy,AfterViewChecked {
   page: Page | undefined;
   currentRoute: string | undefined;
   subscription: Subscription | undefined;
+  highlighted: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private blogService: BlogService,
-    private title: Title) { }
+    private title: Title,
+    private highlightService: HighlightService
+  ) { }
+
+
+    ngAfterViewChecked() {
+      if (this.page && !this.highlighted) {
+        this.highlightService.highlightAll();
+        this.highlighted = true;
+      }
+    }
 
   ngOnDestroy(): void {
     if (this.subscription)
