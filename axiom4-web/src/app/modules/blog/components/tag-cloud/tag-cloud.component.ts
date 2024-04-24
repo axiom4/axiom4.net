@@ -19,8 +19,8 @@ export class TagCloudComponent implements OnInit {
   constructor(private blogService: BlogService) { }
 
   ngOnInit(): void {
-    this.blogService.listCategorys().subscribe(categories => {
-      this.buildTagClod(categories);
+    this.blogService.listCategories().subscribe(values => {
+      this.buildTagClod(values);
     })
   }
 
