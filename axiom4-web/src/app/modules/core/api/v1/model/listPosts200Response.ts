@@ -13,9 +13,9 @@ import { PostPreview } from './postPreview';
 
 
 export interface ListPosts200Response { 
-    count?: number;
+    count: number;
     next?: string | null;
     previous?: string | null;
-    results?: Array<PostPreview>;
+    results: Array<PostPreview>;
 }
 

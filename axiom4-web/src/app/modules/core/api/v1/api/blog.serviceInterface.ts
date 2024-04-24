@@ -59,7 +59,7 @@ export interface BlogServiceInterface {
      * 
      * API endpoint that allows groups to be viewed or edited.
 */
-    listCategorys(extraHttpRequestParams?: any): Observable<Array<Category>>;
+    listCategories(extraHttpRequestParams?: any): Observable<Array<Category>>;
 
     /**
      * 
