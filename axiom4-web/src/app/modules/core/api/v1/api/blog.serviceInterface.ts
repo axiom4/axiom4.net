@@ -17,7 +17,6 @@ import { Category } from '../model/models';
 import { ListPosts200Response } from '../model/models';
 import { Page } from '../model/models';
 import { Post } from '../model/models';
-import { User } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
@@ -46,10 +45,6 @@ export interface RetrievePostRequestParams {
     ordering?: string;
 }
 
-export interface RetrieveUserRequestParams {
-    id: string;
-}
-
 
 export interface BlogServiceInterface {
     defaultHeaders: HttpHeaders;
@@ -76,12 +71,6 @@ export interface BlogServiceInterface {
 
     /**
      * 
-     * API endpoint that allows users to be viewed or edited.
-*/
-    listUsers(extraHttpRequestParams?: any): Observable<Array<User>>;
-
-    /**
-     * 
      * API endpoint that allows groups to be viewed or edited.
 * @param requestParameters
      */
@@ -100,12 +89,5 @@ export interface BlogServiceInterface {
 * @param requestParameters
      */
     retrievePost(requestParameters: RetrievePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
-
-    /**
-     * 
-     * API endpoint that allows users to be viewed or edited.
-* @param requestParameters
-     */
-    retrieveUser(requestParameters: RetrieveUserRequestParams, extraHttpRequestParams?: any): Observable<User>;
 
 }
