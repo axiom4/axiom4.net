@@ -213,4 +213,11 @@ MDEDITOR_CONFIGS = {
     }
 }
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
+        "LOCATION": "127.0.0.1:11211",
+    }
+}
+
 ACCESS_LIST = ['127.0.0.1']
