@@ -23,6 +23,8 @@ from Blog import urls as blog_urls
 from django.conf import settings
 from django.conf.urls.static import static
 
+from .permissions import AccessListPermission
+
 schema_url_patterns = [
     path('blog/', include(blog_urls.urlpatterns)),
 ]
@@ -37,7 +39,7 @@ urlpatterns = [
          version="1.0.0",
          patterns=schema_url_patterns,
          public=True,
-         permission_classes=[permissions.AllowAny]
+         permission_classes=[AccessListPermission | permissions.IsAuthenticated]
          ), name='openapi-schema'),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

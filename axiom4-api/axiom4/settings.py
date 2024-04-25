@@ -212,3 +212,5 @@ MDEDITOR_CONFIGS = {
         'language': 'en'  # zh / en / es
     }
 }
+
+ACCESS_LIST = ['127.0.0.1']
