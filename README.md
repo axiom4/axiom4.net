@@ -31,6 +31,9 @@ Hi everyone, with this project I want to share the source code of my personal bl
 
 ## How run backend in development mode?
 
+```bash
+docker run --name axiom4-mysql-db -v $PWD/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=password -p3306:3306 -d mysql:latest
+```
 
 ```bash
 # cd ${PROJECT_HOME}/axiom4-api

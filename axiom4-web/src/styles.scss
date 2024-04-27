@@ -177,6 +177,7 @@ code {
   font-weight: 500;
   justify-content: space-between;
   padding: 0 8px;
+  -webkit-user-select: none;
   user-select: none;
   width: 100%;
   height: 38px;
@@ -270,6 +271,7 @@ svg.DocSearch-Search-Icon {
   border-radius: 5px !important;
   border: 1px solid #ffe484;
   box-shadow: 0 0 0 0;
+  -webkit-user-select: none;
   user-select: none;
 }
 
