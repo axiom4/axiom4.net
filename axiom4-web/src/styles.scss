@@ -1,13 +1,29 @@
 /* stylelint-disable selector-list-comma-newline-after */
-@import 'bootstrap/scss/bootstrap';
+@import "bootstrap/scss/bootstrap";
 @import "~prismjs/plugins/toolbar/prism-toolbar.css";
 @import "~prismjs/themes/prism-coy.css";
 
 body {
-  background: linear-gradient(45deg, hsla(200, 0%, 0%, 0.95) 25%, transparent 25%, transparent 75%, hsla(200, 0%, 0%, 0.95) 75%, hsla(200, 0%, 0%, 0.95)), linear-gradient(45deg, hsla(200, 0%, 0%, 0.95) 25%, transparent 25%, transparent 75%, hsla(200, 0%, 0%, 0.95) 75%, hsla(200, 0%, 0%, 0.95)) 10px 10px;
+  background: linear-gradient(
+      45deg,
+      hsla(200, 0%, 0%, 0.95) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(200, 0%, 0%, 0.95) 75%,
+      hsla(200, 0%, 0%, 0.95)
+    ),
+    linear-gradient(
+        45deg,
+        hsla(200, 0%, 0%, 0.95) 25%,
+        transparent 25%,
+        transparent 75%,
+        hsla(200, 0%, 0%, 0.95) 75%,
+        hsla(200, 0%, 0%, 0.95)
+      )
+      10px 10px;
   background-size: 20px 20px;
   background-color: hsla(200, 0%, 0%, 0.95);
-  background-color: rgba(0, 0, 0, .95);
+  background-color: rgba(0, 0, 0, 0.95);
   color: white;
   background-position: initial initial;
   background-repeat: initial initial;
@@ -34,7 +50,7 @@ a:hover {
 #mainNav .navbar-brand {
   font-weight: 800;
   font-size: 28px;
-  color: #fff
+  color: #fff;
 }
 
 #mainNav .navbar-brand-sub {
@@ -48,10 +64,10 @@ a:hover {
   font-weight: 800;
   padding: 13px;
   text-transform: uppercase;
-  color: #fff
+  color: #fff;
 }
 
-#mainNav .navbar-nav>li.nav-item>a {
+#mainNav .navbar-nav > li.nav-item > a {
   font-size: 16px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -59,14 +75,12 @@ a:hover {
   cursor: pointer;
 }
 
-#mainNav .navbar-nav>li.nav-item>a:hover {
+#mainNav .navbar-nav > li.nav-item > a:hover {
   color: rgba(255, 255, 255, 1);
   cursor: pointer;
 }
 
 .footer {
-  /* position: absolute;
-  bottom: 0; */
   margin-top: 64px;
   width: 100%;
   font-size: 80%;
@@ -75,7 +89,7 @@ a:hover {
 }
 
 .footer a {
-  color: rgba(255, 255, 255, .5) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
   text-decoration: none;
   font-weight: bold;
 }
@@ -88,7 +102,7 @@ a:hover {
 .modal-content {
   background-color: black;
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.4)
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
 .alert-bottom {
@@ -139,7 +153,7 @@ code {
 
 .bd-search {
   position: absolute;
-  top: .875rem;
+  top: 0.875rem;
   width: 280px;
 }
 
@@ -169,8 +183,6 @@ code {
 .DocSearch-Button {
   align-items: center;
   background: var(--docsearch-searchbox-background);
-  border: 0;
-  border-radius: 40px;
   color: var(--docsearch-muted-color);
   cursor: pointer;
   display: flex;
@@ -183,7 +195,7 @@ code {
   height: 38px;
   margin: 0;
   border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: .375rem;
+  border-radius: 0.375rem;
 }
 
 .DocSearch-Button-Container {
@@ -192,7 +204,7 @@ code {
 }
 
 .DocSearch-Button .DocSearch-Search-Icon {
-  opacity: .65;
+  opacity: 0.65;
   color: var(--docsearch-text-color);
 }
 
@@ -207,15 +219,9 @@ svg.DocSearch-Search-Icon {
 
 .DocSearch-Button-Keys {
   min-width: 0;
-  padding: .125rem .25rem;
+  padding: 0.125rem 0.25rem;
   background: rgba(0, 0, 0, 0.25);
-  border-radius: .25rem;
-}
-
-
-.DocSearch-Button-Container {
-  align-items: center;
-  display: flex;
+  border-radius: 0.25rem;
 }
 
 .DocSearch-Button-Placeholder {
@@ -246,16 +252,6 @@ svg.DocSearch-Search-Icon {
   z-index: 2000;
 }
 
-.search-input-group .form-control {
-  background-color: black;
-  color: white;
-  border-left: none;
-  padding-left: 55px;
-  padding-right: 55px;
-  height: 50px;
-  font-size: 24px;
-}
-
 .search-input-group .form-control::placeholder {
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: white;
@@ -266,6 +262,13 @@ svg.DocSearch-Search-Icon {
 }
 
 .search-input-group .form-control {
+  background-color: black;
+  color: white;
+  border-left: none;
+  padding-left: 55px;
+  padding-right: 55px;
+  height: 50px;
+  font-size: 24px;
   -webkit-border-radius: 5px !important;
   -moz-border-radius: 5px !important;
   border-radius: 5px !important;
@@ -358,7 +361,7 @@ article td {
   --bs-pagination-focus-color: var(--bs-link-hover-color);
   --bs-pagination-focus-bg: var(--bs-secondary-bg);
   --bs-pagination-focus-box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-  --bs-pagination-active-color: rgba(255, 255, 255, 1.0);
+  --bs-pagination-active-color: rgba(255, 255, 255, 1);
   --bs-pagination-active-bg: rgb(33, 37, 41);
   --bs-pagination-active-border-color: #ffe48460;
   --bs-pagination-disabled-color: var(--bs-secondary-color);
@@ -388,12 +391,12 @@ ul.cloud {
 ul.cloud a {
   opacity: calc((15 - (9 - var(--size))) / 15);
   text-transform: capitalize;
-  // color: #a33;
   display: block;
   font-size: calc(var(--size) * 0.25rem + 0.5rem);
   padding: 0.125rem 0.25rem;
   text-decoration: none;
   position: relative;
+  --size: 4;
 }
 
 ul.cloud a[data-weight="1"] {
@@ -409,7 +412,7 @@ ul.cloud a[data-weight="3"] {
 }
 
 ul.cloud a[data-weight="4"] {
-  --size: 3.0;
+  --size: 3;
 }
 
 ul.cloud a[data-weight="5"] {
@@ -425,7 +428,7 @@ ul.cloud a[data-weight="7"] {
 }
 
 ul.cloud a[data-weight="8"] {
-  --size: 6.0;
+  --size: 6;
 }
 
 ul.cloud a[data-weight="9"] {
@@ -434,12 +437,6 @@ ul.cloud a[data-weight="9"] {
 
 ul.cloud a[data-weight="10"] {
   --size: 7.5;
-}
-
-ul.cloud a {
-  --size: 4;
-  font-size: calc(var(--size) * 0.25rem + 0.5rem);
-  /* ... */
 }
 
 ul.cloud[data-show-value] a::after {
@@ -528,7 +525,6 @@ ul.cloud a:hover::before {
   font-weight: normal;
 }
 
-
 .carousel-caption {
   padding: 20px;
   background-color: rgba(0, 0, 0, 0.7);
@@ -539,12 +535,12 @@ ul.cloud a:hover::before {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  border: 1px solid rgba(255, 255, 255, .2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 572px) {
   .carousel-caption {
-    background-color: rgba(0, 0, 0, 0.0);
+    background-color: rgba(0, 0, 0, 0);
     position: relative;
   }
 }
@@ -558,7 +554,7 @@ ul.cloud a:hover::before {
 }
 
 .carousel img {
-  border: 1px solid rgba(255, 255, 255, .2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: block;
   width: 100%;
   max-width: 900px;

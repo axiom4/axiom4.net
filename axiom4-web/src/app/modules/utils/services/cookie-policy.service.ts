@@ -4,12 +4,10 @@ import { CookiePolicy } from '../models/cooke-policy';
 
 @Injectable()
 export class CookiePolicyService {
-  cookiePolicyAlert: CookiePolicy | undefined
+  cookiePolicyAlert: CookiePolicy | undefined;
   googleTag: string | undefined;
 
-  constructor(
-    private configService: ConfigService) {
-  }
+  constructor(private configService: ConfigService) {}
 
   show(cookiePolicyAlert: CookiePolicy) {
     const cookiePolicy = localStorage.getItem('cookie-policy');
@@ -29,18 +27,15 @@ export class CookiePolicyService {
   }
 
   loadScript() {
-    this.googleTag = this.configService.getConfiguration()?.googleTag
-
-    let gaScript = document.createElement('script');
-    gaScript.setAttribute('async', 'true');
-    gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.googleTag}&ngsw-bypass=true`);
-
-    let gaScript2 = document.createElement('script');
-    gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.googleTag}\');`;
-    const head = <HTMLHeadElement>document.head;
-
-    head.appendChild(gaScript);
-    head.appendChild(gaScript2);
+    // this.googleTag = this.configService.getConfiguration()?.googleTag
+    // let gaScript = document.createElement('script');
+    // gaScript.setAttribute('async', 'true');
+    // gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.googleTag}&ngsw-bypass=true`);
+    // let gaScript2 = document.createElement('script');
+    // gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.googleTag}\');`;
+    // const head = <HTMLHeadElement>document.head;
+    // head.appendChild(gaScript);
+    // head.appendChild(gaScript2);
   }
 
   close() {
