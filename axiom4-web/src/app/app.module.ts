@@ -4,7 +4,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { MainModule } from './modules/main/main.module';
 import { UtilsModule } from './modules/utils/utils.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -30,35 +30,30 @@ export function apiConfigFactory(): Configuration {
   return new Configuration(params);
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-  ],
-  imports: [
-    ApiModule.forRoot(apiConfigFactory),
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    MainModule,
-    UtilsModule,
-    NgbModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ],
-  providers: [
-    ConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: ConfigLoader,
-      deps: [ConfigService],
-      multi: true
-    },
-    provideClientHydration()
-  ], bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+    ],
+    bootstrap: [AppComponent], imports: [ApiModule.forRoot(apiConfigFactory),
+        BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        MainModule,
+        UtilsModule,
+        NgbModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })], providers: [
+        ConfigService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: ConfigLoader,
+            deps: [ConfigService],
+            multi: true
+        },
+        provideClientHydration(),
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }

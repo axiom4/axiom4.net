@@ -55,8 +55,9 @@ export class BlogService implements BlogServiceInterface {
             this.configuration = configuration;
         }
         if (typeof this.configuration.basePath !== 'string') {
-            if (Array.isArray(basePath) && basePath.length > 0) {
-                basePath = basePath[0];
+            const firstBasePath = Array.isArray(basePath) ? basePath[0] : undefined;
+            if (firstBasePath != undefined) {
+                basePath = firstBasePath;
             }
 
             if (typeof basePath !== 'string') {
@@ -230,15 +231,15 @@ export class BlogService implements BlogServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ListPosts200Response>;
-    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ListPosts200Response>>;
-    public listPosts(requestParameters: ListPostsRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ListPosts200Response>>;
-    public listPosts(requestParameters: ListPostsRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const page = requestParameters.page;
-        const pageSize = requestParameters.pageSize;
-        const categoriesName = requestParameters.categoriesName;
-        const search = requestParameters.search;
-        const ordering = requestParameters.ordering;
+    public listPosts(requestParameters?: ListPostsRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<ListPosts200Response>;
+    public listPosts(requestParameters?: ListPostsRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<ListPosts200Response>>;
+    public listPosts(requestParameters?: ListPostsRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<ListPosts200Response>>;
+    public listPosts(requestParameters?: ListPostsRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const page = requestParameters?.page;
+        const pageSize = requestParameters?.pageSize;
+        const categoriesName = requestParameters?.categoriesName;
+        const search = requestParameters?.search;
+        const ordering = requestParameters?.ordering;
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (page !== undefined && page !== null) {
@@ -319,11 +320,11 @@ export class BlogService implements BlogServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public retrieveCategory(requestParameters: RetrieveCategoryRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Category>;
-    public retrieveCategory(requestParameters: RetrieveCategoryRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Category>>;
-    public retrieveCategory(requestParameters: RetrieveCategoryRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Category>>;
-    public retrieveCategory(requestParameters: RetrieveCategoryRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters.id;
+    public retrieveCategory(requestParameters?: RetrieveCategoryRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Category>;
+    public retrieveCategory(requestParameters?: RetrieveCategoryRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Category>>;
+    public retrieveCategory(requestParameters?: RetrieveCategoryRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Category>>;
+    public retrieveCategory(requestParameters?: RetrieveCategoryRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling retrieveCategory.');
         }
@@ -384,11 +385,11 @@ export class BlogService implements BlogServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public retrievePage(requestParameters: RetrievePageRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Page>;
-    public retrievePage(requestParameters: RetrievePageRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Page>>;
-    public retrievePage(requestParameters: RetrievePageRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Page>>;
-    public retrievePage(requestParameters: RetrievePageRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const tag = requestParameters.tag;
+    public retrievePage(requestParameters?: RetrievePageRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Page>;
+    public retrievePage(requestParameters?: RetrievePageRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Page>>;
+    public retrievePage(requestParameters?: RetrievePageRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Page>>;
+    public retrievePage(requestParameters?: RetrievePageRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const tag = requestParameters?.tag;
         if (tag === null || tag === undefined) {
             throw new Error('Required parameter tag was null or undefined when calling retrievePage.');
         }
@@ -449,17 +450,17 @@ export class BlogService implements BlogServiceInterface {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public retrievePost(requestParameters: RetrievePostRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Post>;
-    public retrievePost(requestParameters: RetrievePostRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Post>>;
-    public retrievePost(requestParameters: RetrievePostRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Post>>;
-    public retrievePost(requestParameters: RetrievePostRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
-        const id = requestParameters.id;
+    public retrievePost(requestParameters?: RetrievePostRequestParams, observe?: 'body', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<Post>;
+    public retrievePost(requestParameters?: RetrievePostRequestParams, observe?: 'response', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpResponse<Post>>;
+    public retrievePost(requestParameters?: RetrievePostRequestParams, observe?: 'events', reportProgress?: boolean, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<HttpEvent<Post>>;
+    public retrievePost(requestParameters?: RetrievePostRequestParams, observe: any = 'body', reportProgress: boolean = false, options?: {httpHeaderAccept?: 'application/json', context?: HttpContext, transferCache?: boolean}): Observable<any> {
+        const id = requestParameters?.id;
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling retrievePost.');
         }
-        const categoriesName = requestParameters.categoriesName;
-        const search = requestParameters.search;
-        const ordering = requestParameters.ordering;
+        const categoriesName = requestParameters?.categoriesName;
+        const search = requestParameters?.search;
+        const ordering = requestParameters?.ordering;
 
         let localVarQueryParameters = new HttpParams({encoder: this.encoder});
         if (categoriesName !== undefined && categoriesName !== null) {
