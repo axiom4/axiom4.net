@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^18.0.4",
     "@angular/platform-server": "^18.0.4",
     "@angular/router": "^18.0.4",
-    "@angular/service-worker": "^18.0.4",
+    "@angular/service-worker": "^18.0.5",
     "@angular/ssr": "^18.0.5",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
     "@openapitools/openapi-generator-cli": "^2.13.4",
