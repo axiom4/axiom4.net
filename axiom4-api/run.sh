@@ -5,7 +5,7 @@ export DJANGO_ALLOWED_HOSTS="localhost 127.0.0.1 [::1]"
 export MYSQL_ROOT_PASSWORD=password
 export MYSQL_DATABASE=axiom4
 export MYSQL_USER=axiom4
-export MYSQL_PASSWORD=axiom4
+export MYSQL_PASSWORD='P@$$W0rd1!'
 export MYSQL_PORT=3306
 export MYSQL_HOST=127.0.0.1
 
