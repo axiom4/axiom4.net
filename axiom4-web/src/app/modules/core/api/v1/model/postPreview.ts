@@ -1,6 +1,5 @@
 /**
  * Axiom4.net API
- * API app Axiom4.net
  *
  * 
  *
