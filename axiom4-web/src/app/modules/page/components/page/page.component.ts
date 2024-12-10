@@ -8,14 +8,13 @@ import { NgIf, DatePipe } from '@angular/common';
 import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
 
 @Component({
-  selector: 'app-page',
-  templateUrl: './page.component.html',
-  standalone: true,
-  imports: [
-    NgIf,
-    DatePipe,
-    MarkedPipe,
-  ],
+    selector: 'app-page',
+    templateUrl: './page.component.html',
+    imports: [
+        NgIf,
+        DatePipe,
+        MarkedPipe,
+    ]
 })
 export class PageComponent implements OnInit, OnDestroy,AfterViewChecked {
   page: Page | undefined;

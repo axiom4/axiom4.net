@@ -8,16 +8,15 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-post-search',
-  templateUrl: './post-search.component.html',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgFor,
-    RouterLink,
-    NgIf,
-    NgbPagination,
-  ],
+    selector: 'app-post-search',
+    templateUrl: './post-search.component.html',
+    imports: [
+        FormsModule,
+        NgFor,
+        RouterLink,
+        NgIf,
+        NgbPagination,
+    ]
 })
 export class PostSearchComponent implements OnInit {
   posts: PostPreview[] = []

@@ -6,10 +6,9 @@ import { NgFor } from '@angular/common';
 
 
 @Component({
-  selector: 'app-tag-cloud',
-  templateUrl: './tag-cloud.component.html',
-  standalone: true,
-  imports: [NgFor, RouterLink]
+    selector: 'app-tag-cloud',
+    templateUrl: './tag-cloud.component.html',
+    imports: [NgFor, RouterLink]
 })
 export class TagCloudComponent implements OnInit {
   categories: CloudTacCategory[] = []

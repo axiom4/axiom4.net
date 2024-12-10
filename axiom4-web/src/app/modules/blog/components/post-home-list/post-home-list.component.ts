@@ -6,10 +6,9 @@ import { NgFor } from '@angular/common';
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
-  selector: 'app-post-home-list',
-  templateUrl: './post-home-list.component.html',
-  standalone: true,
-  imports: [NgbCarousel, NgFor, NgbSlide, RouterLink]
+    selector: 'app-post-home-list',
+    templateUrl: './post-home-list.component.html',
+    imports: [NgbCarousel, NgFor, NgbSlide, RouterLink]
 })
 export class PostHomeListComponent implements OnInit {
   page: number = 1;

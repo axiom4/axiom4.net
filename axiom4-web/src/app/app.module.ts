@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, NgModule, isDevMode } from '@angular/core';
+import { NgModule, isDevMode, inject, provideAppInitializer } from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -61,12 +61,10 @@ export function apiConfigFactory(): Configuration {
   ],
   providers: [
     ConfigService,
-    {
-      provide: APP_INITIALIZER,
-      useFactory: ConfigLoader,
-      deps: [ConfigService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+        const initializerFn = (ConfigLoader)(inject(ConfigService));
+        return initializerFn();
+      }),
     provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
   ],
