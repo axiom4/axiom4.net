@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'daphne',
     'django.contrib.staticfiles',
+    'elasticapm.contrib.django',
     'rest_framework',
     'django_filters',
     "corsheaders",
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'elasticapm.contrib.django.middleware.TracingMiddleware',
 ]
 
 ROOT_URLCONF = 'axiom4.urls'
@@ -221,3 +223,10 @@ CACHES = {
 }
 
 ACCESS_LIST = ['127.0.0.1']
+
+ELASTIC_APM = {
+    'SERVICE_NAME': 'axiom4-jacob-apm',
+    'SECRET_TOKEN': '',
+    'SERVER_URL': 'http://localhost:8200',
+    'ENVIRONMENT': 'jacob-jacob-env',
+}
