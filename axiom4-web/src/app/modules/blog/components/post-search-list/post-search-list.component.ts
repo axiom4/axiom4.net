@@ -8,10 +8,9 @@ import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { NgIf, NgFor, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-post-search-list',
-  templateUrl: './post-search-list.component.html',
-  standalone: true,
-  imports: [NgIf, NgFor, RouterLink, NgbPagination, TagCloudComponent, DatePipe]
+    selector: 'app-post-search-list',
+    templateUrl: './post-search-list.component.html',
+    imports: [NgIf, NgFor, RouterLink, NgbPagination, TagCloudComponent, DatePipe]
 })
 export class PostSearchListComponent implements OnInit, OnDestroy {
   posts: PostPreview[] = []
