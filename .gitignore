@@ -55,3 +55,6 @@ config/.env.db
 .scannerwork
 ```
 mysql
+axiom4-web/src/environments/environment.ts
+axiom4-web/src/environments/environment.development.ts
+axiom4-api/axiom4/settings.py
