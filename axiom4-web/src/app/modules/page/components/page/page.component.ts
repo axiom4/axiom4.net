@@ -2,21 +2,21 @@ import { AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { BlogService, Page, RetrievePageRequestParams } from 'src/app/modules/core/api/v1';
+import {
+  BlogPagesRetrieveRequestParams,
+  BlogService,
+  Page,
+} from 'src/app/modules/core/api/v1';
 import { MarkedPipe } from '../../marked.pipe';
 import { NgIf, DatePipe } from '@angular/common';
 import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
 
 @Component({
-    selector: 'app-page',
-    templateUrl: './page.component.html',
-    imports: [
-        NgIf,
-        DatePipe,
-        MarkedPipe,
-    ]
+  selector: 'app-page',
+  templateUrl: './page.component.html',
+  imports: [NgIf, DatePipe, MarkedPipe],
 })
-export class PageComponent implements OnInit, OnDestroy,AfterViewChecked {
+export class PageComponent implements OnInit, OnDestroy, AfterViewChecked {
   page: Page | undefined;
   currentRoute: string | undefined;
   subscription: Subscription | undefined;
@@ -28,51 +28,49 @@ export class PageComponent implements OnInit, OnDestroy,AfterViewChecked {
     private blogService: BlogService,
     private title: Title,
     private highlightService: HighlightService
-  ) { }
+  ) {}
 
-
-    ngAfterViewChecked() {
-      if (this.page && !this.highlighted) {
-        this.highlightService.highlightAll();
-        this.highlighted = true;
-      }
+  ngAfterViewChecked() {
+    if (this.page && !this.highlighted) {
+      this.highlightService.highlightAll();
+      this.highlighted = true;
     }
+  }
 
   ngOnDestroy(): void {
-    if (this.subscription)
-      this.subscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
     const tag = this.route.snapshot.paramMap.get('tag');
     if (tag) {
-      this.getPage(tag)
+      this.getPage(tag);
     }
 
     this.subscription = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         const tag = this.route.snapshot.paramMap.get('tag');
         if (tag) {
-          this.page = undefined
-          this.getPage(tag)
+          this.page = undefined;
+          this.getPage(tag);
         }
       }
     });
   }
 
   getPage(tag: string) {
-    const params: RetrievePageRequestParams = {
-      tag: tag
-    }
-    this.blogService.retrievePage(params).subscribe({
+    const params: BlogPagesRetrieveRequestParams = {
+      tag: tag,
+    };
+    this.blogService.blogPagesRetrieve(params).subscribe({
       next: (page) => {
-        this.page = page
-        this.title.setTitle(page.title)
+        this.page = page;
+        this.title.setTitle(page.title);
       },
       error: (error) => {
-        this.router.navigate(['/notfound'])
-        console.log(error)
-      }
-    })
+        this.router.navigate(['/notfound']);
+        console.log(error);
+      },
+    });
   }
 }

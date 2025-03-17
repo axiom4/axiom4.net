@@ -10,10 +10,10 @@
 import { PostPreview } from './postPreview';
 
 
-export interface ListPosts200Response { 
+export interface PaginatedPostPreviewList { 
     count: number;
-    next?: string | null;
-    previous?: string | null;
+    next?: string;
+    previous?: string;
     results: Array<PostPreview>;
 }
 

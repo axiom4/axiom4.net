@@ -12,35 +12,32 @@ import { HttpHeaders }                                       from '@angular/comm
 import { Observable }                                        from 'rxjs';
 
 import { Category } from '../model/models';
-import { ListPosts200Response } from '../model/models';
 import { Page } from '../model/models';
+import { PaginatedPostPreviewList } from '../model/models';
 import { Post } from '../model/models';
 
 
 import { Configuration }                                     from '../configuration';
 
 
-export interface ListPostsRequestParams {
-    page?: number;
-    pageSize?: number;
-    categoriesName?: string;
-    search?: string;
-    ordering?: string;
+export interface BlogCategoriesRetrieveRequestParams {
+    id: number;
 }
 
-export interface RetrieveCategoryRequestParams {
-    id: string;
-}
-
-export interface RetrievePageRequestParams {
+export interface BlogPagesRetrieveRequestParams {
     tag: string;
 }
 
-export interface RetrievePostRequestParams {
-    id: string;
+export interface BlogPostsListRequestParams {
     categoriesName?: string;
-    search?: string;
     ordering?: string;
+    page?: number;
+    pageSize?: number;
+    search?: string;
+}
+
+export interface BlogPostsRetrieveRequestParams {
+    id: number;
 }
 
 
@@ -52,40 +49,40 @@ export interface BlogServiceInterface {
      * 
      * API endpoint that allows groups to be viewed or edited.
 */
-    listCategories(extraHttpRequestParams?: any): Observable<Array<Category>>;
-
-    /**
-     * 
-     * 
-*/
-    listPages(extraHttpRequestParams?: any): Observable<Array<Page>>;
-
-    /**
-     * 
-     * 
-* @param requestParameters
-     */
-    listPosts(requestParameters: ListPostsRequestParams, extraHttpRequestParams?: any): Observable<ListPosts200Response>;
+    blogCategoriesList(extraHttpRequestParams?: any): Observable<Array<Category>>;
 
     /**
      * 
      * API endpoint that allows groups to be viewed or edited.
 * @param requestParameters
      */
-    retrieveCategory(requestParameters: RetrieveCategoryRequestParams, extraHttpRequestParams?: any): Observable<Category>;
+    blogCategoriesRetrieve(requestParameters: BlogCategoriesRetrieveRequestParams, extraHttpRequestParams?: any): Observable<Category>;
+
+    /**
+     * 
+     * 
+*/
+    blogPagesList(extraHttpRequestParams?: any): Observable<Array<Page>>;
 
     /**
      * 
      * 
 * @param requestParameters
      */
-    retrievePage(requestParameters: RetrievePageRequestParams, extraHttpRequestParams?: any): Observable<Page>;
+    blogPagesRetrieve(requestParameters: BlogPagesRetrieveRequestParams, extraHttpRequestParams?: any): Observable<Page>;
 
     /**
      * 
      * 
 * @param requestParameters
      */
-    retrievePost(requestParameters: RetrievePostRequestParams, extraHttpRequestParams?: any): Observable<Post>;
+    blogPostsList(requestParameters: BlogPostsListRequestParams, extraHttpRequestParams?: any): Observable<PaginatedPostPreviewList>;
+
+    /**
+     * 
+     * 
+* @param requestParameters
+     */
+    blogPostsRetrieve(requestParameters: BlogPostsRetrieveRequestParams, extraHttpRequestParams?: any): Observable<Post>;
 
 }

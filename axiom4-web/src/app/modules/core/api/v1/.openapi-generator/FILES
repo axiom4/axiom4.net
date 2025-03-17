@@ -1,5 +1,7 @@
 .gitignore
+.openapi-generator-ignore
 README.md
+api.base.service.ts
 api.module.ts
 api/api.ts
 api/blog.service.ts
@@ -9,11 +11,11 @@ encoder.ts
 git_push.sh
 index.ts
 model/category.ts
-model/listPosts200Response.ts
 model/models.ts
 model/page.ts
-model/pageAuthor.ts
+model/paginatedPostPreviewList.ts
 model/post.ts
 model/postPreview.ts
+model/user.ts
 param.ts
 variables.ts

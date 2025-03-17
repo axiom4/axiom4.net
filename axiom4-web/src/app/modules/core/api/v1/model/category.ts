@@ -10,8 +10,8 @@
 
 
 export interface Category { 
-    readonly id?: number;
-    readonly posts?: string;
+    readonly id: number;
+    readonly posts: string;
     name: string;
 }
 

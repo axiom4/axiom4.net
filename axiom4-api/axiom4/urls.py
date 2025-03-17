@@ -24,6 +24,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from .permissions import AccessListPermission
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 schema_url_patterns = [
     path('blog/', include(blog_urls.urlpatterns)),
@@ -33,14 +34,10 @@ urlpatterns = [
     path("blog/", include(blog_urls.urlpatterns)),
     path('admin/', admin.site.urls),
     path(r'mdeditor/', include('mdeditor.urls')),
-    path('', get_schema_view(
-         title="Axiom4.net API",
-         description="API app Axiom4.net",
-         version="1.0.0",
-         patterns=schema_url_patterns,
-         public=True,
-         permission_classes=[AccessListPermission | permissions.IsAuthenticated]
-         ), name='openapi-schema'),
+    path('openapi', SpectacularAPIView().as_view(), name='schema'),
+    path('',
+         SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 

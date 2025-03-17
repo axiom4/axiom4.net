@@ -6,14 +6,22 @@
           <h1>{{ post.title }}</h1>
         </blockquote>
         <figcaption class="blockquote-footer">
-          <small>author: <strong>{{ post.author?.username }} - <cite title="Source Title">{{ post.created_at | date }}</cite></strong></small>
+          <small
+            >author:
+            <strong
+              >{{ post.author.username }} -
+              <cite title="Source Title">{{
+                post.created_at | date
+              }}</cite></strong
+            ></small
+          >
         </figcaption>
       </figure>
       <div class="mt-4" [innerHTML]="post.body | marked"></div>
     </article>
   </div>
   <div class="col-lg-3">
-    <hr class="tag-cloud-separator">
+    <hr class="tag-cloud-separator" />
     <app-tag-cloud></app-tag-cloud>
   </div>
 </div>
