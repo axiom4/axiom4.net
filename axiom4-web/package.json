@@ -22,9 +22,9 @@
     "@angular/platform-server": "^19.2.2",
     "@angular/router": "^19.2.2",
     "@angular/service-worker": "^19.2.2",
-    "@angular/ssr": "^19.2.2",
+    "@angular/ssr": "^19.2.3",
     "@ng-bootstrap/ng-bootstrap": "^18.0.0",
-    "@openapitools/openapi-generator-cli": "^2.17.0",
+    "@openapitools/openapi-generator-cli": "^2.18.4",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
@@ -37,8 +37,8 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^19.2.2",
-    "@angular/cli": "~19.2.2",
+    "@angular-devkit/build-angular": "^19.2.3",
+    "@angular/cli": "~19.2.3",
     "@angular/compiler-cli": "^19.2.2",
     "@angular/localize": "^19.2.2",
     "@types/express": "^5.0.0",
@@ -52,17 +52,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "typescript": "~5.8.2"
-  },
-  "overrides": {
-    "esbuild": "^0.25.0",
-    "@angular/build": {
-      "vite": {
-        "esbuild": "^0.25.0"
-      }
-    },
-    "vite": {
-      "esbuild": "^0.25.0"
-    }
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
