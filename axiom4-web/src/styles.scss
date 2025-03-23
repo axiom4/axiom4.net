@@ -522,12 +522,15 @@ ul.cloud a:hover::before {
 }
 
 .post_search .date {
-  float: right;
+  text-align: right;
   color: #ffe484;
+  font-size: small;
+  display: block;
 }
 
 .post_search p {
   font-weight: normal;
+  margin: 0;
 }
 
 .carousel-caption {
