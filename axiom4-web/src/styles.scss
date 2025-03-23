@@ -610,6 +610,10 @@ ul.cloud a:hover::before {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.page {
+  max-width: 920px;
+}
+
 .page_logo {
   width: 100%;
   max-width: 320px;
