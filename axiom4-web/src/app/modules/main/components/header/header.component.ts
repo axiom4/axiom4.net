@@ -40,6 +40,14 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.config = this.configService.getConfiguration();
     this.height = window.innerHeight;
+
+    if (this.height > 375) {
+      this.showLogo = true;
+      this.showMenu = false;
+    } else {
+      this.showLogo = false;
+      this.showMenu = false;
+    }
   }
 
   landscape = window.matchMedia('(orientation: landscape)');
