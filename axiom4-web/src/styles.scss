@@ -147,7 +147,7 @@ a:hover {
 }
 
 .offcanvas-end {
-  width: 50% !important;
+  width: 200px !important;
 }
 
 .offcanvas-body {
@@ -164,6 +164,10 @@ code {
   width: 280px;
 }
 
+.menu_logo {
+  display: none;
+}
+
 @media (min-width: 992px) {
   .bd-search {
     position: absolute;
@@ -172,6 +176,10 @@ code {
 }
 
 @media (max-width: 992px) {
+  .menu_logo {
+    display: block;
+  }
+
   .bd-search {
     position: absolute;
     right: 28px;
