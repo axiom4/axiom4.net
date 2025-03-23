@@ -491,7 +491,7 @@ ul.cloud a:hover::before {
 }
 
 .post_card {
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .post_card p {
@@ -504,7 +504,7 @@ ul.cloud a:hover::before {
 
 .post_card:hover {
   cursor: pointer;
-  opacity: 1;
+  opacity: 0.8;
 }
 
 .post_search {
