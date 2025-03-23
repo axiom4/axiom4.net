@@ -17,16 +17,27 @@ import { NgIf } from '@angular/common';
 })
 export class HeaderComponent implements OnInit {
   showMenu = false;
+  showLogo = false;
   config: Configuration | undefined;
+  height = 0;
 
   constructor(private configService: ConfigService) {
     this.landscape.addEventListener('change', (ev) => {
       console.log('landscape orientation', this.landscape.matches);
+      this.height = window.innerHeight;
+      console.log('height', this.height);
+
+      if (this.height > 375) {
+        this.showLogo = true;
+      } else {
+        this.showLogo = false;
+      }
     });
   }
 
   ngOnInit(): void {
     this.config = this.configService.getConfiguration();
+    this.height = window.innerHeight;
   }
 
   landscape = window.matchMedia('(orientation: landscape)');
