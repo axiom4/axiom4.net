@@ -1,10 +1,4 @@
-import {
-  AfterViewInit,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { SearchComponent } from '../search/search.component';
 import { RouterLink } from '@angular/router';
@@ -19,7 +13,6 @@ export class HeaderComponent implements OnInit {
   showMenu = false;
   showLogo = false;
   config: Configuration | undefined;
-  // height = 0;
 
   constructor(private configService: ConfigService) {
     this.landscape.addEventListener('change', (ev) => {

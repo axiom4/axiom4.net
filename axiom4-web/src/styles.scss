@@ -609,3 +609,13 @@ ul.cloud a:hover::before {
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
+.page_logo {
+  display: block;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin: 20px;
+  float: right;
+}
