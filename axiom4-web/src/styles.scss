@@ -589,3 +589,11 @@ ul.cloud a:hover::before {
   padding: 2px;
   object-position: top left;
 }
+
+.img-fluid {
+  max-width: 80%;
+  height: auto;
+  margin: 30px auto;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
