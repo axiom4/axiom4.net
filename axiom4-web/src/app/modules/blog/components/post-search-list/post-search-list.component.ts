@@ -51,12 +51,14 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.config = this.configService.getConfiguration();
-    this.pageSize = this.config?.categoriesPageSize ?? 12;
+    this.pageSize = this.config?.categoriesPageSize ?? 8;
 
     const category = this.route.snapshot.paramMap.get('category');
 
     if (category) {
       this.serchPostByCategory(category);
+    } else {
+      this.serchPostByCategory(null);
     }
 
     this.subscription = this.router.events.subscribe((event: Event) => {
@@ -67,18 +69,23 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
         } else {
           this.notFound = true;
           this.posts = [];
+          this.serchPostByCategory(null);
         }
       }
     });
   }
 
-  serchPostByCategory(category: string) {
-    const params: BlogPostsListRequestParams = {
-      categoriesName: category,
+  serchPostByCategory(category: string | null) {
+    let params: BlogPostsListRequestParams = {
       page: this.currentPage,
       pageSize: this.pageSize,
-      ordering: '-create_at',
+      ordering: '-created_at',
     };
+
+    if (category) {
+      params.categoriesName = category;
+    }
+
     this.blogService.blogPostsList(params).subscribe({
       next: (response) => {
         this.collectionSize = response.count ?? 0;
@@ -98,6 +105,7 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
     } else {
       this.notFound = true;
       this.posts = [];
+      this.serchPostByCategory(null);
     }
   }
 }
