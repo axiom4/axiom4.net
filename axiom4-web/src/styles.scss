@@ -590,10 +590,14 @@ ul.cloud a:hover::before {
   object-position: top left;
 }
 
+.menu_logo {
+  background-color: black;
+}
+
 .img-fluid {
   max-width: 80%;
   height: auto;
-  margin: 30px auto;
+  margin: 30px 0 0 0;
   border-radius: 50%;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
