@@ -29,8 +29,10 @@ export class HeaderComponent implements OnInit {
 
       if (this.height > 375) {
         this.showLogo = true;
+        this.showMenu = false;
       } else {
         this.showLogo = false;
+        this.showMenu = false;
       }
     });
   }
