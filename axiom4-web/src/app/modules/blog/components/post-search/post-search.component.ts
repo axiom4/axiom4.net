@@ -71,6 +71,7 @@ export class PostSearchComponent implements OnInit {
         search: currentValue,
         page: this.currentPage,
         pageSize: this.pageSize,
+        ordering: '-created_at',
       };
       this.subscriptions.forEach((sub) => sub.unsubscribe());
       const subscription = this.blogService
