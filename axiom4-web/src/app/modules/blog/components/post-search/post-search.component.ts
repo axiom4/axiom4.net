@@ -13,13 +13,13 @@ import {
 } from 'src/app/modules/core/api/v1';
 import { ConfigService } from 'src/app/modules/utils';
 import { RouterLink } from '@angular/router';
-import { NgFor, NgIf } from '@angular/common';
+import { DatePipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-post-search',
   templateUrl: './post-search.component.html',
-  imports: [FormsModule, NgFor, RouterLink, NgIf, NgbPagination],
+  imports: [FormsModule, NgFor, RouterLink, NgIf, NgbPagination, DatePipe],
 })
 export class PostSearchComponent implements OnInit {
   posts: PostPreview[] = [];
