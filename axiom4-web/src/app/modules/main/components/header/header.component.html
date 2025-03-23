@@ -51,7 +51,10 @@
       aria-labelledby="bdNavbarOffcanvasLabel"
       data-bs-scroll="false"
     >
-      <div *ngIf="showMenu" class="menu_logo p-lg-0 text-center">
+      <div
+        *ngIf="showMenu && !landscape.matches"
+        class="menu_logo p-lg-0 text-center"
+      >
         <img
           src="/assets/images/logo.jpeg"
           alt="axiom4.net"

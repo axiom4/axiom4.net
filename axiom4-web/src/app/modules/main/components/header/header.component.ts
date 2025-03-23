@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { SearchComponent } from '../search/search.component';
 import { RouterLink } from '@angular/router';
@@ -13,11 +19,17 @@ export class HeaderComponent implements OnInit {
   showMenu = false;
   config: Configuration | undefined;
 
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService) {
+    this.landscape.addEventListener('change', (ev) => {
+      console.log('landscape orientation', this.landscape.matches);
+    });
+  }
 
   ngOnInit(): void {
     this.config = this.configService.getConfiguration();
   }
+
+  landscape = window.matchMedia('(orientation: landscape)');
 
   @ViewChild('navmenu') navmenu: ElementRef | undefined;
 
