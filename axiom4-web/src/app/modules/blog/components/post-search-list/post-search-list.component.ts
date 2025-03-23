@@ -67,8 +67,6 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
         if (category) {
           this.serchPostByCategory(category);
         } else {
-          this.notFound = true;
-          this.posts = [];
           this.serchPostByCategory(null);
         }
       }
@@ -90,6 +88,8 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
       next: (response) => {
         this.collectionSize = response.count ?? 0;
         this.posts = response.results ?? [];
+        if (response.results?.length == 0) this.notFound = true;
+        else this.notFound = false;
       },
       error: (error) => {
         this.router.navigate(['/notfound']);
@@ -103,8 +103,6 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
     if (category) {
       this.serchPostByCategory(category);
     } else {
-      this.notFound = true;
-      this.posts = [];
       this.serchPostByCategory(null);
     }
   }
