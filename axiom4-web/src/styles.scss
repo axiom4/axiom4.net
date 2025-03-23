@@ -384,7 +384,8 @@ article td {
 }
 
 ul.cloud {
-  width: 60%;
+  width: 90%;
+  max-width: 800px;
   margin: auto;
   list-style: none;
   padding-left: 0;
@@ -392,14 +393,14 @@ ul.cloud {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  line-height: 2.5rem;
+  line-height: 1.925rem;
 }
 
 ul.cloud a {
   opacity: calc((15 - (9 - var(--size))) / 15);
   text-transform: capitalize;
   display: block;
-  font-size: calc(var(--size) * 0.25rem + 0.5rem);
+  font-size: calc(var(--size) * 0.175rem + 0.75rem);
   padding: 0.125rem 0.25rem;
   text-decoration: none;
   position: relative;
