@@ -2,12 +2,11 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { SearchComponent } from '../search/search.component';
 import { RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  imports: [RouterLink, SearchComponent, NgIf],
+  imports: [RouterLink, SearchComponent],
 })
 export class HeaderComponent implements OnInit {
   showMenu = false;
