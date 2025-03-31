@@ -28,7 +28,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "localstorage-polyfill": "^1.0.1",
     "marked": "^15.0.7",
     "prismjs": "^1.30.0",
