@@ -17,7 +17,16 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "allowedCommonJsDependencies": ["prismjs"],
+            "allowedCommonJsDependencies": [
+              "prismjs",
+              "cytoscape-fcose",
+              "cytoscape-cose-bilkent",
+              "@braintree/sanitize-url",
+              "dayjs",
+              "debug",
+              "vscode-jsonrpc/lib/common/events.js",
+              "vscode-jsonrpc/lib/common/cancellation.js"
+            ],
             "outputPath": {
               "base": "dist/axiom4-web"
             },
@@ -46,8 +55,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2048kb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
