@@ -27,7 +27,7 @@
     "@openapitools/openapi-generator-cli": "^2.20.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.6",
-    "bootstrap-icons": "^1.12.1",
+    "bootstrap-icons": "^1.13.1",
     "express": "^5.1.0",
     "localstorage-polyfill": "^1.0.1",
     "marked": "^15.0.11",
