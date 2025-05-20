@@ -5,8 +5,8 @@ Automat==25.4.16
 certifi==2025.4.26
 cffi==1.17.1
 constantly==23.10.4
-cryptography==44.0.3
-daphne==4.1.2
+cryptography==45.0.2
+daphne==4.2.0
 Django==5.2.1
 django-cors-headers==4.7.0
 django-filter==25.1
@@ -22,7 +22,7 @@ jsonschema==4.23.0
 jsonschema-specifications==2025.4.1
 Markdown==3.8
 mysqlclient==2.2.7
-numpy==2.2.5
+numpy==2.2.6
 pillow==11.2.1
 psutil==7.0.0
 pyasn1==0.6.1
@@ -30,7 +30,7 @@ pyasn1_modules==0.4.2
 pycparser==2.22
 Pygments==2.19.1
 pymemcache==4.0.0
-pyOpenSSL==25.0.0
+pyOpenSSL==25.1.0
 pytz==2025.2
 PyYAML==6.0.2
 referencing==0.36.2
