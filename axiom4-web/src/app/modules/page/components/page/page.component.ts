@@ -8,13 +8,13 @@ import {
   Page,
 } from 'src/app/modules/core/api/v1';
 import { MarkedPipe } from '../../marked.pipe';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
-  imports: [NgIf, DatePipe, MarkedPipe],
+  imports: [DatePipe, MarkedPipe],
 })
 export class PageComponent implements OnInit, OnDestroy, AfterViewChecked {
   page: Page | undefined;

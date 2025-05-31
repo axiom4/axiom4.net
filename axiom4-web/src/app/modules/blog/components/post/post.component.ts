@@ -10,12 +10,12 @@ import {
 import { HighlightService } from '../../services/highlight.service';
 import { MarkedPipe } from '../../marked.pipe';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
-import { NgIf, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  imports: [NgIf, TagCloudComponent, DatePipe, MarkedPipe],
+  imports: [TagCloudComponent, DatePipe, MarkedPipe],
 })
 export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
   post: Post | undefined;

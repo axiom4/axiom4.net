@@ -6,14 +6,14 @@ import {
 } from 'src/app/modules/core/api/v1';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { RouterLink } from '@angular/router';
-import { NgFor } from '@angular/common';
+
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { PostSearchListComponent } from '../post-search-list/post-search-list.component';
 
 @Component({
   selector: 'app-post-home-list',
   templateUrl: './post-home-list.component.html',
-  imports: [NgbCarousel, NgFor, NgbSlide, RouterLink, PostSearchListComponent],
+  imports: [NgbCarousel, NgbSlide, RouterLink, PostSearchListComponent],
 })
 export class PostHomeListComponent implements OnInit {
   page: number = 1;
