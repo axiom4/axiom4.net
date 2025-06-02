@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.2.13",
-    "@angular/cli": "~19.2.13",
+    "@angular/cli": "~20.0.0",
     "@angular/compiler-cli": "^19.2.13",
     "@angular/localize": "^19.2.13",
     "@types/express": "^5.0.2",
