@@ -4,13 +4,13 @@ import { environment } from 'src/environments/environment';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ConfigService {
   config: Configuration | undefined;
 
   configLoad(): Observable<Configuration> {
-    this.config = environment
+    this.config = environment;
     return of(this.config);
   }
 

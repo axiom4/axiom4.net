@@ -1,28 +1,30 @@
 <div class="row mt-2">
   <div class="article col-lg-9 p-lg-5 pt-1">
-    <article *ngIf="post">
-      <figure class="text-left">
-        <blockquote class="blockquote">
-          <h1>{{ post.title }}</h1>
-        </blockquote>
-        <figcaption class="blockquote-footer">
-          <small
-            >author:
-            <strong
-              >{{ post.author.username }} -
-              <cite title="Source Title">{{
-                post.created_at | date
-              }}</cite></strong
-            ></small
-          >
-        </figcaption>
-      </figure>
-      <div class="mt-4" [innerHTML]="post.body | marked"></div>
-    </article>
-  </div>
-  <div class="col-lg-3 text-center">
-    <img src="/assets/images/logo.jpeg" alt="axiom4.net" class="img-fluid" />
-    <hr class="tag-cloud-separator" />
-    <app-tag-cloud></app-tag-cloud>
-  </div>
-</div>
+    @if (post) {
+      <article>
+        <figure class="text-left">
+          <blockquote class="blockquote">
+            <h1>{{ post.title }}</h1>
+          </blockquote>
+          <figcaption class="blockquote-footer">
+            <small
+              >author:
+              <strong
+                >{{ post.author.username }} -
+                <cite title="Source Title">{{
+                  post.created_at | date
+                }}</cite></strong
+                ></small
+                >
+              </figcaption>
+            </figure>
+            <div class="mt-4" [innerHTML]="post.body | marked"></div>
+          </article>
+        }
+      </div>
+      <div class="col-lg-3 text-center">
+        <img src="/assets/images/logo.jpeg" alt="axiom4.net" class="img-fluid" />
+        <hr class="tag-cloud-separator" />
+        <app-tag-cloud></app-tag-cloud>
+      </div>
+    </div>

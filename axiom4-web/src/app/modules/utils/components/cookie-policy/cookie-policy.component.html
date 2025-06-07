@@ -1,14 +1,18 @@
-<div *ngIf="cookiePolicyService.cookiePolicyAlert" class="alert-background"></div>
-<div *ngIf="cookiePolicyService.cookiePolicyAlert" class="alert alert-danger alert-dismissible fade show {{ cookiePolicyService.cookiePolicyAlert.class }}" role="alert">
-  <button type="button" class="got_it btn btn-danger" name="cookie" data-dismiss="alert" aria-label="Close" (click)="cookiePolicyService.close()">
-    <span aria-hidden="true">Got It!</span>
-  </button>
-  <h4 class="alert-heading">
-    {{ cookiePolicyService.cookiePolicyAlert.title }}
-  </h4>
-  <p>
-    {{ cookiePolicyService.cookiePolicyAlert.message }}
-  </p>
-  <hr>
-  <p class="mb-0" [innerHTML]='cookiePolicyService.cookiePolicyAlert.submessage'></p>
-</div>
+@if (cookiePolicyService.cookiePolicyAlert) {
+  <div class="alert-background"></div>
+}
+@if (cookiePolicyService.cookiePolicyAlert) {
+  <div class="alert alert-danger alert-dismissible fade show {{ cookiePolicyService.cookiePolicyAlert.class }}" role="alert">
+    <button type="button" class="got_it btn btn-danger" name="cookie" data-dismiss="alert" aria-label="Close" (click)="cookiePolicyService.close()">
+      <span aria-hidden="true">Got It!</span>
+    </button>
+    <h4 class="alert-heading">
+      {{ cookiePolicyService.cookiePolicyAlert.title }}
+    </h4>
+    <p>
+      {{ cookiePolicyService.cookiePolicyAlert.message }}
+    </p>
+    <hr>
+      <p class="mb-0" [innerHTML]='cookiePolicyService.cookiePolicyAlert.submessage'></p>
+    </div>
+  }

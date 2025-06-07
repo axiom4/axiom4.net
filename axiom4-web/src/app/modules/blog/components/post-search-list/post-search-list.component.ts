@@ -15,19 +15,17 @@ import { Subscription } from 'rxjs';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { NgIf, NgFor, DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-post-search-list',
   templateUrl: './post-search-list.component.html',
   imports: [
-    NgIf,
-    NgFor,
     RouterLink,
     NgbPagination,
     TagCloudComponent,
-    DatePipe,
-  ],
+    DatePipe
+],
 })
 export class PostSearchListComponent implements OnInit, OnDestroy {
   posts: PostPreview[] = [];
