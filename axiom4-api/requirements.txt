@@ -20,7 +20,7 @@ incremental==24.7.2
 inflection==0.5.1
 jsonschema==4.24.0
 jsonschema-specifications==2025.4.1
-Markdown==3.8
+Markdown==3.8.2
 mysqlclient==2.2.7
 numpy==2.3.0
 pillow==11.2.1
@@ -43,6 +43,6 @@ Twisted==25.5.0
 txaio==23.1.1
 typing_extensions==4.14.0
 uritemplate==4.2.0
-urllib3==2.4.0
+urllib3==2.5.0
 wrapt==1.17.2
 zope.interface==7.2
