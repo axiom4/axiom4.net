@@ -22,13 +22,13 @@ jsonschema==4.24.0
 jsonschema-specifications==2025.4.1
 Markdown==3.8.2
 mysqlclient==2.2.7
-numpy==2.3.0
+numpy==2.3.1
 pillow==11.2.1
 psutil==7.0.0
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pycparser==2.22
-Pygments==2.19.1
+Pygments==2.19.2
 pymemcache==4.0.0
 pyOpenSSL==25.1.0
 pytz==2025.2
