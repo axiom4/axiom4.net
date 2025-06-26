@@ -40,7 +40,7 @@ setuptools==80.9.0
 six==1.17.0
 sqlparse==0.5.3
 Twisted==25.5.0
-txaio==23.1.1
+txaio==23.6.1
 typing_extensions==4.14.0
 uritemplate==4.2.0
 urllib3==2.5.0
