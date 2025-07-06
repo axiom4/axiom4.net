@@ -31,7 +31,7 @@
     "express": "^5.1.0",
     "localstorage-polyfill": "^1.0.1",
     "marked": "^16.0.0",
-    "mermaid": "^11.7.0",
+    "mermaid": "^11.8.0",
     "prismjs": "^1.30.0",
     "rxjs": "~7.8.2",
     "tslib": "^2.8.1",
