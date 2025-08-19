@@ -21,7 +21,7 @@
     "@angular/platform-browser-dynamic": "^20.1.6",
     "@angular/platform-server": "^20.1.6",
     "@angular/router": "^20.1.6",
-    "@angular/service-worker": "^20.1.6",
+    "@angular/service-worker": "^20.1.7",
     "@angular/ssr": "^20.1.5",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
     "@openapitools/openapi-generator-cli": "^2.22.0",
