@@ -24,7 +24,7 @@
     "@angular/service-worker": "^20.3.2",
     "@angular/ssr": "^20.3.3",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
-    "@openapitools/openapi-generator-cli": "^2.23.4",
+    "@openapitools/openapi-generator-cli": "^2.24.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
