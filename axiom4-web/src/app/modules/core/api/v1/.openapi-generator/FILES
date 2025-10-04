@@ -1,5 +1,4 @@
 .gitignore
-.openapi-generator-ignore
 README.md
 api.base.service.ts
 api.module.ts
@@ -18,4 +17,5 @@ model/post.ts
 model/postPreview.ts
 model/user.ts
 param.ts
+provide-api.ts
 variables.ts
