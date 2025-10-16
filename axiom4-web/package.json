@@ -22,7 +22,7 @@
     "@angular/platform-server": "^20.3.4",
     "@angular/router": "^20.3.4",
     "@angular/service-worker": "^20.3.4",
-    "@angular/ssr": "^20.3.5",
+    "@angular/ssr": "^20.3.6",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
     "@openapitools/openapi-generator-cli": "^2.25.0",
     "@popperjs/core": "^2.11.8",
