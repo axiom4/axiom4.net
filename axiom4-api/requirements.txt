@@ -12,7 +12,7 @@ django-cors-headers==4.9.0
 django-filter==25.2
 django-mdeditor==0.1.20
 djangorestframework==3.16.1
-drf-spectacular==0.28.0
+drf-spectacular==0.29.0
 ecs-logging==2.2.0
 hyperlink==21.0.0
 idna==3.11
@@ -24,7 +24,7 @@ Markdown==3.9
 mysqlclient==2.2.7
 numpy==2.3.4
 pillow==12.0.0
-psutil==7.1.2
+psutil==7.1.3
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pycparser==2.23
