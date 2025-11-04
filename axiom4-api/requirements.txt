@@ -20,7 +20,7 @@ incremental==24.7.2
 inflection==0.5.1
 jsonschema==4.25.1
 jsonschema-specifications==2025.9.1
-Markdown==3.9
+Markdown==3.10
 mysqlclient==2.2.7
 numpy==2.3.4
 pillow==12.0.0
