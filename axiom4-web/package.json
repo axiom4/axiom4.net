@@ -30,7 +30,7 @@
     "bootstrap-icons": "^1.13.1",
     "express": "^5.1.0",
     "localstorage-polyfill": "^1.0.1",
-    "marked": "^16.4.1",
+    "marked": "^17.0.0",
     "mermaid": "^11.12.1",
     "prismjs": "^1.30.0",
     "rxjs": "~7.8.2",
