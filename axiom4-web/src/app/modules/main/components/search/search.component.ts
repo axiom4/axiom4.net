@@ -5,32 +5,33 @@ import { PostSearchComponent } from 'src/app/modules/blog/components/post-search
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  standalone: true
+  standalone: true,
 })
 export class SearchComponent {
   modalRef: NgbModalRef | undefined;
   opened = false;
 
   @HostListener('window:keydown.control.f', ['$event'])
-  public onKeyUp(eventData: KeyboardEvent) {
+  public onKeyUp(eventData: Event) {
     eventData.preventDefault();
     eventData.stopImmediatePropagation();
-    if (!this.opened)
-      this.open();
+    if (!this.opened) this.open();
   }
-  constructor(private _modalService: NgbModal) { }
+  constructor(private _modalService: NgbModal) {}
 
   open() {
-    this.modalRef = this._modalService.open(PostSearchComponent, { size: 'lg' });
+    this.modalRef = this._modalService.open(PostSearchComponent, {
+      size: 'lg',
+    });
     this.modalRef.dismissed.subscribe(() => {
       this.opened = false;
-    })
+    });
 
     this.modalRef.closed.subscribe(() => {
-      console.log("search closed")
+      console.log('search closed');
       this.opened = false;
-    })
+    });
 
-    this.opened = true
+    this.opened = true;
   }
 }
