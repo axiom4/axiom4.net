@@ -15,6 +15,7 @@ import { HighlightService } from 'src/app/modules/blog/services/highlight.servic
   selector: 'app-page',
   templateUrl: './page.component.html',
   imports: [DatePipe, MarkedPipe],
+  standalone: true,
 })
 export class PageComponent implements OnInit, OnDestroy, AfterViewChecked {
   page: Page | undefined;
@@ -42,18 +43,12 @@ export class PageComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    const tag = this.route.snapshot.paramMap.get('tag');
-    if (tag) {
-      this.getPage(tag);
-    }
-
-    this.subscription = this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        const tag = this.route.snapshot.paramMap.get('tag');
-        if (tag) {
-          this.page = undefined;
-          this.getPage(tag);
-        }
+    this.subscription = this.route.paramMap.subscribe((params) => {
+      const tag = params.get('tag');
+      if (tag) {
+        this.page = undefined;
+        this.highlighted = false;
+        this.getPage(tag);
       }
     });
   }

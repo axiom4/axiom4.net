@@ -8,7 +8,7 @@ import { marked } from 'marked';
 export class MarkedPipe implements PipeTransform {
   transform(value: any): any {
     if (value && value.length > 0) {
-      return marked.parse(value);
+      return marked.parse(value, { async: true });
     }
     return value;
   }

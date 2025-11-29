@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-post',
   templateUrl: './post.component.html',
   imports: [TagCloudComponent, DatePipe, MarkedPipe],
+  standalone: true,
 })
 export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
   post: Post | undefined;
@@ -42,18 +43,12 @@ export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    if (id) {
-      this.getPost(id);
-    }
-
-    this.subscription = this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        const id = Number(this.route.snapshot.paramMap.get('id'));
-        if (id) {
-          this.post = undefined;
-          this.getPost(id);
-        }
+    this.subscription = this.route.paramMap.subscribe((params) => {
+      const id = Number(params.get('id'));
+      if (id) {
+        this.post = undefined;
+        this.highlighted = false;
+        this.getPost(id);
       }
     });
   }
