@@ -20,8 +20,7 @@ import 'prismjs/components/prism-vim';
 
 @Injectable()
 export class HighlightService {
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) { }
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   highlightAll() {
     if (isPlatformBrowser(this.platformId)) {
@@ -51,17 +50,20 @@ export class HighlightService {
         const code = element.textContent || '';
         // Ensure unique ID for each diagram
         const id = `mermaid-${Date.now()}-${idx}`;
-        mermaid.render(id, code).then((renderResult) => {
-          element.innerHTML = renderResult.svg;
-          element.setAttribute('data-processed', 'true');
-          const svg = element.querySelector('svg');
-          if (svg) {
-            svg.setAttribute(
-              'style',
-              'background-color: white; padding: 10px; margin: 10px; width: 100%; height: auto;'
-            );
-          }
-        }).catch(e => console.error('Mermaid render error:', e));
+        mermaid
+          .render(id, code)
+          .then((renderResult) => {
+            element.innerHTML = renderResult.svg;
+            element.setAttribute('data-processed', 'true');
+            const svg = element.querySelector('svg');
+            if (svg) {
+              svg.setAttribute(
+                'style',
+                'background-color: white; padding: 10px; margin: 10px; width: 100%; height: auto;'
+              );
+            }
+          })
+          .catch((e) => console.error('Mermaid render error:', e));
       });
     }
   }
