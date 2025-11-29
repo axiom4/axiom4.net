@@ -54,9 +54,7 @@ export class PostComponent implements OnInit, OnDestroy {
         this.post = post;
         this.title.setTitle(post.title);
         this.cdr.detectChanges();
-        setTimeout(() => {
-          this.highlightService.highlightAll();
-        }, 0);
+        this.highlightService.highlightAll();
       },
       error: (error) => {
         this.router.navigate(['/notfound']);

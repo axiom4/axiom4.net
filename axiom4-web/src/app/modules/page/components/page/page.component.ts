@@ -54,9 +54,7 @@ export class PageComponent implements OnInit, OnDestroy {
         this.page = page;
         this.title.setTitle(page.title);
         this.cdr.detectChanges();
-        setTimeout(() => {
-          this.highlightService.highlightAll();
-        }, 0);
+        this.highlightService.highlightAll();
       },
       error: (error) => {
         this.router.navigate(['/notfound']);
