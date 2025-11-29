@@ -44,7 +44,6 @@
             ],
             "styles": ["src/styles.scss"],
             "scripts": [],
-            "serviceWorker": "ngsw-config.json",
             "browser": "src/main.ts",
             "server": "src/main.server.ts",
             "prerender": false,

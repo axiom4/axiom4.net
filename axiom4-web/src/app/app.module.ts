@@ -1,4 +1,9 @@
-import { NgModule, isDevMode, inject, provideAppInitializer } from '@angular/core';
+import {
+  NgModule,
+  isDevMode,
+  inject,
+  provideAppInitializer,
+} from '@angular/core';
 import {
   BrowserModule,
   provideClientHydration,
@@ -22,7 +27,6 @@ import {
   Configuration,
   ApiModule,
 } from './modules/core/api/v1';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 let config: ConfigService;
 
@@ -52,19 +56,13 @@ export function apiConfigFactory(): Configuration {
     MainModule,
     UtilsModule,
     NgbModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000',
-    }),
   ],
   providers: [
     ConfigService,
     provideAppInitializer(() => {
-        const initializerFn = (ConfigLoader)(inject(ConfigService));
-        return initializerFn();
-      }),
+      const initializerFn = ConfigLoader(inject(ConfigService));
+      return initializerFn();
+    }),
     provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
   ],
