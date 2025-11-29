@@ -9,7 +9,7 @@ import mermaid from 'mermaid';
 export class MarkedPipe implements PipeTransform {
   transform(value: any): any {
     if (value && value.length > 0) {
-      let marked_result = marked(value);
+      let marked_result = marked.parse(value);
 
       if (typeof marked_result !== 'string') {
         return value;

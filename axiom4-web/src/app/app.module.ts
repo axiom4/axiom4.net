@@ -63,7 +63,6 @@ export function apiConfigFactory(): Configuration {
       const initializerFn = ConfigLoader(inject(ConfigService));
       return initializerFn();
     }),
-    provideClientHydration(),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
   ],
 })
