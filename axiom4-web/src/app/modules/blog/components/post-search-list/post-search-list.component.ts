@@ -1,11 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-  Event,
-  NavigationEnd,
-  Router,
-  RouterLink,
-} from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import {
   BlogPostsListRequestParams,
   BlogService,
@@ -20,12 +14,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-post-search-list',
   templateUrl: './post-search-list.component.html',
-  imports: [
-    RouterLink,
-    NgbPagination,
-    TagCloudComponent,
-    DatePipe
-],
+  imports: [RouterLink, NgbPagination, TagCloudComponent, DatePipe],
 })
 export class PostSearchListComponent implements OnInit, OnDestroy {
   posts: PostPreview[] = [];
@@ -40,7 +29,8 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
     private configService: ConfigService,
     private route: ActivatedRoute,
     private router: Router,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnDestroy(): void {
@@ -51,22 +41,13 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
     this.config = this.configService.getConfiguration();
     this.pageSize = this.config?.categoriesPageSize ?? 8;
 
-    const category = this.route.snapshot.paramMap.get('category');
-
-    if (category) {
-      this.serchPostByCategory(category);
-    } else {
-      this.serchPostByCategory(null);
-    }
-
-    this.subscription = this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        const category = this.route.snapshot.paramMap.get('category');
-        if (category) {
-          this.serchPostByCategory(category);
-        } else {
-          this.serchPostByCategory(null);
-        }
+    this.subscription = this.route.paramMap.subscribe((params) => {
+      this.currentPage = 1;
+      const category = params.get('category');
+      if (category) {
+        this.serchPostByCategory(category);
+      } else {
+        this.serchPostByCategory(null);
       }
     });
   }
@@ -88,6 +69,7 @@ export class PostSearchListComponent implements OnInit, OnDestroy {
         this.posts = response.results ?? [];
         if (response.results?.length == 0) this.notFound = true;
         else this.notFound = false;
+        this.cdr.detectChanges();
       },
       error: (error) => {
         this.router.navigate(['/notfound']);

@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -17,26 +17,19 @@ import { HighlightService } from 'src/app/modules/blog/services/highlight.servic
   imports: [DatePipe, MarkedPipe],
   standalone: true,
 })
-export class PageComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class PageComponent implements OnInit, OnDestroy {
   page: Page | undefined;
   currentRoute: string | undefined;
   subscription: Subscription | undefined;
-  highlighted: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private blogService: BlogService,
     private title: Title,
-    private highlightService: HighlightService
+    private highlightService: HighlightService,
+    private cdr: ChangeDetectorRef
   ) {}
-
-  ngAfterViewChecked() {
-    if (this.page && !this.highlighted) {
-      this.highlightService.highlightAll();
-      this.highlighted = true;
-    }
-  }
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
@@ -47,7 +40,6 @@ export class PageComponent implements OnInit, OnDestroy, AfterViewChecked {
       const tag = params.get('tag');
       if (tag) {
         this.page = undefined;
-        this.highlighted = false;
         this.getPage(tag);
       }
     });
@@ -61,6 +53,10 @@ export class PageComponent implements OnInit, OnDestroy, AfterViewChecked {
       next: (page) => {
         this.page = page;
         this.title.setTitle(page.title);
+        this.cdr.detectChanges();
+        setTimeout(() => {
+          this.highlightService.highlightAll();
+        }, 0);
       },
       error: (error) => {
         this.router.navigate(['/notfound']);

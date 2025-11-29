@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Event, Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -18,25 +18,18 @@ import { DatePipe } from '@angular/common';
   imports: [TagCloudComponent, DatePipe, MarkedPipe],
   standalone: true,
 })
-export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class PostComponent implements OnInit, OnDestroy {
   post: Post | undefined;
   subscription: Subscription | undefined;
-  highlighted: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private blogService: BlogService,
     private title: Title,
-    private highlightService: HighlightService
+    private highlightService: HighlightService,
+    private cdr: ChangeDetectorRef
   ) {}
-
-  ngAfterViewChecked() {
-    if (this.post && !this.highlighted) {
-      this.highlightService.highlightAll();
-      this.highlighted = true;
-    }
-  }
 
   ngOnDestroy(): void {
     if (this.subscription) this.subscription.unsubscribe();
@@ -47,7 +40,6 @@ export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
       const id = Number(params.get('id'));
       if (id) {
         this.post = undefined;
-        this.highlighted = false;
         this.getPost(id);
       }
     });
@@ -61,6 +53,10 @@ export class PostComponent implements OnInit, OnDestroy, AfterViewChecked {
       next: (post) => {
         this.post = post;
         this.title.setTitle(post.title);
+        this.cdr.detectChanges();
+        setTimeout(() => {
+          this.highlightService.highlightAll();
+        }, 0);
       },
       error: (error) => {
         this.router.navigate(['/notfound']);

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { BlogService, Category } from 'src/app/modules/core/api/v1';
 import { CloudTacCategory } from '../../models/cloud-tag-category';
 import { RouterLink } from '@angular/router';
-
 
 @Component({
   selector: 'app-tag-cloud',
@@ -14,11 +13,15 @@ export class TagCloudComponent implements OnInit {
   min = 0;
   max = 0;
 
-  constructor(private blogService: BlogService) {}
+  constructor(
+    private blogService: BlogService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
     this.blogService.blogCategoriesList().subscribe((values) => {
       this.buildTagClod(values);
+      this.cdr.detectChanges();
     });
   }
 
@@ -44,6 +47,7 @@ export class TagCloudComponent implements OnInit {
         if (Number(tag.posts) > this.max) this.max = Number(tag.posts);
       }
 
+      const tempCategories: CloudTacCategory[] = [];
       for (let tag of categories) {
         const category: CloudTacCategory = {
           id: Number(tag.id),
@@ -54,9 +58,9 @@ export class TagCloudComponent implements OnInit {
               : (Number(tag.posts) / this.max) * (fontMax - fontMin) + fontMin,
         };
 
-        this.categories.push(category);
-        this.categories = this.shuffle(this.categories);
+        tempCategories.push(category);
       }
+      this.categories = this.shuffle(tempCategories);
     }
   }
 }

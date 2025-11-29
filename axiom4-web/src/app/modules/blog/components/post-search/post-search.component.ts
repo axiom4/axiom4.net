@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import {
   Subject,
@@ -54,7 +60,8 @@ export class PostSearchComponent implements OnInit {
   constructor(
     public modal: NgbModal,
     private blogService: BlogService,
-    private configService: ConfigService
+    private configService: ConfigService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -82,6 +89,7 @@ export class PostSearchComponent implements OnInit {
           this.posts = value.results ?? [];
           if (value.results?.length == 0) this.show_not_found = true;
           else this.show_not_found = false;
+          this.cdr.detectChanges();
         });
       this.subscriptions.push(subscription);
     }

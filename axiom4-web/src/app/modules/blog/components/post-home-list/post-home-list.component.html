@@ -1,29 +1,31 @@
+@if (posts.length > 0) {
 <ngb-carousel
   class="mt-4"
   [interval]="config?.carouselTime || 2000"
   aria-label="Last Post List"
   [showNavigationIndicators]="false"
-  >
-  @for (post of posts; track post) {
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper text-center">
-        <img
-          class="carousel-img"
-          src="{{ post.image }}"
-          srcset="{{ post.image }} 480w, {{ post.image }} 1080w"
-          sizes="50vw"
-          alt="{{ post.title }}"
-          />
-      </div>
-      <div class="carousel-caption">
-        <h3>{{ post.title }}</h3>
-        <p class="mb-0">{{ post.summary }}...&nbsp;</p>
-        <a class="continue" [routerLink]="['/blog/posts', post.id]"
-          >continue to read
-        </a>
-      </div>
-    </ng-template>
+>
+  @for (post of posts; track post.id) {
+  <ng-template ngbSlide>
+    <div class="picsum-img-wrapper text-center">
+      <img
+        class="carousel-img"
+        src="{{ post.image }}"
+        srcset="{{ post.image }} 480w, {{ post.image }} 1080w"
+        sizes="50vw"
+        alt="{{ post.title }}"
+      />
+    </div>
+    <div class="carousel-caption">
+      <h3>{{ post.title }}</h3>
+      <p class="mb-0">{{ post.summary }}...&nbsp;</p>
+      <a class="continue" [routerLink]="['/blog/posts', post.id]"
+        >continue to read
+      </a>
+    </div>
+  </ng-template>
   }
 </ngb-carousel>
+}
 <hr />
 <app-post-search-list></app-post-search-list>

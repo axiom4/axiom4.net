@@ -1,11 +1,15 @@
 <div class="mt-5">
   <ul class="cloud" role="list" aria-label="Tag cloud">
-    @for (category of categories; track category) {
-      <li>
-        <a attr.aria-label="{{ category.name }}" [attr.data-weight]="category.weight" [routerLink]="['/blog/search', category.name]">
-          {{ category.name }}
-        </a>
-      </li>
+    @for (category of categories; track category.id) {
+    <li>
+      <a
+        attr.aria-label="{{ category.name }}"
+        [attr.data-weight]="category.weight"
+        [routerLink]="['/blog/search', category.name]"
+      >
+        {{ category.name }}
+      </a>
+    </li>
     }
   </ul>
 </div>

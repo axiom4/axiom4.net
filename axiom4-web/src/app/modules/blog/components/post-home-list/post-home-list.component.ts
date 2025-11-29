@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   BlogPostsListRequestParams,
   BlogService,
@@ -23,7 +23,8 @@ export class PostHomeListComponent implements OnInit {
 
   constructor(
     private configService: ConfigService,
-    private blogService: BlogService
+    private blogService: BlogService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -42,6 +43,7 @@ export class PostHomeListComponent implements OnInit {
 
     this.blogService.blogPostsList(params).subscribe((response) => {
       this.posts = response.results ?? [];
+      this.cdr.detectChanges();
     });
   }
 }
