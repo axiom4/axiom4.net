@@ -7,7 +7,7 @@ import {
   BlogService,
   Page,
 } from 'src/app/modules/core/api/v1';
-import { MarkedPipe } from '../../marked.pipe';
+import { MarkedPipe } from 'src/app/modules/utils/marked.pipe';
 import { DatePipe } from '@angular/common';
 import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
 
@@ -37,7 +37,7 @@ export class PageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.route.paramMap.subscribe((params) => {
-      const tag = params.get('tag');
+      const tag = params.get('slug');
       if (tag) {
         this.page = undefined;
         this.getPage(tag);

@@ -51,9 +51,10 @@ import 'prismjs/components/prism-makefile';
 import 'prismjs/components/prism-cmake';
 import 'prismjs/components/prism-groovy';
 import 'prismjs/components/prism-properties';
-import 'prismjs/components/prism-clike';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HighlightService {
   constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 

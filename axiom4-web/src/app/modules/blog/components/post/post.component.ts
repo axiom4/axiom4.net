@@ -8,7 +8,7 @@ import {
   Post,
 } from 'src/app/modules/core/api/v1';
 import { HighlightService } from '../../services/highlight.service';
-import { MarkedPipe } from '../../marked.pipe';
+import { MarkedPipe } from 'src/app/modules/utils/marked.pipe';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 import { DatePipe } from '@angular/common';
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { HeaderComponent } from './modules/main/components/header/header.component';
+import { FooterComponent } from './modules/main/components/footer/footer.component';
 import {
   ConfigService,
   CookiePolicy,
@@ -8,7 +11,8 @@ import {
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
-    standalone: false
+    standalone: true,
+    imports: [RouterModule, HeaderComponent, FooterComponent]
 })
 export class AppComponent implements OnInit {
   constructor(

@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { ConfigService } from 'src/app/modules/utils/services/config.service';
 import { CookiePolicy } from '../models/cooke-policy';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class CookiePolicyService {
   cookiePolicyAlert: CookiePolicy | undefined;
   googleTag: string | undefined;

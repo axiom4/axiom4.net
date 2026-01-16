@@ -1,16 +1,15 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from './modules/main/components/page-not-found/page-not-found.component';
 import { MainPageComponent } from './modules/main/components/main-page/main-page.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'pages',
-    loadChildren: () => import('./modules/page/page.module').then(m => m.PageModule)
+    loadChildren: () => import('./modules/page/page.routes').then(m => m.pageRoutes)
   },
   {
     path: 'blog',
-    loadChildren: () => import('./modules/blog/blog.module').then(m => m.BlogModule)
+    loadChildren: () => import('./modules/blog/blog.routes').then(m => m.blogRoutes)
   },
   {
     path: '',
@@ -27,9 +26,3 @@ const routes: Routes = [
     redirectTo: "/404"
   }
 ];
-
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule { }

@@ -1,4 +1,5 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { SearchComponent } from '../search/search.component';
 import { RouterLink } from '@angular/router';
@@ -7,23 +8,29 @@ import { RouterLink } from '@angular/router';
   selector: 'app-header',
   templateUrl: './header.component.html',
   imports: [RouterLink, SearchComponent],
+  standalone: true
 })
 export class HeaderComponent implements OnInit {
   showMenu = false;
   showLogo = false;
   config: Configuration | undefined;
+  landscape: MediaQueryList | undefined;
 
-  constructor(private configService: ConfigService) {
-    this.landscape.addEventListener('change', (ev) => {
-      console.log('landscape orientation', this.landscape.matches);
-    });
+  constructor(
+    private configService: ConfigService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {
+    if (isPlatformBrowser(this.platformId)) {
+      this.landscape = window.matchMedia('(orientation: landscape)');
+      this.landscape.addEventListener('change', (ev) => {
+        console.log('landscape orientation', this.landscape?.matches);
+      });
+    }
   }
 
   ngOnInit(): void {
     this.config = this.configService.getConfiguration();
   }
-
-  landscape = window.matchMedia('(orientation: landscape)');
 
   @ViewChild('navmenu') navmenu: ElementRef | undefined;
 
