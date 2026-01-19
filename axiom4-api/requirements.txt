@@ -14,7 +14,7 @@ django-filter==25.2
 django-mdeditor==0.1.20
 djangorestframework==3.16.1
 drf-spectacular==0.29.0
-ecs-logging==2.2.0
+ecs-logging==2.3.0
 hyperlink==21.0.0
 idna==3.11
 Incremental==24.11.0
