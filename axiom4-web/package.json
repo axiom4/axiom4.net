@@ -34,7 +34,7 @@
     "@angular/build": "^21.1.0",
     "@angular/cli": "~21.1.0",
     "@angular/compiler-cli": "^21.1.0",
-    "@angular/localize": "^21.1.0",
+    "@angular/localize": "^21.1.1",
     "@openapitools/openapi-generator-cli": "^2.27.0",
     "@types/node": "^25.0.9",
     "@types/prismjs": "^1.26.5",
