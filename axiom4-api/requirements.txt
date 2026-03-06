@@ -8,11 +8,11 @@ Automat==25.4.16
 cbor2==5.8.0
 certifi==2026.2.25
 cffi==2.0.0
-charset-normalizer==3.4.4
+charset-normalizer==3.4.5
 constantly==23.10.4
 cryptography==46.0.5
 daphne==4.2.1
-Django==6.0.2
+Django==6.0.3
 django-cors-headers==4.9.0
 django-filter==25.2
 django-mdeditor==0.1.20
@@ -28,7 +28,7 @@ inflection==0.5.1
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
 Markdown==3.10.2
-maxminddb==3.1.0
+maxminddb==3.1.1
 msgpack==1.1.2
 multidict==6.7.1
 mysqlclient==2.2.8
@@ -44,7 +44,7 @@ pycparser==3.0
 Pygments==2.19.2
 pymemcache==4.0.0
 pyOpenSSL==25.3.0
-pytz==2025.2
+pytz==2026.1.post1
 PyYAML==6.0.3
 referencing==0.37.0
 requests==2.32.5
@@ -59,6 +59,6 @@ typing_extensions==4.15.0
 ujson==5.11.0
 uritemplate==4.2.0
 urllib3==2.6.3
-wrapt==2.1.1
+wrapt==2.1.2
 yarl==1.23.0
 zope.interface==8.2
