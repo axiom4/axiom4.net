@@ -43,7 +43,7 @@ pyasn1_modules==0.4.2
 pycparser==3.0
 Pygments==2.19.2
 pymemcache==4.0.0
-pyOpenSSL==25.3.0
+pyOpenSSL==26.0.0
 pytz==2026.1.post1
 PyYAML==6.0.3
 referencing==0.37.0
