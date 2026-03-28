@@ -1,6 +1,6 @@
 <div class="mt-5">
   <ul class="cloud" role="list" aria-label="Tag cloud">
-    @for (category of categories; track category.id) {
+    @for (category of categories(); track category.id) {
     <li>
       <a
         attr.aria-label="{{ category.name }}"

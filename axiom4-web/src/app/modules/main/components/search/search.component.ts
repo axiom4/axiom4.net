@@ -1,10 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PostSearchComponent } from 'src/app/modules/blog/components/post-search/post-search.component';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class SearchComponent {

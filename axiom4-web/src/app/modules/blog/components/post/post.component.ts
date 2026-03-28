@@ -1,65 +1,45 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Event, Router, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
-import {
-  BlogPostsRetrieveRequestParams,
-  BlogService,
-  Post,
-} from 'src/app/modules/core/api/v1';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, map, filter, catchError, tap, EMPTY } from 'rxjs';
+import { BlogService } from 'src/app/modules/core/api/v1';
 import { HighlightService } from '../../services/highlight.service';
 import { MarkedPipe } from 'src/app/modules/utils/marked.pipe';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 import { DatePipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TagCloudComponent, DatePipe, MarkedPipe],
   standalone: true,
 })
-export class PostComponent implements OnInit, OnDestroy {
-  post: Post | undefined;
-  subscription: Subscription | undefined;
+export class PostComponent {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private blogService = inject(BlogService);
+  private title = inject(Title);
+  private highlightService = inject(HighlightService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private blogService: BlogService,
-    private title: Title,
-    private highlightService: HighlightService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
-  ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.route.paramMap.subscribe((params) => {
-      const id = Number(params.get('id'));
-      if (id) {
-        this.post = undefined;
-        this.getPost(id);
-      }
-    });
-  }
-
-  getPost(id: number) {
-    const params: BlogPostsRetrieveRequestParams = {
-      id: id,
-    };
-    this.blogService.blogPostsRetrieve(params).subscribe({
-      next: (post) => {
-        this.post = post;
-        this.title.setTitle(post.title);
-        this.cdr.detectChanges();
-        this.highlightService.highlightAll();
-      },
-      error: (error) => {
-        this.router.navigate(['/notfound']);
-        console.log(error);
-      },
-    });
-  }
+  post = toSignal(
+    this.route.paramMap.pipe(
+      map(params => Number(params.get('id'))),
+      filter(id => !!id),
+      switchMap(id =>
+        this.blogService.blogPostsRetrieve({ id }).pipe(
+          tap(post => {
+            this.title.setTitle(post.title);
+            this.highlightService.highlightAll();
+          }),
+          catchError(error => {
+            console.log(error);
+            this.router.navigate(['/notfound']);
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
 }

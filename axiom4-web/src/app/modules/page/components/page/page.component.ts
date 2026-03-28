@@ -1,65 +1,44 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
-import { Subscription } from 'rxjs';
-import {
-  BlogPagesRetrieveRequestParams,
-  BlogService,
-  Page,
-} from 'src/app/modules/core/api/v1';
+import { ActivatedRoute, Router } from '@angular/router';
+import { switchMap, map, filter, catchError, tap, EMPTY } from 'rxjs';
+import { BlogService } from 'src/app/modules/core/api/v1';
 import { MarkedPipe } from 'src/app/modules/utils/marked.pipe';
 import { DatePipe } from '@angular/common';
 import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-page',
   templateUrl: './page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DatePipe, MarkedPipe],
   standalone: true,
 })
-export class PageComponent implements OnInit, OnDestroy {
-  page: Page | undefined;
-  currentRoute: string | undefined;
-  subscription: Subscription | undefined;
+export class PageComponent {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private blogService = inject(BlogService);
+  private title = inject(Title);
+  private highlightService = inject(HighlightService);
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private blogService: BlogService,
-    private title: Title,
-    private highlightService: HighlightService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
-  ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.route.paramMap.subscribe((params) => {
-      const tag = params.get('slug');
-      if (tag) {
-        this.page = undefined;
-        this.getPage(tag);
-      }
-    });
-  }
-
-  getPage(tag: string) {
-    const params: BlogPagesRetrieveRequestParams = {
-      tag: tag,
-    };
-    this.blogService.blogPagesRetrieve(params).subscribe({
-      next: (page) => {
-        this.page = page;
-        this.title.setTitle(page.title);
-        this.cdr.detectChanges();
-        this.highlightService.highlightAll();
-      },
-      error: (error) => {
-        this.router.navigate(['/notfound']);
-        console.log(error);
-      },
-    });
-  }
+  page = toSignal(
+    this.route.paramMap.pipe(
+      map(params => params.get('slug')),
+      filter((slug): slug is string => !!slug),
+      switchMap(slug =>
+        this.blogService.blogPagesRetrieve({ tag: slug }).pipe(
+          tap(page => {
+            this.title.setTitle(page.title);
+            this.highlightService.highlightAll();
+          }),
+          catchError(error => {
+            console.log(error);
+            this.router.navigate(['/notfound']);
+            return EMPTY;
+          })
+        )
+      )
+    )
+  );
 }

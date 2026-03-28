@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CookiePolicyService } from '../../services/cookie-policy.service';
 
 
 @Component({
     selector: 'app-cookie-policy',
     templateUrl: './cookie-policy.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     imports: []
 })
 export class CookiePolicyComponent {

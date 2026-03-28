@@ -1,9 +1,9 @@
-@if (posts.length > 0) {
+@if (posts().length > 0) {
 <div>
   <div
     class="mt-2 row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 mb-5"
   >
-    @for (post of posts; track post.id) {
+    @for (post of posts(); track post.id) {
     <div class="col">
       <div
         class="post_card card h-100 pt-1 ps-1 pe-1"
@@ -29,20 +29,20 @@
     </div>
     }
   </div>
-  @if (posts.length > 0) {
+  @if (posts().length > 0) {
   <ngb-pagination
     class="d-flex justify-content-end"
     size="sm"
-    [collectionSize]="collectionSize"
+    [collectionSize]="collectionSize()"
     [maxSize]="6"
-    [(page)]="currentPage"
+    [page]="currentPage()"
     [pageSize]="pageSize"
-    (pageChange)="pageChange()"
+    (pageChange)="onPageChange($event)"
     aria-label="Default pagination"
   ></ngb-pagination>
   }
 </div>
-} @if (notFound) {
+} @if (notFound()) {
 <div>
   <div class="mt-5 text-center">
     <svg

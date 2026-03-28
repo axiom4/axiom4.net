@@ -1,29 +1,25 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { BlogService, Category } from 'src/app/modules/core/api/v1';
 import { CloudTacCategory } from '../../models/cloud-tag-category';
 import { RouterLink } from '@angular/router';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-tag-cloud',
   templateUrl: './tag-cloud.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink],
 })
-export class TagCloudComponent implements OnInit {
-  categories: CloudTacCategory[] = [];
-  min = 0;
-  max = 0;
+export class TagCloudComponent {
+  private blogService = inject(BlogService);
 
-  constructor(
-    private blogService: BlogService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    this.blogService.blogCategoriesList().subscribe((values) => {
-      this.buildTagClod(values);
-      this.cdr.detectChanges();
-    });
-  }
+  categories = toSignal(
+    this.blogService.blogCategoriesList().pipe(
+      map(values => this.buildTagClod(values))
+    ),
+    { initialValue: [] as CloudTacCategory[] }
+  );
 
   shuffle(array: CloudTacCategory[]): CloudTacCategory[] {
     for (let i = array.length - 1; i > 0; i--) {
@@ -33,18 +29,17 @@ export class TagCloudComponent implements OnInit {
     return array;
   }
 
-  buildTagClod(categories: Category[]) {
+  buildTagClod(categories: Category[]): CloudTacCategory[] {
     let fontMin = 1;
     let fontMax = 10;
 
     if (categories && categories.length > 0) {
-      this.min = Number(categories[0].posts);
-      this.max = Number(categories[0].posts);
+      let min = Number(categories[0].posts);
+      let max = Number(categories[0].posts);
 
       for (let tag of categories) {
-        if (Number(tag.posts) < this.min) this.min = Number(tag.posts);
-
-        if (Number(tag.posts) > this.max) this.max = Number(tag.posts);
+        if (Number(tag.posts) < min) min = Number(tag.posts);
+        if (Number(tag.posts) > max) max = Number(tag.posts);
       }
 
       const tempCategories: CloudTacCategory[] = [];
@@ -53,14 +48,14 @@ export class TagCloudComponent implements OnInit {
           id: Number(tag.id),
           name: tag.name,
           weight:
-            Number(tag.posts) == this.min
+            Number(tag.posts) == min
               ? fontMin
-              : (Number(tag.posts) / this.max) * (fontMax - fontMin) + fontMin,
+              : (Number(tag.posts) / max) * (fontMax - fontMin) + fontMin,
         };
-
         tempCategories.push(category);
       }
-      this.categories = this.shuffle(tempCategories);
+      return this.shuffle(tempCategories);
     }
+    return [];
   }
 }

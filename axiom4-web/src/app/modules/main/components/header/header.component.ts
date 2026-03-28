@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, Inject, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { SearchComponent } from '../search/search.component';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-header',
   templateUrl: './header.component.html',
   imports: [RouterLink, SearchComponent],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
 export class HeaderComponent implements OnInit {

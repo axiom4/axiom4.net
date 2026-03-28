@@ -42,7 +42,7 @@
   </div>
 </div>
 <div class="modal-body">
-  <div [hidden]="!show_search">
+  <div [hidden]="!show_search()">
     <h3>What do you want to search?</h3>
     <p>
       <span class="text-danger"
@@ -50,13 +50,13 @@
       >
     </p>
   </div>
-  <div [hidden]="!show_not_found">
+  <div [hidden]="!show_not_found()">
     <p>
       <span class="text-danger">No results found.</span>
     </p>
   </div>
   <ul class="post_search">
-    @for (post of posts; track post.id) {
+    @for (post of posts(); track post.id) {
     <li>
       <a routerLink="/blog/posts/{{ post.id }}" (click)="close()">
         <span class="title">{{ post.title }}</span>
@@ -67,15 +67,15 @@
     </li>
     }
   </ul>
-  @if (posts.length > 0) {
+  @if (posts().length > 0) {
   <ngb-pagination
     class="d-flex justify-content-end"
     size="sm"
-    [collectionSize]="collectionSize"
+    [collectionSize]="collectionSize()"
     [maxSize]="6"
-    [(page)]="currentPage"
+    [page]="currentPage()"
     [pageSize]="pageSize"
-    (pageChange)="pageChange()"
+    (pageChange)="onPageChange($event)"
     aria-label="Default pagination"
   ></ngb-pagination>
   }

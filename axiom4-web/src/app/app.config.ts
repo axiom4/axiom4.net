@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptorsFromDi } from '@angular/common/http';
 import { ConfigService } from './modules/utils';
@@ -23,6 +23,7 @@ export function apiConfigFactory(): Configuration {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideZonelessChangeDetection(),
     provideRouter(routes, withComponentInputBinding()),
     provideHttpClient(withFetch(), withInterceptorsFromDi()),
     importProvidersFrom(ApiModule.forRoot(apiConfigFactory)),

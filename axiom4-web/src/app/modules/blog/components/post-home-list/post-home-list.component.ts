@@ -1,49 +1,30 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import {
-  BlogPostsListRequestParams,
-  BlogService,
-  PostPreview,
-} from 'src/app/modules/core/api/v1';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { BlogService, PostPreview } from 'src/app/modules/core/api/v1';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { RouterLink } from '@angular/router';
-
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { PostSearchListComponent } from '../post-search-list/post-search-list.component';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-post-home-list',
   templateUrl: './post-home-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [NgbCarousel, NgbSlide, RouterLink, PostSearchListComponent],
 })
-export class PostHomeListComponent implements OnInit {
-  page: number = 1;
-  numOfPages: number = 3;
-  posts: PostPreview[] = [];
-  config: Configuration | undefined;
+export class PostHomeListComponent {
+  private configService = inject(ConfigService);
+  private blogService = inject(BlogService);
 
-  constructor(
-    private configService: ConfigService,
-    private blogService: BlogService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  config: Configuration | undefined = this.configService.getConfiguration();
 
-  ngOnInit(): void {
-    this.config = this.configService.getConfiguration();
-    this.loadPostPreview();
-  }
-
-  loadPostPreview() {
-    this.numOfPages = this.config?.searchPageSize ?? 5;
-
-    const params: BlogPostsListRequestParams = {
-      page: this.page,
-      pageSize: this.numOfPages,
+  posts = toSignal(
+    this.blogService.blogPostsList({
+      page: 1,
+      pageSize: this.config?.searchPageSize ?? 5,
       ordering: '-created_at',
-    };
-
-    this.blogService.blogPostsList(params).subscribe((response) => {
-      this.posts = response.results ?? [];
-      this.cdr.detectChanges();
-    });
-  }
+    }).pipe(map(r => r.results ?? [])),
+    { initialValue: [] as PostPreview[] }
+  );
 }

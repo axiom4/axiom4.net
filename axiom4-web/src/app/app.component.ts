@@ -1,41 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './modules/main/components/header/header.component';
 import { FooterComponent } from './modules/main/components/footer/footer.component';
-import {
-  ConfigService,
-  CookiePolicy,
-  CookiePolicyService,
-} from './modules/utils';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    standalone: true,
-    imports: [RouterModule, HeaderComponent, FooterComponent]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [RouterModule, HeaderComponent, FooterComponent],
 })
-export class AppComponent implements OnInit {
-  constructor(
-    private configService: ConfigService,
-    public cookiePolicyService: CookiePolicyService
-  ) {}
-
-  ngOnInit(): void {
-    // this.showCookiePolicyAlert();
-  }
-
-  showCookiePolicyAlert() {
-    let alert: CookiePolicy = {
-      title: 'Cookie Policy!',
-      message:
-        'This site uses cookies. By continuing to visit this site you agree to our use of cookies.',
-      submessage:
-        "More about <a href='/pages/cookies'>cookies</a>" +
-        " or <a href ='/pages/privacy'>privacy</a> policies on <strong>AXIOM4.net</strong>",
-      class: 'alert-bottom',
-      timeout: 0,
-    };
-
-    this.cookiePolicyService.show(alert);
-  }
-}
+export class AppComponent {}

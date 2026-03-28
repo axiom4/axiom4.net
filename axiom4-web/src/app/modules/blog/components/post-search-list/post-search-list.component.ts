@@ -1,89 +1,73 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import {
-  BlogPostsListRequestParams,
-  BlogService,
-  PostPreview,
-} from 'src/app/modules/core/api/v1';
-import { Subscription } from 'rxjs';
-import { ConfigService, Configuration } from 'src/app/modules/utils';
+import { Subject, merge, switchMap, map, catchError, EMPTY, tap } from 'rxjs';
+import { BlogPostsListRequestParams, BlogService, PostPreview } from 'src/app/modules/core/api/v1';
+import { ConfigService } from 'src/app/modules/utils';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { DatePipe } from '@angular/common';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-post-search-list',
   templateUrl: './post-search-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, NgbPagination, TagCloudComponent, DatePipe],
 })
-export class PostSearchListComponent implements OnInit, OnDestroy {
-  posts: PostPreview[] = [];
-  subscription: Subscription | undefined;
-  currentPage = 1;
-  pageSize = 1;
-  collectionSize = 0;
-  notFound: boolean = false;
-  config: Configuration | undefined;
+export class PostSearchListComponent {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private blogService = inject(BlogService);
 
-  constructor(
-    private configService: ConfigService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private blogService: BlogService,
-    private cdr: ChangeDetectorRef
-  ) {}
+  pageSize = inject(ConfigService).getConfiguration()?.categoriesPageSize ?? 8;
 
-  ngOnDestroy(): void {
-    if (this.subscription) this.subscription.unsubscribe();
-  }
+  currentPage = signal(1);
+  posts = signal<PostPreview[]>([]);
+  collectionSize = signal(0);
+  notFound = signal(false);
 
-  ngOnInit(): void {
-    this.config = this.configService.getConfiguration();
-    this.pageSize = this.config?.categoriesPageSize ?? 8;
+  private pageChange$ = new Subject<number>();
 
-    this.subscription = this.route.paramMap.subscribe((params) => {
-      this.currentPage = 1;
-      const category = params.get('category');
-      if (category) {
-        this.serchPostByCategory(category);
-      } else {
-        this.serchPostByCategory(null);
-      }
+  constructor() {
+    const categoryChange$ = this.route.paramMap.pipe(
+      map(params => params.get('category')),
+      tap(() => this.currentPage.set(1)),
+      map(category => ({ category, page: 1 }))
+    );
+
+    const pageChange$ = this.pageChange$.pipe(
+      map(page => ({
+        category: this.route.snapshot.paramMap.get('category'),
+        page,
+      }))
+    );
+
+    merge(categoryChange$, pageChange$).pipe(
+      switchMap(({ category, page }) => {
+        const params: BlogPostsListRequestParams = {
+          page,
+          pageSize: this.pageSize,
+          ordering: '-created_at',
+          ...(category ? { categoriesName: category } : {}),
+        };
+        return this.blogService.blogPostsList(params).pipe(
+          catchError(error => {
+            console.log(error);
+            this.router.navigate(['/notfound']);
+            return EMPTY;
+          })
+        );
+      }),
+      takeUntilDestroyed()
+    ).subscribe(response => {
+      this.collectionSize.set(response.count ?? 0);
+      this.posts.set(response.results ?? []);
+      this.notFound.set((response.results?.length ?? 0) === 0);
     });
   }
 
-  serchPostByCategory(category: string | null) {
-    let params: BlogPostsListRequestParams = {
-      page: this.currentPage,
-      pageSize: this.pageSize,
-      ordering: '-created_at',
-    };
-
-    if (category) {
-      params.categoriesName = category;
-    }
-
-    this.blogService.blogPostsList(params).subscribe({
-      next: (response) => {
-        this.collectionSize = response.count ?? 0;
-        this.posts = response.results ?? [];
-        if (response.results?.length == 0) this.notFound = true;
-        else this.notFound = false;
-        this.cdr.detectChanges();
-      },
-      error: (error) => {
-        this.router.navigate(['/notfound']);
-        console.log(error);
-      },
-    });
-  }
-
-  pageChange() {
-    const category = this.route.snapshot.paramMap.get('category');
-    if (category) {
-      this.serchPostByCategory(category);
-    } else {
-      this.serchPostByCategory(null);
-    }
+  onPageChange(page: number) {
+    this.currentPage.set(page);
+    this.pageChange$.next(page);
   }
 }

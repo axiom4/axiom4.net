@@ -1,24 +1,24 @@
 <div class="row mt-2">
   <div class="article col-lg-9 p-lg-5 pt-1">
-    @if (post) {
+    @if (post(); as p) {
       <article>
         <figure class="text-left">
           <blockquote class="blockquote">
-            <h1>{{ post.title }}</h1>
+            <h1>{{ p.title }}</h1>
           </blockquote>
           <figcaption class="blockquote-footer">
             <small
               >author:
               <strong
-                >{{ post.author.username }} -
+                >{{ p.author.username }} -
                 <cite title="Source Title">{{
-                  post.created_at | date
+                  p.created_at | date
                 }}</cite></strong
                 ></small
                 >
               </figcaption>
             </figure>
-            <div class="mt-4" [innerHTML]="post.body | marked"></div>
+            <div class="mt-4" [innerHTML]="p.body | marked"></div>
           </article>
         }
       </div>

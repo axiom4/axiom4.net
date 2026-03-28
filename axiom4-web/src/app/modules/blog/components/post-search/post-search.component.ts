@@ -1,42 +1,44 @@
 import {
   Component,
   ElementRef,
-  OnInit,
   ViewChild,
-  ChangeDetectorRef,
+  signal,
+  inject,
+  ChangeDetectionStrategy,
+  DestroyRef,
 } from '@angular/core';
 import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import {
-  Subject,
-  Subscription,
-  debounceTime,
-  distinctUntilChanged,
-} from 'rxjs';
-import {
-  BlogPostsListRequestParams,
-  BlogService,
-  PostPreview,
-} from 'src/app/modules/core/api/v1';
+import { Subject, debounceTime, distinctUntilChanged, switchMap, EMPTY } from 'rxjs';
+import { BlogPostsListRequestParams, BlogService, PostPreview } from 'src/app/modules/core/api/v1';
 import { ConfigService } from 'src/app/modules/utils';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-post-search',
   templateUrl: './post-search.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, RouterLink, NgbPagination, DatePipe],
 })
-export class PostSearchComponent implements OnInit {
-  posts: PostPreview[] = [];
-  show_search = true;
-  show_not_found = false;
+export class PostSearchComponent {
+  private blogService = inject(BlogService);
+  private destroyRef = inject(DestroyRef);
+  public modal = inject(NgbModal);
 
-  currentPage = 1;
-  pageSize = this.configService.getConfiguration()?.searchPageSize ?? 1;
-  collectionSize = 0;
+  pageSize = inject(ConfigService).getConfiguration()?.searchPageSize ?? 1;
 
-  _search: any;
+  posts = signal<PostPreview[]>([]);
+  show_search = signal(true);
+  show_not_found = signal(false);
+  currentPage = signal(1);
+  collectionSize = signal(0);
+
+  searchText = '';
+  debounceTime = 250;
+
+  private inputValue = new Subject<string>();
 
   @ViewChild('search', { static: false })
   set search(element: ElementRef<HTMLInputElement>) {
@@ -46,85 +48,75 @@ export class PostSearchComponent implements OnInit {
     }
   }
 
-  searchText: string = '';
-  debounceTime = 250;
-  inputValue = new Subject<string>();
+  _search: any;
 
-  trigger = this.inputValue.pipe(
-    debounceTime(this.debounceTime),
-    distinctUntilChanged()
-  );
-
-  subscriptions: Subscription[] = [];
-
-  constructor(
-    public modal: NgbModal,
-    private blogService: BlogService,
-    private configService: ConfigService,
-    private cdr: ChangeDetectorRef
-  ) {}
-
-  ngOnInit(): void {
-    this.trigger.subscribe((currentValue) => {
-      this.currentPage = 1;
-      this.searchPosts(currentValue);
-    });
-  }
-
-  searchPosts(currentValue: string) {
-    if (currentValue != '' && currentValue.length > 0) {
-      this.show_search = false;
-      const params: BlogPostsListRequestParams = {
-        search: currentValue,
-        page: this.currentPage,
-        pageSize: this.pageSize,
-        ordering: '-created_at',
-      };
-      this.subscriptions.forEach((sub) => sub.unsubscribe());
-      const subscription = this.blogService
-        .blogPostsList(params)
-        .subscribe((value) => {
-          this.collectionSize = value.count ?? 0;
-
-          this.posts = value.results ?? [];
-          if (value.results?.length == 0) this.show_not_found = true;
-          else this.show_not_found = false;
-          this.cdr.detectChanges();
+  constructor() {
+    this.inputValue.pipe(
+      debounceTime(this.debounceTime),
+      distinctUntilChanged(),
+      switchMap(value => {
+        if (!value) {
+          this.posts.set([]);
+          this.show_not_found.set(false);
+          this.show_search.set(true);
+          return EMPTY;
+        }
+        this.currentPage.set(1);
+        this.show_search.set(false);
+        return this.blogService.blogPostsList({
+          search: value,
+          page: 1,
+          pageSize: this.pageSize,
+          ordering: '-created_at',
         });
-      this.subscriptions.push(subscription);
-    }
+      }),
+      takeUntilDestroyed()
+    ).subscribe(response => {
+      this.collectionSize.set(response.count ?? 0);
+      this.posts.set(response.results ?? []);
+      this.show_not_found.set((response.results?.length ?? 0) === 0);
+    });
   }
 
   close() {
     this.modal.dismissAll();
   }
 
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
-
   onInput(e: any) {
     const search = e.target.value;
-
-    if (search.length == 0) {
-      this.posts = [];
-      this.show_not_found = false;
-      this.show_search = true;
+    if (search.length === 0) {
+      this.posts.set([]);
+      this.show_not_found.set(false);
+      this.show_search.set(true);
     }
     this.inputValue.next(search);
   }
 
   onClear() {
     this.searchText = '';
-    this.posts = [];
-    this.show_not_found = false;
-    this.show_search = true;
+    this.posts.set([]);
+    this.show_not_found.set(false);
+    this.show_search.set(true);
     this.inputValue.next('');
-    this._search.focus();
+    this._search?.focus();
   }
 
-  pageChange() {
-    this.searchPosts(this.searchText);
-    this._search.focus();
+  onPageChange(page: number) {
+    this.currentPage.set(page);
+    if (!this.searchText) return;
+    const params: BlogPostsListRequestParams = {
+      search: this.searchText,
+      page,
+      pageSize: this.pageSize,
+      ordering: '-created_at',
+    };
+    this.blogService.blogPostsList(params).pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(response => {
+      this.collectionSize.set(response.count ?? 0);
+      this.posts.set(response.results ?? []);
+      this.show_not_found.set((response.results?.length ?? 0) === 0);
+    });
+    this._search?.focus();
   }
 }
