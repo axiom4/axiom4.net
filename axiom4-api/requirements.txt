@@ -41,7 +41,7 @@ py-ubjson==0.16.1
 pyasn1==0.6.3
 pyasn1_modules==0.4.2
 pycparser==3.0
-Pygments==2.19.2
+Pygments==2.20.0
 pymemcache==4.0.0
 pyOpenSSL==26.0.0
 pytz==2026.1.post1
