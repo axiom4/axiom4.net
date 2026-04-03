@@ -1,6 +1,4 @@
 import { Routes } from '@angular/router';
-import { PageNotFoundComponent } from './modules/main/components/page-not-found/page-not-found.component';
-import { MainPageComponent } from './modules/main/components/main-page/main-page.component';
 
 export const routes: Routes = [
   {
@@ -14,15 +12,15 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: MainPageComponent
+    loadComponent: () => import('./modules/main/components/main-page/main-page.component').then(m => m.MainPageComponent)
   },
   {
     path: '404',
-    component: PageNotFoundComponent
+    loadComponent: () => import('./modules/main/components/page-not-found/page-not-found.component').then(m => m.PageNotFoundComponent)
   },
   {
     path: '**',
     pathMatch: 'full',
-    redirectTo: "/404"
+    redirectTo: '/404'
   }
 ];
