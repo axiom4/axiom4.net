@@ -25,7 +25,8 @@
               "dayjs",
               "debug",
               "vscode-jsonrpc/lib/common/events.js",
-              "vscode-jsonrpc/lib/common/cancellation.js"
+              "vscode-jsonrpc/lib/common/cancellation.js",
+              "vscode-languageserver-protocol"
             ],
             "outputPath": {
               "base": "dist/axiom4-web"
