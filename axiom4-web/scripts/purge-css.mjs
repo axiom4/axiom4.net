@@ -42,6 +42,21 @@ const [result] = await new PurgeCSS().purge({
     `${rootDir}/node_modules/@ng-bootstrap/ng-bootstrap/fesm2022/ng-bootstrap-ng-bootstrap-pagination.mjs`,
     `${rootDir}/node_modules/@ng-bootstrap/ng-bootstrap/fesm2022/ng-bootstrap-ng-bootstrap-modal.mjs`,
     `${rootDir}/node_modules/@ng-bootstrap/ng-bootstrap/fesm2022/ng-bootstrap-ng-bootstrap-offcanvas.mjs`,
+    // Stub covering all HTML elements that marked renders at runtime via [innerHTML].
+    // Without this, PurgeCSS strips Bootstrap table/code/typography styles because
+    // these elements never appear in the static Angular templates.
+    {
+      raw:
+        '<h1><h2><h3><h4><h5><h6>' +
+        '<p><br><hr><blockquote>' +
+        '<pre><code><samp><kbd>' +
+        '<table><thead><tbody><tfoot><tr><th><td><caption>' +
+        '<ul><ol><li><dl><dt><dd>' +
+        '<figure><figcaption>' +
+        '<strong><em><b><i><del><ins><mark><s><sub><sup>' +
+        '<a><img>',
+      extension: 'html',
+    },
   ],
   css: [cssFile],
 
