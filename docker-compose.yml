@@ -1,4 +1,4 @@
-version: '3.4'
+version: "3.4"
 
 services:
   db:
@@ -6,7 +6,7 @@ services:
     cap_add:
       - SYS_NICE
     ports:
-      - '3306:3306'
+      - "3306:3306"
     expose:
       - 3306
     volumes:
