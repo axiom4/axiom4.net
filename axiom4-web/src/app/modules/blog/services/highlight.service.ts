@@ -47,10 +47,10 @@ import 'prismjs/components/prism-toml';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-vim';
 import 'prismjs/components/prism-yaml';
-import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard';
 import 'prismjs/plugins/line-highlight/prism-line-highlight';
 import 'prismjs/plugins/line-numbers/prism-line-numbers';
 import 'prismjs/plugins/toolbar/prism-toolbar';
+import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard';
 
 @Injectable({
   providedIn: 'root',
