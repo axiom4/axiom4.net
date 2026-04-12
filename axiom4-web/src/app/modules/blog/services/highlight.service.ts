@@ -47,10 +47,9 @@ import 'prismjs/components/prism-toml';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-vim';
 import 'prismjs/components/prism-yaml';
-import 'prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard';
-import 'prismjs/plugins/line-highlight/prism-line-highlight';
-import 'prismjs/plugins/line-numbers/prism-line-numbers';
-import 'prismjs/plugins/toolbar/prism-toolbar';
+// Plugin load order is enforced in a separate file to prevent auto-formatters
+// from reordering the imports (toolbar must load before copy-to-clipboard).
+import './prism-plugins';
 
 @Injectable({
   providedIn: 'root',
