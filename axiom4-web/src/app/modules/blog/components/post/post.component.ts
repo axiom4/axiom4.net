@@ -33,8 +33,7 @@ export class PostComponent {
             this.title.setTitle(post.title);
             this.highlightService.highlightAll();
           }),
-          catchError(error => {
-            console.log(error);
+          catchError(() => {
             this.router.navigate(['/notfound']);
             return EMPTY;
           })

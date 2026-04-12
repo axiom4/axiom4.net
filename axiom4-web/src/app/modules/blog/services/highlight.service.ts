@@ -1,4 +1,4 @@
-import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID, inject } from '@angular/core';
 
 import { isPlatformBrowser } from '@angular/common';
 
@@ -56,7 +56,10 @@ import 'prismjs/components/prism-properties';
   providedIn: 'root'
 })
 export class HighlightService {
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
+  private platformId = inject(PLATFORM_ID);
+  private mermaidInitialized = false;
+
+  constructor() {}
 
   highlightAll() {
     if (isPlatformBrowser(this.platformId)) {
@@ -67,15 +70,18 @@ export class HighlightService {
 
   renderMermaid() {
     if (isPlatformBrowser(this.platformId)) {
-      mermaid.initialize({
-        startOnLoad: true,
-        theme: 'default',
-        themeVariables: {
-          primaryColor: '#ffcc00',
-          edgeLabelBackground: '#ffffff',
-          tertiaryColor: '#ffffff',
-        },
-      });
+      if (!this.mermaidInitialized) {
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: 'default',
+          themeVariables: {
+            primaryColor: '#ffcc00',
+            edgeLabelBackground: '#ffffff',
+            tertiaryColor: '#ffffff',
+          },
+        });
+        this.mermaidInitialized = true;
+      }
 
       const mermaidElements = document.querySelectorAll('.mermaid');
       mermaidElements.forEach((element, idx) => {

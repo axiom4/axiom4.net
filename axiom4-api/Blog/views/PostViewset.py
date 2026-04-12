@@ -15,14 +15,15 @@ class PostPagination(PageNumberPagination):
 
 
 class PostViewset(viewsets.ModelViewSet):
-    queryset = Post.objects.all()
+    queryset = Post.objects.select_related('author').prefetch_related('categories').all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     http_method_names = ['get']
     pagination_class = PostPagination
 
-    ordering_fields = '__all__'
+    ordering_fields = ['created_at', 'updated_at', 'title']
+    ordering = ['-created_at']
 
     filterset_fields = ['categories__name']
 

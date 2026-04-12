@@ -39,7 +39,6 @@ class OverwriteStorage(FileSystemStorage):
         return name
 
 def directory_path(instance, filename):
-    print(vars(instance))
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return 'posts/{0}/{1}.webp'.format(instance.post.id, instance.short_name)
 
@@ -52,7 +51,7 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 
     height = image.height * width // image.width
 
-    return image.resize((width, height), resample=Image.LANCZOS)
+    return image.resize((width, height), resample=Image.Resampling.LANCZOS)
 
 
 class ImageUpload(models.Model):
@@ -76,38 +75,39 @@ class ImageUpload(models.Model):
 
     image_tag.short_description = 'Image Preview'
 
-    def save(self):
-        # Opening the uploaded image
-        image = Image.open(self.image)
+    def save(self, *args, **kwargs):
+        if self.image:
+            # Opening the uploaded image
+            image = Image.open(self.image)
 
-        output = BytesIO()
+            output = BytesIO()
 
-        # Resize/modify the image
-        image = resize_image(image=image, width=900)
+            # Resize/modify the image
+            image = resize_image(image=image, width=900)
 
-        # after modifications, save it to the output
-        image.save(
-            output, 
-            format='webp', 
-            optimize=True, 
-            lossless=True, 
-            quality=100,
-            method=6
-        )        
-        
-        output.seek(0)
+            # after modifications, save it to the output
+            image.save(
+                output,
+                format='webp',
+                optimize=True,
+                lossless=True,
+                quality=100,
+                method=6
+            )
 
-        # change the imagefield value to be the newley modifed image value
-        self.image = InMemoryUploadedFile(
-            output,
-            'ImageField',
-            "%s.webp" % self.image.name.split('.')[0],
-            'image/webp',
-            sys.getsizeof(output),
-            None
-        )
+            output.seek(0)
 
-        super(ImageUpload, self).save()
+            # change the imagefield value to be the newley modifed image value
+            self.image = InMemoryUploadedFile(
+                output,
+                'ImageField',
+                "%s.webp" % self.image.name.split('.')[0],
+                'image/webp',
+                sys.getsizeof(output),
+                None
+            )
+
+        super(ImageUpload, self).save(*args, **kwargs)
 
     class Meta:
         unique_together = [["short_name", "post"]]

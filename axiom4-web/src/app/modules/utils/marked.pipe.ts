@@ -6,24 +6,21 @@ import { marked } from 'marked';
   standalone: true,
 })
 export class MarkedPipe implements PipeTransform {
-  transform(value: any): any {
-    if (value && value.length > 0) {
-      let marked_result = marked.parse(value, { async: false });
+  transform(value: string | null | undefined): string {
+    if (!value) return value ?? '';
 
-      if (typeof marked_result !== 'string') {
-        return value;
-      }
+    const marked_result = marked.parse(value, { async: false });
 
-      marked_result = marked_result.replace(
-        /<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g,
-        (match, code) => {
-          const mermaidCode = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
-          return `<div class="mermaid">${mermaidCode}</div>`;
-        }
-      );
-
-      return marked_result;
+    if (typeof marked_result !== 'string') {
+      return value;
     }
-    return value;
+
+    return marked_result.replace(
+      /<pre><code class="language-mermaid">([\s\S]*?)<\/code><\/pre>/g,
+      (_match, code) => {
+        const mermaidCode = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
+        return `<div class="mermaid">${mermaidCode}</div>`;
+      }
+    );
   }
 }

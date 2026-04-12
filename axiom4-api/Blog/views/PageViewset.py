@@ -5,7 +5,7 @@ from Blog.serializers import PageSerializer
 
 
 class PageViewset(viewsets.ModelViewSet):
-    queryset = Page.objects.all()
+    queryset = Page.objects.select_related('author').all()
     serializer_class = PageSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     lookup_field = "tag"

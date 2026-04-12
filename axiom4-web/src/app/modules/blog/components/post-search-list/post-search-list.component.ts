@@ -51,8 +51,7 @@ export class PostSearchListComponent {
           ...(category ? { categoriesName: category } : {}),
         };
         return this.blogService.blogPostsList(params).pipe(
-          catchError(error => {
-            console.log(error);
+          catchError(() => {
             this.router.navigate(['/notfound']);
             return EMPTY;
           })

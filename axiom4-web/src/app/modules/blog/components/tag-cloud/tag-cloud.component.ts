@@ -30,32 +30,23 @@ export class TagCloudComponent {
   }
 
   buildTagClod(categories: Category[]): CloudTacCategory[] {
-    let fontMin = 1;
-    let fontMax = 10;
+    if (!categories?.length) return [];
 
-    if (categories && categories.length > 0) {
-      let min = Number(categories[0].posts);
-      let max = Number(categories[0].posts);
+    const fontMin = 1;
+    const fontMax = 10;
+    const postCounts = categories.map(c => Number(c.posts));
+    const min = Math.min(...postCounts);
+    const max = Math.max(...postCounts);
 
-      for (let tag of categories) {
-        if (Number(tag.posts) < min) min = Number(tag.posts);
-        if (Number(tag.posts) > max) max = Number(tag.posts);
-      }
+    const mapped = categories.map(tag => ({
+      id: Number(tag.id),
+      name: tag.name,
+      weight:
+        Number(tag.posts) === min
+          ? fontMin
+          : (Number(tag.posts) / max) * (fontMax - fontMin) + fontMin,
+    }));
 
-      const tempCategories: CloudTacCategory[] = [];
-      for (let tag of categories) {
-        const category: CloudTacCategory = {
-          id: Number(tag.id),
-          name: tag.name,
-          weight:
-            Number(tag.posts) == min
-              ? fontMin
-              : (Number(tag.posts) / max) * (fontMax - fontMin) + fontMin,
-        };
-        tempCategories.push(category);
-      }
-      return this.shuffle(tempCategories);
-    }
-    return [];
+    return this.shuffle(mapped);
   }
 }

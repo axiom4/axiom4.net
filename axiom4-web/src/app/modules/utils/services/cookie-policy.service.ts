@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { ConfigService } from 'src/app/modules/utils/services/config.service';
 import { CookiePolicy } from '../models/cooke-policy';
 
@@ -7,9 +7,8 @@ import { CookiePolicy } from '../models/cooke-policy';
 })
 export class CookiePolicyService {
   cookiePolicyAlert: CookiePolicy | undefined;
-  googleTag: string | undefined;
 
-  constructor(private configService: ConfigService) {}
+  private configService = inject(ConfigService);
 
   show(cookiePolicyAlert: CookiePolicy) {
     const cookiePolicy = localStorage.getItem('cookie-policy');
@@ -18,10 +17,7 @@ export class CookiePolicyService {
       this.cookiePolicyAlert = cookiePolicyAlert;
 
       if (cookiePolicyAlert.timeout > 0) {
-        const that = this;
-        setTimeout(function () {
-          that.close();
-        }, cookiePolicyAlert.timeout);
+        setTimeout(() => this.close(), cookiePolicyAlert.timeout);
       }
     } else {
       this.loadScript();
@@ -29,21 +25,13 @@ export class CookiePolicyService {
   }
 
   loadScript() {
-    // this.googleTag = this.configService.getConfiguration()?.googleTag
-    // let gaScript = document.createElement('script');
-    // gaScript.setAttribute('async', 'true');
-    // gaScript.setAttribute('src', `https://www.googletagmanager.com/gtag/js?id=${this.googleTag}&ngsw-bypass=true`);
-    // let gaScript2 = document.createElement('script');
-    // gaScript2.innerText = `window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag(\'js\', new Date());gtag(\'config\', \'${this.googleTag}\');`;
-    // const head = <HTMLHeadElement>document.head;
-    // head.appendChild(gaScript);
-    // head.appendChild(gaScript2);
+    // Google Tag Manager loading disabled
   }
 
   close() {
     this.cookiePolicyAlert = undefined;
-    this.loadScript();
-    localStorage.removeItem('cookie-policy');
     localStorage.setItem('cookie-policy', 'accept');
+    this.loadScript();
   }
 }
+

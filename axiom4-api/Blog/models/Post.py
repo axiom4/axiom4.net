@@ -73,10 +73,18 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self):
-        self.image_save()
+    class Meta:
+        ordering = ['-created_at']
+        indexes = [
+            models.Index(fields=['-created_at']),
+            models.Index(fields=['author']),
+        ]
 
-        super(Post, self).save()
+    def save(self, *args, **kwargs):
+        if self.image:
+            self.image_save()
+
+        super(Post, self).save(*args, **kwargs)
 
     def image_save(self):
        # Opening the uploaded image

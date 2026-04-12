@@ -2,7 +2,6 @@ from rest_framework import viewsets
 from rest_framework import permissions
 from Blog.serializers import CategorySerializer
 from Blog.models import Category
-from django.db.models import Count
 
 
 class CategoryViewSet(viewsets.ModelViewSet):

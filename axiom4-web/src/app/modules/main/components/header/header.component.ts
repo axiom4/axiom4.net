@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild, Inject, PLATFORM_ID, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ElementRef, ViewChild, Inject, PLATFORM_ID, ChangeDetectionStrategy, inject, DestroyRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ConfigService, Configuration } from 'src/app/modules/utils';
 import { SearchComponent } from '../search/search.component';
@@ -11,35 +11,31 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   showMenu = false;
-  showLogo = false;
-  config: Configuration | undefined;
-  landscape: MediaQueryList | undefined;
+  config: Configuration | undefined = inject(ConfigService).getConfiguration();
 
-  constructor(
-    private configService: ConfigService,
-    @Inject(PLATFORM_ID) private platformId: Object
-  ) {
+  private destroyRef = inject(DestroyRef);
+  private platformId = inject(PLATFORM_ID);
+  private landscape: MediaQueryList | undefined;
+
+  constructor() {
     if (isPlatformBrowser(this.platformId)) {
+      const handler = () => {};
       this.landscape = window.matchMedia('(orientation: landscape)');
-      this.landscape.addEventListener('change', (ev) => {
-        console.log('landscape orientation', this.landscape?.matches);
-      });
+      this.landscape.addEventListener('change', handler);
+      this.destroyRef.onDestroy(() => this.landscape?.removeEventListener('change', handler));
     }
-  }
-
-  ngOnInit(): void {
-    this.config = this.configService.getConfiguration();
   }
 
   @ViewChild('navmenu') navmenu: ElementRef | undefined;
 
   toogleMenu() {
-    if (this.navmenu)
+    if (this.navmenu) {
       if (this.showMenu) this.navmenu.nativeElement.classList.remove('show');
       else this.navmenu.nativeElement.classList.add('show');
-
+    }
     this.showMenu = !this.showMenu;
   }
 }
+

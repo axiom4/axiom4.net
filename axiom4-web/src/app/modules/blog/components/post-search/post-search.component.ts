@@ -36,7 +36,7 @@ export class PostSearchComponent {
   collectionSize = signal(0);
 
   searchText = '';
-  debounceTime = 250;
+  readonly debounceMs = 250;
 
   private inputValue = new Subject<string>();
 
@@ -48,11 +48,11 @@ export class PostSearchComponent {
     }
   }
 
-  _search: any;
+  _search: HTMLInputElement | undefined;
 
   constructor() {
     this.inputValue.pipe(
-      debounceTime(this.debounceTime),
+      debounceTime(this.debounceMs),
       distinctUntilChanged(),
       switchMap(value => {
         if (!value) {
@@ -82,8 +82,8 @@ export class PostSearchComponent {
     this.modal.dismissAll();
   }
 
-  onInput(e: any) {
-    const search = e.target.value;
+  onInput(e: Event) {
+    const search = (e.target as HTMLInputElement).value;
     if (search.length === 0) {
       this.posts.set([]);
       this.show_not_found.set(false);

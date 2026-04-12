@@ -32,8 +32,7 @@ export class PageComponent {
             this.title.setTitle(page.title);
             this.highlightService.highlightAll();
           }),
-          catchError(error => {
-            console.log(error);
+          catchError(() => {
             this.router.navigate(['/notfound']);
             return EMPTY;
           })
