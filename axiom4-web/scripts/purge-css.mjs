@@ -43,30 +43,35 @@ const [result] = await new PurgeCSS().purge({
     `${rootDir}/node_modules/@ng-bootstrap/ng-bootstrap/fesm2022/ng-bootstrap-ng-bootstrap-modal.mjs`,
     `${rootDir}/node_modules/@ng-bootstrap/ng-bootstrap/fesm2022/ng-bootstrap-ng-bootstrap-offcanvas.mjs`,
     // Stub covering all HTML elements that marked renders at runtime via [innerHTML].
-    // Without this, PurgeCSS strips Bootstrap table/code/typography styles because
-    // these elements never appear in the static Angular templates.
-    // Also covers Prism.js classes added dynamically by prism-line-numbers,
-    // prism-line-highlight, prism-toolbar, and prism-copy-to-clipboard plugins.
+    // IMPORTANT: class attributes must be inside valid elements so PurgeCSS's HTML
+    // extractor can parse them. Dangling class="..." text outside elements is ignored.
     {
-      raw:
-        // HTML elements rendered by marked
-        "<h1><h2><h3><h4><h5><h6>" +
-        "<p><br><hr><blockquote>" +
-        "<pre><code><samp><kbd>" +
-        "<table><thead><tbody><tfoot><tr><th><td><caption>" +
-        "<ul><ol><li><dl><dt><dd>" +
-        "<figure><figcaption>" +
-        "<strong><em><b><i><del><ins><mark><s><sub><sup>" +
-        "<a><img>" +
-        // Prism.js classes applied at runtime (not present in any static template)
-        ' class="language-bash language-python language-javascript language-typescript' +
-        " language-html language-css language-json language-yaml language-sql" +
-        " language-java language-c language-cpp language-csharp language-go" +
-        " language-rust language-php language-ruby language-swift language-kotlin" +
-        " language-shell language-diff language-docker language-nginx language-ini" +
-        " line-numbers line-numbers-rows line-highlight" +
-        " code-toolbar toolbar toolbar-item copy-to-clipboard-button" +
-        ' token keyword string number boolean comment operator punctuation" >',
+      raw: `
+        <!-- HTML elements rendered by marked (no Bootstrap classes added by marked) -->
+        <h1></h1><h2></h2><h3></h3><h4></h4><h5></h5><h6></h6>
+        <p></p><br><hr>
+        <a href=""></a>
+        <img src="" class="img-fluid">
+        <strong></strong><em></em><b></b><i></i>
+        <del></del><ins></ins><mark></mark><s></s><sub></sub><sup></sup>
+        <ul><li></li></ul><ol><li></li></ol>
+        <dl><dt></dt><dd></dd></dl>
+        <figure class="figure"><figcaption class="figure-caption"></figcaption></figure>
+
+        <!-- Bootstrap classes added by MarkedPipe renderer to markdown-rendered elements -->
+        <blockquote class="blockquote"><p></p></blockquote>
+        <table class="table table-bordered table-sm">
+          <thead class="table-dark"><tr><th></th></tr></thead>
+          <tbody><tr><td></td></tr></tbody>
+          <tfoot><tr><td></td></tr></tfoot>
+          <caption></caption>
+        </table>
+        <pre class="line-numbers"><code class="language-bash language-python language-javascript language-typescript language-html language-css language-json language-yaml language-sql language-java language-c language-cpp language-csharp language-go language-rust language-php language-ruby language-swift language-kotlin language-shell language-diff language-docker language-nginx language-ini language-markup"></code></pre>
+        <!-- Prism.js plugin classes added at runtime -->
+        <div class="line-numbers line-highlight code-toolbar toolbar toolbar-item copy-to-clipboard-button line-numbers-rows">
+          <span class="token keyword string number boolean null undefined regex url function class-name property builtin char escape inserted deleted tag attr-name attr-value selector comment prolog doctype cdata entity operator punctuation important bold italic"></span>
+        </div>
+      `,
       extension: "html",
     },
   ],
