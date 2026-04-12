@@ -12,7 +12,7 @@ _MIN_WIDTH = 50
 _MAX_WIDTH = 1200
 
 
-@cache_control(public=True, max_age=86400)
+@cache_control(public=True, max_age=31536000)
 def thumbnail(request, width: int, image_path: str):
     """Serve a width-capped WebP thumbnail of a MEDIA_ROOT image.
 

@@ -29,6 +29,7 @@ services:
     image: nginx
     volumes:
       - ./templates:/etc/nginx/templates
+      - ./axiom4-web/dist/axiom4-web/browser:/usr/share/nginx/html:ro
     ports:
       - "8080:80"
     environment:
