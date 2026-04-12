@@ -47,15 +47,15 @@ const [result] = await new PurgeCSS().purge({
     // these elements never appear in the static Angular templates.
     {
       raw:
-        '<h1><h2><h3><h4><h5><h6>' +
-        '<p><br><hr><blockquote>' +
-        '<pre><code><samp><kbd>' +
-        '<table><thead><tbody><tfoot><tr><th><td><caption>' +
-        '<ul><ol><li><dl><dt><dd>' +
-        '<figure><figcaption>' +
-        '<strong><em><b><i><del><ins><mark><s><sub><sup>' +
-        '<a><img>',
-      extension: 'html',
+        "<h1><h2><h3><h4><h5><h6>" +
+        "<p><br><hr><blockquote>" +
+        "<pre><code><samp><kbd>" +
+        "<table><thead><tbody><tfoot><tr><th><td><caption>" +
+        "<ul><ol><li><dl><dt><dd>" +
+        "<figure><figcaption>" +
+        "<strong><em><b><i><del><ins><mark><s><sub><sup>" +
+        "<a><img>",
+      extension: "html",
     },
   ],
   css: [cssFile],
