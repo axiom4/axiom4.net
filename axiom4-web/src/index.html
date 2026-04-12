@@ -6,7 +6,29 @@
          /api/lcp/ returns the latest post's image path (5-min public cache).
          The <link rel="preload"> is injected into <head> as soon as the response arrives. -->
     <script>
-      !function(){fetch('/api/lcp/',{priority:'high'}).then(function(r){return r.ok?r.json():null}).then(function(d){if(d&&d.path){var p=d.path,l=document.createElement('link');l.rel='preload';l.as='image';l.type='image/webp';l.href='/api/thumb/900/'+p;l.setAttribute('imagesrcset','/api/thumb/480/'+p+' 480w, /api/thumb/900/'+p+' 900w');l.setAttribute('imagesizes','(max-width:572px) 96vw, 50vw');document.head.appendChild(l);}}).catch(function(){});}();
+      !(function () {
+        fetch("/api/lcp/", { priority: "high" })
+          .then(function (r) {
+            return r.ok ? r.json() : null;
+          })
+          .then(function (d) {
+            if (d && d.path) {
+              var p = d.path,
+                l = document.createElement("link");
+              l.rel = "preload";
+              l.as = "image";
+              l.type = "image/webp";
+              l.href = "/api/thumb/900/" + p;
+              l.setAttribute(
+                "imagesrcset",
+                "/api/thumb/480/" + p + " 480w, /api/thumb/900/" + p + " 900w",
+              );
+              l.setAttribute("imagesizes", "(max-width:572px) 96vw, 50vw");
+              document.head.appendChild(l);
+            }
+          })
+          .catch(function () {});
+      })();
     </script>
     <title>axiom4.net</title>
     <base href="/" />
