@@ -1,20 +1,30 @@
+import { DatePipe } from '@angular/common';
 import {
+  ChangeDetectionStrategy,
   Component,
+  DestroyRef,
   ElementRef,
   ViewChild,
-  signal,
   inject,
-  ChangeDetectionStrategy,
-  DestroyRef,
+  signal,
 } from '@angular/core';
-import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { Subject, debounceTime, distinctUntilChanged, switchMap, EMPTY } from 'rxjs';
-import { BlogPostsListRequestParams, BlogService, PostPreview } from 'src/app/modules/core/api/v1';
-import { ConfigService } from 'src/app/modules/utils';
-import { RouterLink } from '@angular/router';
-import { DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import {
+  EMPTY,
+  Subject,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap,
+} from 'rxjs';
+import {
+  BlogPostsListRequestParams,
+  BlogService,
+  PostPreview,
+} from 'src/app/modules/core/api/v1';
+import { ConfigService } from 'src/app/modules/utils';
 
 @Component({
   selector: 'app-post-search',
@@ -51,31 +61,33 @@ export class PostSearchComponent {
   _search: HTMLInputElement | undefined;
 
   constructor() {
-    this.inputValue.pipe(
-      debounceTime(this.debounceMs),
-      distinctUntilChanged(),
-      switchMap(value => {
-        if (!value) {
-          this.posts.set([]);
-          this.show_not_found.set(false);
-          this.show_search.set(true);
-          return EMPTY;
-        }
-        this.currentPage.set(1);
-        this.show_search.set(false);
-        return this.blogService.blogPostsList({
-          search: value,
-          page: 1,
-          pageSize: this.pageSize,
-          ordering: '-created_at',
-        });
-      }),
-      takeUntilDestroyed()
-    ).subscribe(response => {
-      this.collectionSize.set(response.count ?? 0);
-      this.posts.set(response.results ?? []);
-      this.show_not_found.set((response.results?.length ?? 0) === 0);
-    });
+    this.inputValue
+      .pipe(
+        debounceTime(this.debounceMs),
+        distinctUntilChanged(),
+        switchMap((value) => {
+          if (!value) {
+            this.posts.set([]);
+            this.show_not_found.set(false);
+            this.show_search.set(true);
+            return EMPTY;
+          }
+          this.currentPage.set(1);
+          this.show_search.set(false);
+          return this.blogService.blogPostsList({
+            search: value,
+            page: 1,
+            pageSize: this.pageSize,
+            ordering: '-created_at',
+          });
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe((response) => {
+        this.collectionSize.set(response.count ?? 0);
+        this.posts.set(response.results ?? []);
+        this.show_not_found.set((response.results?.length ?? 0) === 0);
+      });
   }
 
   close() {
@@ -110,13 +122,14 @@ export class PostSearchComponent {
       pageSize: this.pageSize,
       ordering: '-created_at',
     };
-    this.blogService.blogPostsList(params).pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(response => {
-      this.collectionSize.set(response.count ?? 0);
-      this.posts.set(response.results ?? []);
-      this.show_not_found.set((response.results?.length ?? 0) === 0);
-    });
+    this.blogService
+      .blogPostsList(params)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((response) => {
+        this.collectionSize.set(response.count ?? 0);
+        this.posts.set(response.results ?? []);
+        this.show_not_found.set((response.results?.length ?? 0) === 0);
+      });
     this._search?.focus();
   }
 }

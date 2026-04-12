@@ -1,12 +1,12 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
-import { switchMap, map, filter, catchError, tap, EMPTY } from 'rxjs';
+import { catchError, EMPTY, filter, map, switchMap, tap } from 'rxjs';
+import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
 import { BlogService } from 'src/app/modules/core/api/v1';
 import { MarkedPipe } from 'src/app/modules/utils/marked.pipe';
-import { DatePipe } from '@angular/common';
-import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-page',
@@ -24,20 +24,20 @@ export class PageComponent {
 
   page = toSignal(
     this.route.paramMap.pipe(
-      map(params => params.get('slug')),
+      map((params) => params.get('slug')),
       filter((slug): slug is string => !!slug),
-      switchMap(slug =>
+      switchMap((slug) =>
         this.blogService.blogPagesRetrieve({ tag: slug }).pipe(
-          tap(page => {
+          tap((page) => {
             this.title.setTitle(page.title);
             this.highlightService.highlightAll();
           }),
           catchError(() => {
             this.router.navigate(['/notfound']);
             return EMPTY;
-          })
-        )
-      )
-    )
+          }),
+        ),
+      ),
+    ),
   );
 }

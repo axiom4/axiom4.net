@@ -15,7 +15,8 @@ class PostPagination(PageNumberPagination):
 
 
 class PostViewset(viewsets.ModelViewSet):
-    queryset = Post.objects.select_related('author').prefetch_related('categories').all()
+    queryset = Post.objects.select_related(
+        'author').prefetch_related('categories').all()
     serializer_class = PostSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]

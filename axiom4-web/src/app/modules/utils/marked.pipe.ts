@@ -20,7 +20,7 @@ export class MarkedPipe implements PipeTransform {
       (_match, code) => {
         const mermaidCode = code.replace(/&gt;/g, '>').replace(/&lt;/g, '<');
         return `<div class="mermaid">${mermaidCode}</div>`;
-      }
+      },
     );
   }
 }

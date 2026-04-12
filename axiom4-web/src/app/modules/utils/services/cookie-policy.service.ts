@@ -3,7 +3,7 @@ import { ConfigService } from 'src/app/modules/utils/services/config.service';
 import { CookiePolicy } from '../models/cooke-policy';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CookiePolicyService {
   cookiePolicyAlert: CookiePolicy | undefined;
@@ -34,4 +34,3 @@ export class CookiePolicyService {
     this.loadScript();
   }
 }
-

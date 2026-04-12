@@ -1,9 +1,9 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
+import { map } from 'rxjs';
 import { BlogService, Category } from 'src/app/modules/core/api/v1';
 import { CloudTacCategory } from '../../models/cloud-tag-category';
-import { RouterLink } from '@angular/router';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
 
 @Component({
   selector: 'app-tag-cloud',
@@ -15,10 +15,10 @@ export class TagCloudComponent {
   private blogService = inject(BlogService);
 
   categories = toSignal(
-    this.blogService.blogCategoriesList().pipe(
-      map(values => this.buildTagClod(values))
-    ),
-    { initialValue: [] as CloudTacCategory[] }
+    this.blogService
+      .blogCategoriesList()
+      .pipe(map((values) => this.buildTagClod(values))),
+    { initialValue: [] as CloudTacCategory[] },
   );
 
   shuffle(array: CloudTacCategory[]): CloudTacCategory[] {
@@ -34,11 +34,11 @@ export class TagCloudComponent {
 
     const fontMin = 1;
     const fontMax = 10;
-    const postCounts = categories.map(c => Number(c.posts));
+    const postCounts = categories.map((c) => Number(c.posts));
     const min = Math.min(...postCounts);
     const max = Math.max(...postCounts);
 
-    const mapped = categories.map(tag => ({
+    const mapped = categories.map((tag) => ({
       id: Number(tag.id),
       name: tag.name,
       weight:

@@ -1,12 +1,21 @@
-import { Component, signal, inject, ChangeDetectionStrategy } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Subject, merge, switchMap, map, catchError, EMPTY, tap } from 'rxjs';
-import { BlogPostsListRequestParams, BlogService, PostPreview } from 'src/app/modules/core/api/v1';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { catchError, EMPTY, map, merge, Subject, switchMap, tap } from 'rxjs';
+import {
+  BlogPostsListRequestParams,
+  BlogService,
+  PostPreview,
+} from 'src/app/modules/core/api/v1';
 import { ConfigService } from 'src/app/modules/utils';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { DatePipe } from '@angular/common';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-post-search-list',
@@ -30,39 +39,41 @@ export class PostSearchListComponent {
 
   constructor() {
     const categoryChange$ = this.route.paramMap.pipe(
-      map(params => params.get('category')),
+      map((params) => params.get('category')),
       tap(() => this.currentPage.set(1)),
-      map(category => ({ category, page: 1 }))
+      map((category) => ({ category, page: 1 })),
     );
 
     const pageChange$ = this.pageChange$.pipe(
-      map(page => ({
+      map((page) => ({
         category: this.route.snapshot.paramMap.get('category'),
         page,
-      }))
+      })),
     );
 
-    merge(categoryChange$, pageChange$).pipe(
-      switchMap(({ category, page }) => {
-        const params: BlogPostsListRequestParams = {
-          page,
-          pageSize: this.pageSize,
-          ordering: '-created_at',
-          ...(category ? { categoriesName: category } : {}),
-        };
-        return this.blogService.blogPostsList(params).pipe(
-          catchError(() => {
-            this.router.navigate(['/notfound']);
-            return EMPTY;
-          })
-        );
-      }),
-      takeUntilDestroyed()
-    ).subscribe(response => {
-      this.collectionSize.set(response.count ?? 0);
-      this.posts.set(response.results ?? []);
-      this.notFound.set((response.results?.length ?? 0) === 0);
-    });
+    merge(categoryChange$, pageChange$)
+      .pipe(
+        switchMap(({ category, page }) => {
+          const params: BlogPostsListRequestParams = {
+            page,
+            pageSize: this.pageSize,
+            ordering: '-created_at',
+            ...(category ? { categoriesName: category } : {}),
+          };
+          return this.blogService.blogPostsList(params).pipe(
+            catchError(() => {
+              this.router.navigate(['/notfound']);
+              return EMPTY;
+            }),
+          );
+        }),
+        takeUntilDestroyed(),
+      )
+      .subscribe((response) => {
+        this.collectionSize.set(response.count ?? 0);
+        this.posts.set(response.results ?? []);
+        this.notFound.set((response.results?.length ?? 0) === 0);
+      });
   }
 
   onPageChange(page: number) {

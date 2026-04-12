@@ -14,10 +14,12 @@ class Migration(migrations.Migration):
         ),
         migrations.AddIndex(
             model_name='post',
-            index=models.Index(fields=['-created_at'], name='blog_post_created_idx'),
+            index=models.Index(fields=['-created_at'],
+                               name='blog_post_created_idx'),
         ),
         migrations.AddIndex(
             model_name='post',
-            index=models.Index(fields=['author_id'], name='blog_post_author_idx'),
+            index=models.Index(fields=['author_id'],
+                               name='blog_post_author_idx'),
         ),
     ]

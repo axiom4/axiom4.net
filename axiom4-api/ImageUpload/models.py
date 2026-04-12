@@ -13,6 +13,7 @@ import sys
 from django.core.files.storage import FileSystemStorage
 import os
 
+
 class OverwriteStorage(FileSystemStorage):
 
     def get_available_name(self, name, max_length=None):
@@ -38,6 +39,7 @@ class OverwriteStorage(FileSystemStorage):
             os.remove(os.path.join(settings.MEDIA_ROOT, name))
         return name
 
+
 def directory_path(instance, filename):
     # file will be uploaded to MEDIA_ROOT / user_<id>/<filename>
     return 'posts/{0}/{1}.webp'.format(instance.post.id, instance.short_name)
@@ -56,7 +58,8 @@ def resize_image(image: Image.Image, width: int) -> Image.Image:
 
 class ImageUpload(models.Model):
     title = models.CharField(max_length=250, null=False)
-    image = models.ImageField(null=False, upload_to=directory_path, storage=OverwriteStorage())
+    image = models.ImageField(
+        null=False, upload_to=directory_path, storage=OverwriteStorage())
     short_name = models.CharField(max_length=20, null=False)
 
     post = models.ForeignKey(Post, on_delete=models.CASCADE)

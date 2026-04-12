@@ -1,4 +1,9 @@
-import { Component, HostListener, ChangeDetectionStrategy, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  HostListener,
+  inject,
+} from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { PostSearchComponent } from 'src/app/modules/blog/components/post-search/post-search.component';
 
@@ -23,9 +28,12 @@ export class SearchComponent {
 
   open() {
     this.modalRef = this.modalService.open(PostSearchComponent, { size: 'lg' });
-    this.modalRef.dismissed.subscribe(() => { this.opened = false; });
-    this.modalRef.closed.subscribe(() => { this.opened = false; });
+    this.modalRef.dismissed.subscribe(() => {
+      this.opened = false;
+    });
+    this.modalRef.closed.subscribe(() => {
+      this.opened = false;
+    });
     this.opened = true;
   }
 }
-
