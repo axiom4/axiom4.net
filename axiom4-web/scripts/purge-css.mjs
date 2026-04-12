@@ -10,12 +10,12 @@
  * (called automatically from the `build` npm script)
  */
 
-import { PurgeCSS } from 'purgecss';
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
-import { resolve, join } from 'node:path';
+import { readdirSync, readFileSync, writeFileSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { PurgeCSS } from "purgecss";
 
-const rootDir = resolve(import.meta.dirname, '..');
-const distDir = join(rootDir, 'dist', 'axiom4-web', 'browser');
+const rootDir = resolve(import.meta.dirname, "..");
+const distDir = join(rootDir, "dist", "axiom4-web", "browser");
 
 // ── Find the hashed styles CSS file ─────────────────────────────────────────
 const cssFile = readdirSync(distDir)
@@ -23,7 +23,7 @@ const cssFile = readdirSync(distDir)
   .find((f) => /styles-[A-Z0-9]+\.css$/.test(f));
 
 if (!cssFile) {
-  console.error('purge-css: no styles-*.css found in', distDir);
+  console.error("purge-css: no styles-*.css found in", distDir);
   process.exit(1);
 }
 
@@ -49,20 +49,35 @@ const [result] = await new PurgeCSS().purge({
     // ── Exact class names toggled by Bootstrap JS / ng-bootstrap ─────────
     standard: [
       // Visibility state
-      'show', 'hide', 'open', 'close',
+      "show",
+      "hide",
+      "open",
+      "close",
       // Interactivity state
-      'active', 'disabled', 'focus',
+      "active",
+      "disabled",
+      "focus",
       // Transition helpers
-      'fade', 'in', 'out', 'collapse', 'collapsing', 'collapsed',
+      "fade",
+      "in",
+      "out",
+      "collapse",
+      "collapsing",
+      "collapsed",
       // Carousel motion classes (toggled by ng-bootstrap)
-      'carousel-item-next', 'carousel-item-prev',
-      'carousel-item-start', 'carousel-item-end',
+      "carousel-item-next",
+      "carousel-item-prev",
+      "carousel-item-start",
+      "carousel-item-end",
       // Backdrop overlays
-      'modal-backdrop', 'offcanvas-backdrop',
+      "modal-backdrop",
+      "offcanvas-backdrop",
       // Form validation
-      'was-validated', 'is-valid', 'is-invalid',
+      "was-validated",
+      "is-valid",
+      "is-invalid",
       // Angular router
-      'router-outlet',
+      "router-outlet",
     ],
 
     // ── Patterns: keep any selector whose text contains a match ──────────
@@ -96,5 +111,5 @@ writeFileSync(cssFile, result.css);
 const newSize = Buffer.byteLength(result.css);
 const saved = (((originalSize - newSize) / originalSize) * 100).toFixed(1);
 console.log(
-  `purge-css: ${Math.round(originalSize / 1024)} KiB → ${Math.round(newSize / 1024)} KiB  (-${saved}%)  [${cssFile.split('/').pop()}]`,
+  `purge-css: ${Math.round(originalSize / 1024)} KiB → ${Math.round(newSize / 1024)} KiB  (-${saved}%)  [${cssFile.split("/").pop()}]`,
 );
