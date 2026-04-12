@@ -3,3 +3,4 @@ from .PageViewset import PageViewset
 from .UserViewSet import UserViewSet
 from .CategoryViewSet import CategoryViewSet
 from .LcpImageView import lcp_image
+from .SpaIndexView import spa_index

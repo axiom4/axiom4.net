@@ -26,7 +26,7 @@ from django.conf.urls.static import static
 from .permissions import AccessListPermission
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from ImageUpload.views import thumbnail
-from Blog.views import lcp_image
+from Blog.views import lcp_image, spa_index
 
 schema_url_patterns = [
     path('blog/', include(blog_urls.urlpatterns)),
@@ -44,6 +44,7 @@ urlpatterns = [
     path('thumb/<int:width>/<path:image_path>',
          thumbnail, name='image-thumbnail'),
     path('lcp/', lcp_image, name='lcp-image'),
+    path('spa-index/', spa_index, name='spa-index'),
 ]
 
 if settings.DEBUG:

@@ -25,6 +25,8 @@ services:
     env_file:
       - ./config/.env.db
       - ./config/.env.app
+    volumes:
+      - ./axiom4-web/dist/axiom4-web/browser:/app/angular-dist:ro
   axiom4-web:
     image: nginx
     volumes:

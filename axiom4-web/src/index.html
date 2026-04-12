@@ -2,38 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <!-- LCP preload: fires before Angular boots, overlapping image download with JS execution.
-         /api/lcp/ returns the latest post's image path (5-min public cache).
-         The <link rel="preload"> is injected into <head> as soon as the response arrives. -->
-    <script>
-      !(function () {
-        // Only preload the LCP carousel image on the home page.
-        // On inner pages (e.g. /blog/posts/14) post 16's image is never used
-        // and the preload fires a browser warning.
-        if (location.pathname !== "/") return;
-        fetch("/api/lcp/", { priority: "high" })
-          .then(function (r) {
-            return r.ok ? r.json() : null;
-          })
-          .then(function (d) {
-            if (d && d.path) {
-              var p = d.path,
-                l = document.createElement("link");
-              l.rel = "preload";
-              l.as = "image";
-              l.type = "image/webp";
-              l.href = "/api/thumb/900/" + p;
-              l.setAttribute(
-                "imagesrcset",
-                "/api/thumb/480/" + p + " 480w, /api/thumb/900/" + p + " 900w",
-              );
-              l.setAttribute("imagesizes", "(max-width:572px) 96vw, 50vw");
-              document.head.appendChild(l);
-            }
-          })
-          .catch(function () {});
-      })();
-    </script>
     <title>axiom4.net</title>
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
