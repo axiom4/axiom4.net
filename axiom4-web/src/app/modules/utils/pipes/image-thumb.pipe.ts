@@ -17,7 +17,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ImageThumbPipe implements PipeTransform {
   private static readonly MEDIA_PREFIX = '/media/';
 
-  transform(imageUrl: string | null | undefined, widths: number | number[]): string {
+  transform(
+    imageUrl: string | null | undefined,
+    widths: number | number[],
+  ): string {
     if (!imageUrl) return '';
     const idx = imageUrl.indexOf(ImageThumbPipe.MEDIA_PREFIX);
     if (idx === -1) return imageUrl;

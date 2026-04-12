@@ -14,15 +14,20 @@ import {
   BlogService,
   PostPreview,
 } from 'src/app/modules/core/api/v1';
-import { ConfigService } from 'src/app/modules/utils';
-import { ImageThumbPipe } from 'src/app/modules/utils';
+import { ConfigService, ImageThumbPipe } from 'src/app/modules/utils';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 
 @Component({
   selector: 'app-post-search-list',
   templateUrl: './post-search-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, NgbPagination, TagCloudComponent, DatePipe, ImageThumbPipe],
+  imports: [
+    RouterLink,
+    NgbPagination,
+    TagCloudComponent,
+    DatePipe,
+    ImageThumbPipe,
+  ],
 })
 export class PostSearchListComponent {
   private route = inject(ActivatedRoute);

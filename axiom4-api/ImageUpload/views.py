@@ -40,7 +40,8 @@ def thumbnail(request, width: int, image_path: str):
     # Cache path: always stored as WebP to benefit from format conversion
     rel_dir = Path(image_path).parent
     stem = Path(image_path).stem
-    cache_path = (media_root / 'thumb' / str(width) / rel_dir / (stem + '.webp')).resolve()
+    cache_path = (media_root / 'thumb' / str(width) /
+                  rel_dir / (stem + '.webp')).resolve()
     try:
         cache_path.relative_to(media_root)
     except ValueError:
@@ -53,7 +54,8 @@ def thumbnail(request, width: int, image_path: str):
             if orig_w > width:
                 new_h = round(orig_h * width / orig_w)
                 img = img.resize((width, new_h), Image.Resampling.LANCZOS)
-            out = img if img.mode in ('RGB', 'RGBA', 'L', 'LA') else img.convert('RGB')
+            out = img if img.mode in (
+                'RGB', 'RGBA', 'L', 'LA') else img.convert('RGB')
             # Write atomically: temp file then rename
             tmp = cache_path.with_suffix('.tmp')
             out.save(tmp, 'WEBP', quality=85, method=4)

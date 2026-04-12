@@ -40,7 +40,8 @@ urlpatterns = [
          SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('thumb/<int:width>/<path:image_path>', thumbnail, name='image-thumbnail'),
+    path('thumb/<int:width>/<path:image_path>',
+         thumbnail, name='image-thumbnail'),
 ]
 
 if settings.DEBUG:
