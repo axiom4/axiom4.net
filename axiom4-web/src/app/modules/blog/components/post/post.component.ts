@@ -1,5 +1,12 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  afterNextRender,
+  ChangeDetectionStrategy,
+  Component,
+  effect,
+  inject,
+  Injector,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -22,6 +29,7 @@ export class PostComponent {
   private blogService = inject(BlogService);
   private title = inject(Title);
   private highlightService = inject(HighlightService);
+  private injector = inject(Injector);
 
   post = toSignal(
     this.route.paramMap.pipe(
@@ -31,7 +39,6 @@ export class PostComponent {
         this.blogService.blogPostsRetrieve({ id }).pipe(
           tap((post) => {
             this.title.setTitle(post.title);
-            this.highlightService.highlightAll();
           }),
           catchError(() => {
             this.router.navigate(['/notfound']);
@@ -41,4 +48,20 @@ export class PostComponent {
       ),
     ),
   );
+
+  constructor() {
+    // Run Prism and Mermaid AFTER Angular renders the [innerHTML] content.
+    // highlightAll() in tap() runs before the DOM is updated (signals schedule
+    // rendering asynchronously), so code blocks wouldn't be found by Prism.
+    effect(() => {
+      const p = this.post();
+      if (p) {
+        afterNextRender(
+          () => this.highlightService.highlightAll(),
+          { injector: this.injector },
+        );
+      }
+    });
+  }
 }
+
