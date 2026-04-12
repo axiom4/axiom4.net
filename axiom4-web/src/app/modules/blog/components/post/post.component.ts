@@ -56,12 +56,10 @@ export class PostComponent {
     effect(() => {
       const p = this.post();
       if (p) {
-        afterNextRender(
-          () => this.highlightService.highlightAll(),
-          { injector: this.injector },
-        );
+        afterNextRender(() => this.highlightService.highlightAll(), {
+          injector: this.injector,
+        });
       }
     });
   }
 }
-
