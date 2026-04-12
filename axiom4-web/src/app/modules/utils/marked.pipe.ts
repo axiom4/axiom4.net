@@ -7,11 +7,12 @@ import { marked, Renderer } from 'marked';
 const renderer = new Renderer();
 
 renderer.table = ({ header, rows }) => {
-  const headerHtml = header
-    .map((cell) => `<th>${cell.text}</th>`)
-    .join('');
+  const headerHtml = header.map((cell) => `<th>${cell.text}</th>`).join('');
   const bodyHtml = rows
-    .map((row) => `<tr>${row.map((cell) => `<td>${cell.text}</td>`).join('')}</tr>`)
+    .map(
+      (row) =>
+        `<tr>${row.map((cell) => `<td>${cell.text}</td>`).join('')}</tr>`,
+    )
     .join('');
   return (
     `<div class="table-responsive">` +
