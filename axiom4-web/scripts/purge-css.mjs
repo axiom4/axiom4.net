@@ -45,8 +45,11 @@ const [result] = await new PurgeCSS().purge({
     // Stub covering all HTML elements that marked renders at runtime via [innerHTML].
     // Without this, PurgeCSS strips Bootstrap table/code/typography styles because
     // these elements never appear in the static Angular templates.
+    // Also covers Prism.js classes added dynamically by prism-line-numbers,
+    // prism-line-highlight, prism-toolbar, and prism-copy-to-clipboard plugins.
     {
       raw:
+        // HTML elements rendered by marked
         "<h1><h2><h3><h4><h5><h6>" +
         "<p><br><hr><blockquote>" +
         "<pre><code><samp><kbd>" +
@@ -54,7 +57,16 @@ const [result] = await new PurgeCSS().purge({
         "<ul><ol><li><dl><dt><dd>" +
         "<figure><figcaption>" +
         "<strong><em><b><i><del><ins><mark><s><sub><sup>" +
-        "<a><img>",
+        "<a><img>" +
+        // Prism.js classes applied at runtime (not present in any static template)
+        ' class="language-bash language-python language-javascript language-typescript' +
+        " language-html language-css language-json language-yaml language-sql" +
+        " language-java language-c language-cpp language-csharp language-go" +
+        " language-rust language-php language-ruby language-swift language-kotlin" +
+        " language-shell language-diff language-docker language-nginx language-ini" +
+        " line-numbers line-numbers-rows line-highlight" +
+        " code-toolbar toolbar toolbar-item copy-to-clipboard-button" +
+        ' token keyword string number boolean comment operator punctuation" >',
       extension: "html",
     },
   ],
@@ -102,13 +114,15 @@ const [result] = await new PurgeCSS().purge({
       // ng-bootstrap host elements (e.g. ngb-carousel, ngb-pagination)
       /ngb-/,
       // Angular built-in directive classes (ng-star-inserted, ng-animating…)
-      /^ng-/,
+      // Note: no ^ anchor — CSS selectors start with "." so ".ng-*" won't match /^ng-/
+      /\bng-/,
       // Prism.js syntax highlighting token classes
       /\btoken\b/,
-      /^language-/,
-      /^prism/,
-      /^line-numbers/,
-      /^line-highlight/,
+      // Note: no ^ anchor — ".language-python" etc. start with "." not "l"
+      /\blanguage-/,
+      /\bprism/,
+      /\bline-numbers\b/,
+      /\bline-highlight\b/,
       /\btoolbar\b/,
       /\bcode-toolbar\b/,
     ],
