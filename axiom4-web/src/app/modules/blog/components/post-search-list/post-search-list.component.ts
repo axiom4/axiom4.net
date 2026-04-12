@@ -5,7 +5,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, EMPTY, map, merge, Subject, switchMap, tap } from 'rxjs';
@@ -34,6 +34,10 @@ export class PostSearchListComponent {
   posts = signal<PostPreview[]>([]);
   collectionSize = signal(0);
   notFound = signal(false);
+  currentCategory = toSignal(
+    this.route.paramMap.pipe(map((p) => p.get('category'))),
+    { initialValue: null as string | null },
+  );
 
   private pageChange$ = new Subject<number>();
 

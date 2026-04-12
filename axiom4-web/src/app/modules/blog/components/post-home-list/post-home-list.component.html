@@ -1,5 +1,7 @@
 @if (posts().length > 0) {
-<ngb-carousel
+<section aria-labelledby="featured-posts-heading">
+  <h2 id="featured-posts-heading" class="visually-hidden">Featured posts</h2>
+  <ngb-carousel
   class="mt-4"
   [interval]="config?.carouselTime || 2000"
   aria-label="Last Post List"
@@ -26,6 +28,7 @@
   </ng-template>
   }
 </ngb-carousel>
+</section>
 }
 <hr />
 <app-post-search-list></app-post-search-list>
