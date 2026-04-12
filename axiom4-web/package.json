@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --subresource-integrity --inline-style-language css",
+    "build": "ng build --inline-style-language css && node scripts/purge-css.mjs",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "generate:api": "openapi-generator-cli generate  -p supportsES6=true,withInterfaces=true,useSingleRequestParameter=true -i http://127.0.0.1:8000/openapi -g typescript-angular -o src/app/modules/core/api/v1"
@@ -37,6 +37,7 @@
     "@openapitools/openapi-generator-cli": "^2.31.1",
     "@types/node": "^25.6.0",
     "@types/prismjs": "^1.26.6",
+    "purgecss": "^8.0.0",
     "typescript": "~5.9.3"
   }
 }
