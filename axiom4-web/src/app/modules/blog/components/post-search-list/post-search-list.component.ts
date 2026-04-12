@@ -34,6 +34,8 @@ export class PostSearchListComponent {
   posts = signal<PostPreview[]>([]);
   collectionSize = signal(0);
   notFound = signal(false);
+  loading = signal(true);
+  skeletonCards = Array.from({ length: this.pageSize }, (_, i) => i);
   currentCategory = toSignal(
     this.route.paramMap.pipe(map((p) => p.get('category'))),
     { initialValue: null as string | null },
@@ -77,6 +79,7 @@ export class PostSearchListComponent {
         this.collectionSize.set(response.count ?? 0);
         this.posts.set(response.results ?? []);
         this.notFound.set((response.results?.length ?? 0) === 0);
+        this.loading.set(false);
       });
   }
 

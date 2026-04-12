@@ -1,7 +1,34 @@
 @if (currentCategory()) {
   <h1 class="visually-hidden">Blog: {{ currentCategory() }}</h1>
 }
-@if (posts().length > 0) {
+@if (loading()) {
+  <div
+    class="mt-2 row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 mb-5"
+    aria-busy="true"
+    aria-label="Loading posts"
+  >
+    @for (i of skeletonCards; track i) {
+      <div class="col">
+        <div class="card h-100 pt-1 ps-1 pe-1">
+          <div class="placeholder-glow">
+            <span
+              class="placeholder d-block card-img-top"
+              style="aspect-ratio: 3/2;"
+            ></span>
+          </div>
+          <div class="card-body placeholder-glow">
+            <h2 class="fs-5"><span class="placeholder col-8"></span></h2>
+            <p class="mb-1"><span class="placeholder col-12"></span></p>
+            <p><span class="placeholder col-7"></span></p>
+          </div>
+          <div class="card-footer placeholder-glow">
+            <small><span class="placeholder col-5"></span></small>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+} @else if (posts().length > 0) {
   <div>
     <div
       class="mt-2 row row-cols-1 row-cols-md-2 row-cols-xl-3 row-cols-xxl-4 g-4 mb-5"
@@ -49,8 +76,7 @@
       ></ngb-pagination>
     }
   </div>
-}
-@if (notFound()) {
+} @else if (notFound()) {
   <div>
     <div class="mt-5 text-center">
       <svg

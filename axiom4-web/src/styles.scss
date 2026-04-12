@@ -408,6 +408,7 @@ ul.cloud {
   align-items: center;
   justify-content: center;
   line-height: 1.925rem;
+  min-height: 100px;
 }
 
 ul.cloud a {
@@ -492,6 +493,14 @@ ul.cloud a:hover::before {
 
 .tag-cloud-separator {
   display: block;
+}
+
+.post-carousel-placeholder {
+  aspect-ratio: 16/9;
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
 }
 
 @media (min-width: 992px) {
