@@ -12,10 +12,11 @@
           <div class="picsum-img-wrapper text-center">
             <img
               class="carousel-img"
-              src="{{ post.image }}"
-              srcset="{{ post.image }} 480w, {{ post.image }} 1080w"
-              sizes="50vw"
+              [src]="post.image | imageThumb:900"
+              [srcset]="post.image | imageThumb:[480, 900]"
+              sizes="(max-width: 572px) 96vw, 50vw"
               alt="{{ post.title }}"
+              fetchpriority="high"
             />
           </div>
           <div class="carousel-caption">

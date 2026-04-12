@@ -37,9 +37,14 @@
         <div class="col">
           <div class="post_card card h-100 pt-1 ps-1 pe-1">
             <img
-              src="{{ post.image }}"
+              [src]="post.image | imageThumb:800"
+              [srcset]="post.image | imageThumb:[400, 800]"
+              sizes="(max-width: 575px) 96vw, (max-width: 767px) 46vw, (max-width: 1199px) 30vw, 24vw"
               class="card-img-top"
               alt="{{ post.title }}"
+              loading="lazy"
+              width="800"
+              height="533"
             />
             <div class="card-body">
               <h2 class="card-title fs-5">

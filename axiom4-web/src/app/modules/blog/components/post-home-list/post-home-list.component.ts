@@ -1,6 +1,6 @@
 import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { BlogService, PostPreview } from 'src/app/modules/core/api/v1';
-import { ConfigService, Configuration } from 'src/app/modules/utils';
+import { ConfigService, Configuration, ImageThumbPipe } from 'src/app/modules/utils';
 import { RouterLink } from '@angular/router';
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { PostSearchListComponent } from '../post-search-list/post-search-list.component';
@@ -11,7 +11,7 @@ import { map } from 'rxjs';
   selector: 'app-post-home-list',
   templateUrl: './post-home-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgbCarousel, NgbSlide, RouterLink, PostSearchListComponent],
+  imports: [NgbCarousel, NgbSlide, RouterLink, PostSearchListComponent, ImageThumbPipe],
 })
 export class PostHomeListComponent {
   private configService = inject(ConfigService);

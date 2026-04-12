@@ -35,8 +35,12 @@
     <a class="navbar-brand ms-2" routerLink="/">
       <img
         class="navbar-brand-img"
-        src="/assets/images/logo.jpeg"
+        src="/assets/images/logo-160.webp"
+        srcset="/assets/images/logo-160.webp 1x, /assets/images/logo.jpeg 2x"
         alt="AXIOM4.NET"
+        width="80"
+        height="80"
+        fetchpriority="high"
       />
       AXIOM4
       <span class="navbar-brand-sub">.NET</span>
@@ -53,9 +57,11 @@
     >
       <div class="menu_logo p-lg-0 text-center">
         <img
-          src="/assets/images/logo.jpeg"
+          src="/assets/images/logo-160.webp"
+          srcset="/assets/images/logo-160.webp 1x, /assets/images/logo.jpeg 2x"
           alt="axiom4.net"
           class="img-fluid"
+          loading="lazy"
         />
       </div>
       <div class="offcanvas-body p-4 p-lg-0">

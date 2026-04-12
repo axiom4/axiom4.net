@@ -25,6 +25,7 @@ from django.conf.urls.static import static
 
 from .permissions import AccessListPermission
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from ImageUpload.views import thumbnail
 
 schema_url_patterns = [
     path('blog/', include(blog_urls.urlpatterns)),
@@ -38,7 +39,8 @@ urlpatterns = [
     path('',
          SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
 
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('thumb/<int:width>/<path:image_path>', thumbnail, name='image-thumbnail'),
 ]
 
 if settings.DEBUG:
