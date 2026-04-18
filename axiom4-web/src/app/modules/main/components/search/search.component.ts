@@ -5,7 +5,6 @@ import {
   inject,
 } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { PostSearchComponent } from '../../../blog/components/post-search/post-search.component';
 
 @Component({
   selector: 'app-search',
@@ -26,7 +25,10 @@ export class SearchComponent {
     if (!this.opened) this.open();
   }
 
-  open() {
+  async open() {
+    const { PostSearchComponent } = await import(
+      '../../../blog/components/post-search/post-search.component'
+    );
     this.modalRef = this.modalService.open(PostSearchComponent, { size: 'lg' });
     this.modalRef.dismissed.subscribe(() => {
       this.opened = false;

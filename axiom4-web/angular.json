@@ -68,7 +68,9 @@
                   "minify": true,
                   "inlineCritical": true
                 },
-                "fonts": true
+                "fonts": {
+                  "inline": true
+                }
               }
             },
             "development": {
