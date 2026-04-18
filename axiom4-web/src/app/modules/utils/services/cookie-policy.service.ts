@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { ConfigService } from './config.service';
 import { CookiePolicy } from '../models/cooke-policy';
+import { ConfigService } from './config.service';
 
 @Injectable({
   providedIn: 'root',

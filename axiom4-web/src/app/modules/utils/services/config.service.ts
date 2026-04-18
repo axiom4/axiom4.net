@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Configuration } from '../models/configuration';
-import { environment } from '../../../../environments/environment';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../../../environments/environment';
+import { Configuration } from '../models/configuration';
 
 @Injectable({
   providedIn: 'root',

@@ -4,11 +4,7 @@ import { RouterLink } from '@angular/router';
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs';
 import { BlogService, PostPreview } from '../../../core/api/v1';
-import {
-  ConfigService,
-  Configuration,
-  ImageThumbPipe,
-} from '../../../utils';
+import { ConfigService, Configuration, ImageThumbPipe } from '../../../utils';
 import { PostSearchListComponent } from '../post-search-list/post-search-list.component';
 
 @Component({
