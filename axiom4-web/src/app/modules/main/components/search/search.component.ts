@@ -26,9 +26,8 @@ export class SearchComponent {
   }
 
   async open() {
-    const { PostSearchComponent } = await import(
-      '../../../blog/components/post-search/post-search.component'
-    );
+    const { PostSearchComponent } =
+      await import('../../../blog/components/post-search/post-search.component');
     this.modalRef = this.modalService.open(PostSearchComponent, { size: 'lg' });
     this.modalRef.dismissed.subscribe(() => {
       this.opened = false;
