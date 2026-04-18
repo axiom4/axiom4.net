@@ -5,7 +5,7 @@ import {
   inject,
 } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { PostSearchComponent } from 'src/app/modules/blog/components/post-search/post-search.component';
+import { PostSearchComponent } from '../../../blog/components/post-search/post-search.component';
 
 @Component({
   selector: 'app-search',

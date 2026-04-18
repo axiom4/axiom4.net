@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { ConfigService } from 'src/app/modules/utils/services/config.service';
+import { ConfigService } from './config.service';
 import { CookiePolicy } from '../models/cooke-policy';
 
 @Injectable({

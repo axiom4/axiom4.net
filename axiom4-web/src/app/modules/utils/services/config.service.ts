@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Configuration } from '../models/configuration';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 import { Observable, of } from 'rxjs';
 
 @Injectable({

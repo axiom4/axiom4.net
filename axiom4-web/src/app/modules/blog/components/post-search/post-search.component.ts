@@ -23,8 +23,8 @@ import {
   BlogPostsListRequestParams,
   BlogService,
   PostPreview,
-} from 'src/app/modules/core/api/v1';
-import { ConfigService } from 'src/app/modules/utils';
+} from '../../../core/api/v1';
+import { ConfigService } from '../../../utils';
 
 @Component({
   selector: 'app-post-search',

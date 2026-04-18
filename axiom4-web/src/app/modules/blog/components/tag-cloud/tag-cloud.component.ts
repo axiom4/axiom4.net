@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs';
-import { BlogService, Category } from 'src/app/modules/core/api/v1';
+import { BlogService, Category } from '../../../core/api/v1';
 import { CloudTacCategory } from '../../models/cloud-tag-category';
 
 @Component({

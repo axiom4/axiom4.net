@@ -13,8 +13,8 @@ import {
   BlogPostsListRequestParams,
   BlogService,
   PostPreview,
-} from 'src/app/modules/core/api/v1';
-import { ConfigService, ImageThumbPipe } from 'src/app/modules/utils';
+} from '../../../core/api/v1';
+import { ConfigService, ImageThumbPipe } from '../../../utils';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 
 @Component({

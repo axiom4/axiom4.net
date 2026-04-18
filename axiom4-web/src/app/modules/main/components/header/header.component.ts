@@ -9,7 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ConfigService, Configuration } from 'src/app/modules/utils';
+import { ConfigService, Configuration } from '../../../utils';
 import { SearchComponent } from '../search/search.component';
 
 @Component({

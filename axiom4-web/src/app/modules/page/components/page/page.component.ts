@@ -4,9 +4,9 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, filter, map, switchMap, tap } from 'rxjs';
-import { HighlightService } from 'src/app/modules/blog/services/highlight.service';
-import { BlogService } from 'src/app/modules/core/api/v1';
-import { MarkedPipe } from 'src/app/modules/utils/marked.pipe';
+import { HighlightService } from '../../../blog/services/highlight.service';
+import { BlogService } from '../../../core/api/v1';
+import { MarkedPipe } from '../../../utils/marked.pipe';
 
 @Component({
   selector: 'app-page',

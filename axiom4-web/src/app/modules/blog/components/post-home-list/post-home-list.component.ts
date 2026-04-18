@@ -3,12 +3,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs';
-import { BlogService, PostPreview } from 'src/app/modules/core/api/v1';
+import { BlogService, PostPreview } from '../../../core/api/v1';
 import {
   ConfigService,
   Configuration,
   ImageThumbPipe,
-} from 'src/app/modules/utils';
+} from '../../../utils';
 import { PostSearchListComponent } from '../post-search-list/post-search-list.component';
 
 @Component({
