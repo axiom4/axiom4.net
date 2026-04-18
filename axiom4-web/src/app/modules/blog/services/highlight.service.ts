@@ -2,7 +2,6 @@ import { Injectable, PLATFORM_ID, inject } from '@angular/core';
 
 import { isPlatformBrowser } from '@angular/common';
 
-import mermaid from 'mermaid';
 import * as Prism from 'prismjs';
 
 import 'prismjs/components/prism-apacheconf';
@@ -63,49 +62,50 @@ export class HighlightService {
   highlightAll() {
     if (isPlatformBrowser(this.platformId)) {
       Prism.highlightAll();
-      this.renderMermaid();
+      void this.renderMermaid();
     }
   }
 
-  renderMermaid() {
-    if (isPlatformBrowser(this.platformId)) {
-      if (!this.mermaidInitialized) {
-        mermaid.initialize({
-          startOnLoad: false,
-          theme: 'default',
-          themeVariables: {
-            primaryColor: '#ffcc00',
-            edgeLabelBackground: '#ffffff',
-            tertiaryColor: '#ffffff',
-          },
-        });
-        this.mermaidInitialized = true;
-      }
+  async renderMermaid() {
+    if (!isPlatformBrowser(this.platformId)) return;
 
-      const mermaidElements = document.querySelectorAll('.mermaid');
-      mermaidElements.forEach((element, idx) => {
-        // Check if already rendered (mermaid adds data-processed attribute or changes class)
-        if (element.getAttribute('data-processed')) {
-          return;
-        }
-        const code = element.textContent || '';
-        // Ensure unique ID for each diagram
-        const id = `mermaid-${Date.now()}-${idx}`;
-        mermaid
-          .render(id, code)
-          .then((renderResult) => {
-            element.innerHTML = renderResult.svg;
-            element.setAttribute('data-processed', 'true');
-            const svg = element.querySelector('svg');
-            if (svg) {
-              svg.setAttribute(
-                'style',
-                'background-color: white; padding: 10px; margin: 10px; width: 100%; height: auto;',
-              );
-            }
-          })
-          .catch((e) => console.error('Mermaid render error:', e));
+    const mermaidElements = document.querySelectorAll<HTMLElement>(
+      '.mermaid:not([data-processed])',
+    );
+    if (mermaidElements.length === 0) return;
+
+    const { default: mermaid } = await import('mermaid');
+
+    if (!this.mermaidInitialized) {
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        themeVariables: {
+          primaryColor: '#ffcc00',
+          edgeLabelBackground: '#ffffff',
+          tertiaryColor: '#ffffff',
+        },
       });
+      this.mermaidInitialized = true;
     }
+
+    mermaidElements.forEach((element, idx) => {
+      const code = element.textContent || '';
+      const id = `mermaid-${Date.now()}-${idx}`;
+      mermaid
+        .render(id, code)
+        .then((renderResult) => {
+          element.innerHTML = renderResult.svg;
+          element.setAttribute('data-processed', 'true');
+          const svg = element.querySelector('svg');
+          if (svg) {
+            svg.setAttribute(
+              'style',
+              'background-color: white; padding: 10px; margin: 10px; width: 100%; height: auto;',
+            );
+          }
+        })
+        .catch((e) => console.error('Mermaid render error:', e));
+    });
   }
 }

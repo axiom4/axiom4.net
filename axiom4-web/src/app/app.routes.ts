@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { MainPageComponent } from './modules/main/components/main-page/main-page.component';
 
 export const routes: Routes = [
   {
@@ -13,12 +12,15 @@ export const routes: Routes = [
       import('./modules/blog/blog.routes').then((m) => m.blogRoutes),
   },
   {
-    // Eager — not lazy. The home page is the most-visited route;
-    // eliminating the lazy-chunk round-trip is worth the ~15 KiB
-    // extra in the main bundle.
+    // Lazy-loaded but immediately preloaded by PreloadAllModules, so
+    // there is no perceived delay for home-page visitors while non-home
+    // visitors benefit from a smaller initial bundle.
     path: '',
     pathMatch: 'full',
-    component: MainPageComponent,
+    loadComponent: () =>
+      import('./modules/main/components/main-page/main-page.component').then(
+        (m) => m.MainPageComponent,
+      ),
   },
   {
     path: '404',
