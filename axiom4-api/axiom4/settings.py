@@ -12,11 +12,17 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import re
 
 
 def _csv_env(name, default=""):
     raw = os.environ.get(name, default)
     return [item.strip() for item in raw.split(",") if item.strip()]
+
+
+def _list_env(name, default=""):
+    raw = os.environ.get(name, default)
+    return [item.strip() for item in re.split(r"[\s,]+", raw) if item.strip()]
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,9 +38,15 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG", default=0))
 
-ALLOWED_HOSTS = []
-if os.environ.get("DJANGO_ALLOWED_HOSTS"):
-    ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
+ALLOWED_HOSTS = _list_env("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]")
+
+_host_variants = set(ALLOWED_HOSTS)
+for _host in ALLOWED_HOSTS:
+    if _host.startswith("www."):
+        _host_variants.add(_host[4:])
+    elif "." in _host and _host not in {"localhost"} and not _host.startswith("["):
+        _host_variants.add(f"www.{_host}")
+ALLOWED_HOSTS = sorted(_host_variants)
 
 
 # Application definition
