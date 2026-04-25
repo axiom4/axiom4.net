@@ -48,13 +48,11 @@ testem.log
 Thumbs.db
 axiom4-api/media
 axiom4-api/static
+axiom4-api/.env
 run
 config/.env.app
 config/.env.db
-
 .scannerwork
-```
-mysql
+
 axiom4-web/src/environments/environment.ts
 axiom4-web/src/environments/environment.development.ts
-axiom4-api/axiom4/settings.py
