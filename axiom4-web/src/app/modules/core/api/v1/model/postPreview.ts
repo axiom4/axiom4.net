@@ -17,7 +17,7 @@ export interface PostPreview {
     title: string;
     readonly created_at: string;
     image?: string | null;
-    categories: Array<string>;
+    readonly categories: Array<string>;
     summary?: string;
 }
 
