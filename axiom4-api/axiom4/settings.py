@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import re
 
+from dotenv import load_dotenv
+
 
 def _csv_env(name, default=""):
     raw = os.environ.get(name, default)
@@ -25,8 +27,22 @@ def _list_env(name, default=""):
     return [item.strip() for item in re.split(r"[\s,]+", raw) if item.strip()]
 
 
+def _is_ipv4(host):
+    return re.fullmatch(r"\d{1,3}(?:\.\d{1,3}){3}", host) is not None
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = BASE_DIR.parent
+
+# Load environment variables for all entrypoints (manage.py, ASGI, WSGI, supervisor).
+for _env_file in (
+    BASE_DIR / ".env",
+    PROJECT_ROOT / "config" / ".env.app",
+    PROJECT_ROOT / "config" / ".env.db",
+):
+    if _env_file.exists():
+        load_dotenv(_env_file, override=False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -44,7 +60,12 @@ _host_variants = set(ALLOWED_HOSTS)
 for _host in ALLOWED_HOSTS:
     if _host.startswith("www."):
         _host_variants.add(_host[4:])
-    elif "." in _host and _host not in {"localhost"} and not _host.startswith("["):
+    elif (
+        "." in _host
+        and _host not in {"localhost"}
+        and not _host.startswith("[")
+        and not _is_ipv4(_host)
+    ):
         _host_variants.add(f"www.{_host}")
 ALLOWED_HOSTS = sorted(_host_variants)
 
