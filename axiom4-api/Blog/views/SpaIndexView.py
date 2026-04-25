@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 from django.conf import settings
 from django.core.cache import cache
@@ -10,6 +11,24 @@ from Blog.models import Post
 
 _CACHE_KEY = 'spa_lcp_preload_link'
 _CACHE_TTL = 300  # 5 minutes
+_STYLESHEET_LINK_RE = re.compile(
+    r"<link(?=[^>]*\brel=['\"]stylesheet['\"])([^>]*\bhref=['\"]([^'\"]+)['\"][^>]*)>",
+    re.IGNORECASE,
+)
+
+
+def _defer_stylesheets(html: str) -> str:
+    """Rewrite blocking stylesheet links into preload links plus noscript fallback."""
+
+    def _replace(match: re.Match[str]) -> str:
+        href = match.group(2)
+        return (
+            f'<link rel="preload" as="style" href="{href}" '
+            f'onload="this.onload=null;this.rel=\'stylesheet\'">\n'
+            f'  <noscript><link rel="stylesheet" href="{href}"></noscript>'
+        )
+
+    return _STYLESHEET_LINK_RE.sub(_replace, html)
 
 
 @require_GET
@@ -46,6 +65,7 @@ def spa_index(request):
 
     index_path = Path(settings.ANGULAR_DIST_DIR) / 'index.html'
     html = index_path.read_text(encoding='utf-8')
+    html = _defer_stylesheets(html)
     if preload:
         html = html.replace('</head>', f'  {preload}\n  </head>', 1)
 

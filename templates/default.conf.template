@@ -55,12 +55,10 @@ server {
         proxy_read_timeout 60s;
     }
 
-    # ── Angular SPA root → Django injects LCP preload ───────────────────────
-    # Only the exact root path is proxied to Django so it can inject a static
-    # <link rel="preload"> for the LCP image into the initial HTML bytes.
-    # All other routes (deep-links like /blog/posts/14) are handled by the
-    # catch-all location below, which serves the unmodified index.html.
-    location = / {
+    # ── Angular SPA entrypoint from Django ────────────────────────────────────
+    # For non-file SPA routes we proxy to Django so it can inject preload hints
+    # and rewrite stylesheet links with non-blocking loading.
+    location @spa_index {
         proxy_pass         http://axiom4-api:8000/spa-index/;
         proxy_http_version 1.1;
         proxy_set_header   Host              $host;
@@ -71,10 +69,10 @@ server {
     }
 
     # ── Angular SPA catch-all → no-cache ─────────────────────────────────────
-    # index.html must never be cached so the browser always fetches the latest
-    # version with up-to-date hashed asset references.
+    # HTML responses must never be cached so the browser always fetches the
+    # latest bundle references.
     location / {
-        try_files $uri $uri/ /index.html;
+        try_files $uri $uri/ @spa_index;
         add_header Cache-Control "no-store";
     }
 }

@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 
+
+def _csv_env(name, default=""):
+    raw = os.environ.get(name, default)
+    return [item.strip() for item in raw.split(",") if item.strip()]
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -138,7 +143,10 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-CSRF_TRUSTED_ORIGINS = ["http://127.0.0.1:4200"]
+CSRF_TRUSTED_ORIGINS = _csv_env(
+    "CSRF_TRUSTED_ORIGINS",
+    "http://127.0.0.1:4200",
+)
 
 CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOW_CREDENTIALS = False
@@ -157,12 +165,10 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:4200",
-    "http://localhost:4200",
-    "http://localhost:4000",
-    "http://127.0.0.1:4000"
-]
+CORS_ALLOWED_ORIGINS = _csv_env(
+    "CORS_ALLOWED_ORIGINS",
+    "http://127.0.0.1:4200,http://localhost:4200,http://localhost:4000,http://127.0.0.1:4000",
+)
 
 CORS_ALLOW_METHODS = [
     'DELETE',
@@ -174,11 +180,11 @@ CORS_ALLOW_METHODS = [
 ]
 
 USE_X_FORWARDED_HOST = True
-SCRIPT_NAME = "/api"
+SCRIPT_NAME = os.environ.get("SCRIPT_NAME", "/api")
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-MEDIA_ROOT = 'media'
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.environ.get("MEDIA_ROOT", 'media')
+MEDIA_URL = os.environ.get("MEDIA_URL", '/media/')
 
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
