@@ -52,7 +52,7 @@ for _env_file in (
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(os.environ.get("DEBUG", default=0))
+DEBUG = os.environ.get("DEBUG", "0") == "1"
 
 ALLOWED_HOSTS = _list_env("DJANGO_ALLOWED_HOSTS", "localhost 127.0.0.1 [::1]")
 
@@ -190,7 +190,6 @@ CORS_ORIGIN_ALLOW_ALL = False
 CORS_ALLOW_HEADERS = [
     'accept',
     'accept-encoding',
-    'access-control-allow-origin',
     'authorization',
     'content-type',
     'dnt',
@@ -218,11 +217,21 @@ USE_X_FORWARDED_HOST = True
 SCRIPT_NAME = os.environ.get("SCRIPT_NAME", "/api")
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+
 MEDIA_ROOT = os.environ.get("MEDIA_ROOT", 'media')
 MEDIA_URL = os.environ.get("MEDIA_URL", '/media/')
 
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+X_FRAME_OPTIONS = 'DENY'
 
 MDEDITOR_CONFIGS = {
     'default': {
@@ -262,15 +271,14 @@ CACHES = {
     }
 }
 
-ACCESS_LIST = ['127.0.0.1']
+ACCESS_LIST = _list_env("ACCESS_LIST", "127.0.0.1")
 
 REST_FRAMEWORK = {
     # YOUR SETTINGS
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_RENDERER_CLASSES': [
-        'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework.renderers.JSONRenderer',
-    ],
+    ] + (['rest_framework.renderers.BrowsableAPIRenderer'] if DEBUG else []),
 }
 
 SPECTACULAR_SETTINGS = {

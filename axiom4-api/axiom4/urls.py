@@ -14,6 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import path, include
 from rest_framework.schemas import get_schema_view
 
@@ -27,6 +28,7 @@ from .permissions import AccessListPermission
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from ImageUpload.views import thumbnail
 from Blog.views import lcp_image, spa_index
+from mdeditor.views import UploadView
 
 schema_url_patterns = [
     path('blog/', include(blog_urls.urlpatterns)),
@@ -35,7 +37,7 @@ schema_url_patterns = [
 urlpatterns = [
     path("blog/", include(blog_urls.urlpatterns)),
     path('admin/', admin.site.urls),
-    path(r'mdeditor/', include('mdeditor.urls')),
+    path('mdeditor/uploads/', staff_member_required(UploadView.as_view()), name='mdeditor_uploads'),
     path('openapi', SpectacularAPIView().as_view(), name='schema'),
     path('',
          SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
