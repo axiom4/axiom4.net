@@ -1,7 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import { NgbCarousel, NgbSlide } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbCarousel,
+  NgbSlide,
+  NgbSlideEvent,
+} from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs';
 import { BlogService, PostPreview } from '../../../core/api/v1';
 import { ConfigService, Configuration, ImageThumbPipe } from '../../../utils';
@@ -24,6 +28,7 @@ export class PostHomeListComponent {
   private blogService = inject(BlogService);
 
   config: Configuration | undefined = this.configService.getConfiguration();
+  activeSlideId = '';
 
   posts = toSignal(
     this.blogService
@@ -35,4 +40,8 @@ export class PostHomeListComponent {
       .pipe(map((r) => r.results ?? [])),
     { initialValue: [] as PostPreview[] },
   );
+
+  onSlide(event: NgbSlideEvent) {
+    this.activeSlideId = event.current;
+  }
 }

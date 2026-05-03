@@ -2,13 +2,16 @@
   <section aria-labelledby="featured-posts-heading">
     <h2 id="featured-posts-heading" class="visually-hidden">Featured posts</h2>
     <ngb-carousel
+      #carousel
       class="mt-4"
       [interval]="config?.carouselTime || 2000"
       aria-label="Last Post List"
       [showNavigationIndicators]="false"
+      [showNavigationArrows]="false"
+      (slide)="onSlide($event)"
     >
       @for (post of posts(); track post.id) {
-        <ng-template ngbSlide>
+        <ng-template ngbSlide [id]="'post-' + post.id">
           <div class="picsum-img-wrapper text-center">
             <img
               class="carousel-img"
@@ -17,6 +20,8 @@
               sizes="(max-width: 572px) 96vw, 50vw"
               alt="{{ post.title }}"
               fetchpriority="high"
+              width="900"
+              height="585"
             />
           </div>
           <div class="carousel-caption">
@@ -29,6 +34,44 @@
         </ng-template>
       }
     </ngb-carousel>
+
+    @if (posts().length > 1) {
+      <div class="d-flex align-items-center justify-content-between mt-2">
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          aria-label="Slide precedente"
+          (click)="carousel.prev()"
+        >
+          Previous
+        </button>
+
+        <div class="d-flex gap-2 flex-wrap justify-content-center" role="tablist" aria-label="Slide del carosello">
+          @for (post of posts(); track post.id; let i = $index) {
+            <button
+              type="button"
+              class="btn btn-sm"
+              [class.btn-light]="(activeSlideId || ('post-' + posts()[0].id)) === 'post-' + post.id"
+              [class.btn-outline-light]="(activeSlideId || ('post-' + posts()[0].id)) !== 'post-' + post.id"
+              [attr.aria-label]="'Slide ' + (i + 1) + ' - ' + post.title"
+              [attr.aria-current]="(activeSlideId || ('post-' + posts()[0].id)) === 'post-' + post.id ? 'true' : null"
+              (click)="carousel.select('post-' + post.id)"
+            >
+              {{ i + 1 }}
+            </button>
+          }
+        </div>
+
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          aria-label="Slide successiva"
+          (click)="carousel.next()"
+        >
+          Next
+        </button>
+      </div>
+    }
   </section>
 } @else {
   <div class="mt-4 post-carousel-placeholder" aria-hidden="true"></div>
