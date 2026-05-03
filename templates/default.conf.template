@@ -59,7 +59,8 @@ server {
     # For non-file SPA routes we proxy to Django so it can inject preload hints
     # and rewrite stylesheet links with non-blocking loading.
     location @spa_index {
-        proxy_pass         http://axiom4-api:8000/spa-index/;
+        rewrite            ^ /spa-index/ break;
+        proxy_pass         http://axiom4-api:8000;
         proxy_http_version 1.1;
         proxy_set_header   Host              $host;
         proxy_set_header   X-Real-IP         $remote_addr;
