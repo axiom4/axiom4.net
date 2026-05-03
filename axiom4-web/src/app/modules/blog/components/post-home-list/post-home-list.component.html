@@ -46,7 +46,7 @@
           Previous
         </button>
 
-        <div class="d-flex gap-2 flex-wrap justify-content-center" role="tablist" aria-label="Slide del carosello">
+        <div class="d-flex gap-2 flex-wrap justify-content-center" role="group" aria-label="Slide del carosello">
           @for (post of posts(); track post.id; let i = $index) {
             <button
               type="button"
@@ -54,7 +54,7 @@
               [class.btn-light]="(activeSlideId || ('post-' + posts()[0].id)) === 'post-' + post.id"
               [class.btn-outline-light]="(activeSlideId || ('post-' + posts()[0].id)) !== 'post-' + post.id"
               [attr.aria-label]="'Slide ' + (i + 1) + ' - ' + post.title"
-              [attr.aria-current]="(activeSlideId || ('post-' + posts()[0].id)) === 'post-' + post.id ? 'true' : null"
+              [attr.aria-pressed]="(activeSlideId || ('post-' + posts()[0].id)) === 'post-' + post.id"
               (click)="carousel.select('post-' + post.id)"
             >
               {{ i + 1 }}
