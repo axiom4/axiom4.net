@@ -41,7 +41,7 @@ export class PostComponent {
             this.title.setTitle(post.title);
           }),
           catchError(() => {
-            this.router.navigate(['/notfound']);
+            this.router.navigate(['/404']);
             return EMPTY;
           }),
         ),
