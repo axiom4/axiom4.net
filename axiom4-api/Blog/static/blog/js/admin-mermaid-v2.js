@@ -3,6 +3,39 @@
 
   var mermaidReady = false;
 
+  function getScriptPrefix() {
+    var path = window.location && window.location.pathname ? window.location.pathname : '';
+    var match = path.match(/^\/(api)(\/|$)/i);
+    return match ? '/' + match[1] : '';
+  }
+
+  function withScriptPrefix(url, scriptPrefix) {
+    if (!url || !scriptPrefix) return url;
+    if (!url.startsWith('/')) return url;
+    if (url === scriptPrefix || url.startsWith(scriptPrefix + '/')) return url;
+    return scriptPrefix + url;
+  }
+
+  function fixMartorDataUrls() {
+    var scriptPrefix = getScriptPrefix();
+    if (!scriptPrefix) return;
+
+    var fields = document.querySelectorAll('textarea.martor[data-markdownfy-url]');
+    fields.forEach(function (textarea) {
+      var markdownfyUrl = textarea.getAttribute('data-markdownfy-url');
+      var uploadUrl = textarea.getAttribute('data-upload-url');
+      var searchUsersUrl = textarea.getAttribute('data-search-users-url');
+
+      textarea.setAttribute('data-markdownfy-url', withScriptPrefix(markdownfyUrl, scriptPrefix));
+      if (uploadUrl) {
+        textarea.setAttribute('data-upload-url', withScriptPrefix(uploadUrl, scriptPrefix));
+      }
+      if (searchUsersUrl) {
+        textarea.setAttribute('data-search-users-url', withScriptPrefix(searchUsersUrl, scriptPrefix));
+      }
+    });
+  }
+
   function getLocalMermaidUrl() {
     var currentScript = document.currentScript;
     if (!currentScript) {
@@ -214,6 +247,8 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
+    fixMartorDataUrls();
+
     bindMartorPreviewEvent();
     observePreviewMutations();
 
