@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.conf import settings
 
 from .models import Page, Post, Category
 from ImageUpload.models import ImageUpload
@@ -7,6 +8,23 @@ from django.db import models
 from martor.widgets import AdminMartorWidget
 
 from django import forms
+
+
+def _prefixed(path):
+    script_name = getattr(settings, 'SCRIPT_NAME', '') or ''
+    script_name = script_name.rstrip('/')
+    if not script_name or not path.startswith('/'):
+        return path
+    if path == script_name or path.startswith(script_name + '/'):
+        return path
+    return script_name + path
+
+
+MARTOR_ADMIN_WIDGET = AdminMartorWidget(attrs={
+    'data-markdownfy-url': _prefixed('/martor/markdownify/'),
+    'data-upload-url': _prefixed('/martor/uploader/'),
+    'data-search-users-url': _prefixed('/martor/search-user/'),
+})
 
 
 class ImageInline(admin.TabularInline):
@@ -40,7 +58,7 @@ class PageAdmin(admin.ModelAdmin):
     save_on_top = True
     search_fields = ['title',]
     formfield_overrides = {
-        models.TextField: {'widget': AdminMartorWidget},
+        models.TextField: {'widget': MARTOR_ADMIN_WIDGET},
     }
 
     form = PageModelForm
@@ -81,7 +99,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'summary']
     inlines = [ImageInline, ]
     formfield_overrides = {
-        models.TextField: {'widget': AdminMartorWidget}
+        models.TextField: {'widget': MARTOR_ADMIN_WIDGET}
     }
     readonly_fields = ['image_tag']
     form = PostModelForm
