@@ -247,7 +247,8 @@ MARTOR_ENABLE_CONFIGS = {
     'hljs': 'true',
 }
 
-MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/'
+# Keep Martor endpoint aligned with reverse-proxy script prefix (e.g. /api).
+MARTOR_MARKDOWNIFY_URL = f"{SCRIPT_NAME.rstrip('/')}/martor/markdownify/"
 MARTOR_MARKDOWNIFY_TIMEOUT = 0
 
 MARTOR_UPLOAD_URL = ''
