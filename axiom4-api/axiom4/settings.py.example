@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+import re
+
+from django.core.exceptions import ImproperlyConfigured
+
+# Example helpers for parsing list-like environment variables.
+def _list_env(name, default=""):
+    raw = os.environ.get(name, default)
+    return [item.strip() for item in re.split(r"[\s,]+", raw) if item.strip()]
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,6 +31,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
+if not SECRET_KEY:
+    raise ImproperlyConfigured("SECRET_KEY environment variable is required.")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(os.environ.get("DEBUG", default=0))
@@ -44,7 +55,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     "corsheaders",
-    'mdeditor',
+    'martor',
     'Blog',
     'ImageUpload',
     'drf_spectacular',
@@ -183,36 +194,49 @@ MEDIA_URL = '/media/'
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-MDEDITOR_CONFIGS = {
-    'default': {
-        'width': '100% ',  # Custom edit box width
-        'height': 700,  # Custom edit box height
-        'toolbar': ["undo", "redo", "|",
-                    "bold", "del", "italic", "quote", "ucwords", "uppercase", "lowercase", "|",
-                    "h1", "h2", "h3", "h5", "h6", "|",
-                    "list-ul", "list-ol", "hr", "|",
-                    "link", "reference-link", "image", "code", "preformatted-text", "code-block", "table", "datetime",
-                    "emoji", "html-entities", "pagebreak", "goto-line", "|",
-                    "help", "info",
-                    "||", "preview", "watch", "fullscreen"],  # custom edit box toolbar
-        # image upload format type
-        'upload_image_formats': ["jpg", "jpeg", "gif", "png", "bmp", "webp", "svg"],
-        'image_folder': 'editor',  # image save the folder name
-        'theme': 'default',  # edit box theme, dark / default
-        'preview_theme': 'default',  # Preview area theme, dark / default
-        'editor_theme': 'default',  # edit area theme, pastel-on-dark / default
-        'toolbar_autofixed': False,  # Whether the toolbar capitals
-        'search_replace': True,  # Whether to open the search for replacement
-        'emoji': True,  # whether to open the expression function
-        'tex': True,  # whether to open the tex chart function
-        'flow_chart': True,  # whether to open the flow chart function
-        'sequence': True,  # Whether to open the sequence diagram function
-        'watch': True,  # Live preview
-        'lineWrapping': True,  # lineWrapping
-        'lineNumbers': True,  # lineNumbers
-        'language': 'en'  # zh / en / es
-    }
+MARTOR_THEME = 'bootstrap'
+
+MARTOR_ENABLE_CONFIGS = {
+    'emoji': 'true',
+    'imgur': 'false',
+    'mention': 'false',
+    'jquery': 'true',
+    'living': 'true',
+    'spellcheck': 'false',
+    'hljs': 'true',
 }
+
+MARTOR_MARKDOWNIFY_URL = '/martor/markdownify/'
+MARTOR_MARKDOWNIFY_TIMEOUT = 0
+
+MARTOR_UPLOAD_URL = ''
+
+MARTOR_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.extra',
+    'markdown.extensions.nl2br',
+    'markdown.extensions.smarty',
+    'markdown.extensions.fenced_code',
+    'markdown.extensions.sane_lists',
+    'martor.extensions.urlize',
+    'martor.extensions.del_ins',
+    'martor.extensions.emoji',
+    'martor.extensions.escape_html',
+    'axiom4.markdown_mermaid',
+]
+
+ALLOWED_HTML_TAGS = [
+    "a", "abbr", "b", "blockquote", "br", "cite", "code", "command",
+    "dd", "del", "div", "dl", "dt", "em",
+    "h1", "h2", "h3", "h4", "h5", "h6",
+    "hr", "i", "img", "ins", "kbd",
+    "li", "ol", "optgroup", "option", "p", "pre", "small", "span", "strong",
+    "sub", "sup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "u", "ul",
+]
+
+ALLOWED_HTML_ATTRIBUTES = [
+    "alt", "class", "colspan", "datetime",
+    "height", "href", "rowspan", "scope", "src", "title", "width",
+]
 
 CACHES = {
     "default": {
@@ -221,7 +245,8 @@ CACHES = {
     }
 }
 
-ACCESS_LIST = ['127.0.0.1']
+ACCESS_LIST = _list_env("ACCESS_LIST", "127.0.0.1")
+TRUSTED_PROXY_IPS = _list_env("TRUSTED_PROXY_IPS", "")
 
 REST_FRAMEWORK = {
     # YOUR SETTINGS

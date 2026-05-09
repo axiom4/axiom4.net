@@ -1,71 +1,245 @@
+##
+# You should look at the following URL's in order to grasp a solid understanding
+# of Nginx configuration files in order to fully unleash the power of Nginx.
+# https://www.nginx.com/resources/wiki/start/
+# https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/
+# https://wiki.debian.org/Nginx/DirectoryStructure
+#
+# In most cases, administrators will remove this file from sites-enabled/ and
+# leave it as reference inside of sites-available where it will continue to be
+# updated by the nginx packaging team.
+#
+# This file will automatically load configuration files provided by other
+# applications, such as Drupal or Wordpress. These applications will be made
+# available underneath a path with that package name, such as /drupal8.
+#
+# Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.
+##
+
+# Expires map
+map $sent_http_content_type $expires {
+	default                    off;
+	text/html                  epoch; #means no cache, as it is not a static page
+	text/css                   max;
+	application/javascript     max;
+	application/json           max;
+	font/woff2                 max;
+	application/font-woff2     max;
+	woff2                      max;
+	application/x-font-woff    max;
+	~image/                    30d; #it is only the logo, so maybe I could change it once a month now
+}
+
+upstream channels-backend {
+	server localhost:8000;
+	#server unix:/home/axiom/www/axiom4.net/run/axiom4_daphne0.sock;
+	#server unix:/home/axiom/www/axiom4.net/run/axiom4_daphne1.sock;
+	#server unix:/home/axiom/www/axiom4.net/run/axiom4_daphne2.sock;
+	#server unix:/home/axiom/www/axiom4.net/run/axiom4_daphne3.sock;
+}
+
+# Default server configuration
+#
 server {
-    listen ${NGINX_PORT};
-    server_name ${NGINX_HOST};
+	listen 80 default_server reuseport;
+	listen [::]:80 default_server reuseport;
 
-    root /usr/share/nginx/html;
-    index index.html;
+        modsecurity on;
+        # Load ModSecurity CRS, if need
+        modsecurity_rules_file /etc/nginx/modsecurity_includes.conf;
 
-    # ── Compression ──────────────────────────────────────────────────────────
-    gzip on;
-    gzip_vary on;
-    gzip_proxied any;
-    gzip_comp_level 6;
-    gzip_min_length 1024;
-    gzip_types
-        text/plain text/css text/javascript text/xml text/x-component
-        application/json application/javascript application/xml
-        application/rss+xml font/truetype font/opentype
-        image/svg+xml;
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+	        return 301 https://$host$request_uri;
+	}
 
-    # ── Angular hashed static assets → 1 year immutable ─────────────────────
-    # Angular bundles use content-hash filenames: main-XXXXXXXX.js, styles-XXXXXXXX.css
-    # Safe to cache permanently because any content change produces a new hash.
-    location ~* \.(js|mjs|css|woff2?|ttf|eot|ico|svg|webmanifest)$ {
-        try_files $uri =404;
-        add_header Cache-Control "public, max-age=31536000, immutable";
-        access_log off;
-    }
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	location ~ /\.ht {
+		deny all;
+	}
 
-    # ── Media files (user-uploaded content) → 1 year ─────────────────────────
-    # Proxied to Django. Cache headers are overridden here so both Nginx
-    # and downstream browsers/CDNs cache media for 1 year.
-    location /media/ {
-        proxy_pass         http://axiom4-api:8000;
+	location = /robots.txt {
+		allow all;
+		log_not_found off;
+		access_log off;
+	}
+}
+
+
+# Virtual Host configuration for example.com
+#
+# You can move that to a different file under sites-available/ and symlink that
+# to sites-enabled/ to enable it.
+#
+server {
+
+	# HTTP2/SSL
+	listen 443 ssl;
+	listen [::]:443 ssl;
+	http2 on;
+
+	# Enable HTTP3/QUIC
+	listen 443 quic  reuseport;
+	listen [::]:443 quic reuseport;
+	http3 on;
+	http3_hq on;
+	quic_retry on;
+	quic_gso on;
+
+        modsecurity on;
+        # Load ModSecurity CRS, if need
+        modsecurity_rules_file /etc/nginx/modsecurity_includes.conf;
+
+	ssl_certificate /certs/axiom4.net.pem;
+        ssl_certificate_key /certs/axiom4.net.key;
+	ssl_session_timeout 1d;
+	ssl_session_cache shared:MozSSL:10m;  # about 40000 sessions
+	ssl_session_tickets off;
+	ssl_buffer_size 8k;
+	ssl_conf_command Groups "X25519MLKEM768:X25519:prime256v1";
+
+	# modern configuration
+	ssl_protocols TLSv1.2 TLSv1.3;
+	#ssl_protocols TLSv1.3;
+	ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1306:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305;
+    	ssl_prefer_server_ciphers on;
+	ssl_dhparam /certs/dhparam.pem;
+
+	#ssl_ciphers TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256;
+    #ssl_prefer_server_ciphers on;
+
+	# OCSP stapling
+	ssl_stapling on;
+	ssl_stapling_verify on;
+
+	# verify chain of trust of OCSP response using Root CA and Intermediate certs
+	ssl_trusted_certificate /certs/axiom4.net.pem;
+
+	# replace with the IP address of your resolver
+	resolver 8.8.8.8 8.8.4.4 valid=1h;
+
+	keepalive_timeout 5;
+	client_max_body_size 10m;
+
+	server_name www.axiom4.net;
+        access_log /home/axiom/www/logs/axiom4_access.log;
+        error_log /home/axiom/www/logs/axiom4_error.log error;
+
+	root /home/axiom/www/axiom4.net/axiom4-web/dist/axiom4-web/browser;
+
+	index index.html;
+
+	sub_filter_once off;
+	sub_filter random_nonce_value $request_id;
+
+	#add_header 'Cache-Control' 'max-age=31536000' always;
+	add_header 'Access-Control-Allow-Origin' "https://www.axiom4.net" always;
+	#add_header 'X-Robots-Tag' "noindex, nofollow, nosnippet, noarchive" always;
+	add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS, PATCH' always;
+	add_header 'Access-Control-Allow-Headers' 'Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With' always;
+	add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range' always;
+
+	add_header 'Cross-Origin-Embedder-Policy' 'require-corp; report-to="default"' always;
+	add_header 'Cross-Origin-Opener-Policy' 'same-origin-allow-popups; report-to="default"' always;
+	add_header 'Cross-Origin-Resource-Policy' 'same-origin' always;
+
+	proxy_hide_header X-Powered-By;
+
+        add_header X-Forwarded-Proto https;
+
+
+	add_header Alt-Svc 'h3=":$server_port"; ma=86400';
+	add_header x-quic 'h3';
+	add_header Alt-Svc 'h3-29=":$server_port"';
+
+	add_header 'Strict-Transport-Security' 'max-age=31536000; includeSubDomains; preload' always;
+	#add_header Content-Security-Policy "base-uri https://www.axiom4.net; connect-src 'self' https://region1.google-analytics.com; object-src 'none'; script-src 'self' 'nonce-$request_id'; script-src-elem https://www.axiom4.net https://www.googletagmanager.com/gtag/js 'self' 'unsafe-inline'; style-src 'self' 'nonce-$request_id' 'sha256-ZImpjyxSqdretajIQ3vpAcTYroKrDlaSp3fWptNrHZo='; style-src-elem 'self' https://www.axiom4.net 'nonce-$request_id' 'unsafe-inline'; img-src 'self' ; frame-src 'self'; frame-ancestors 'self'; font-src 'self' https://cdnjs.cloudflare.com; media-src 'self'; manifest-src 'self' https://www.axiom4.net/manifest.webmanifest; form-action 'self'; worker-src https://www.axiom4.net/ngsw-worker.js 'self'; default-src 'none';" always;
+	add_header Content-Security-Policy "base-uri https://www.axiom4.net; connect-src https://region1.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://www.axiom4.net 'self'; object-src 'none'; script-src 'nonce-$request_id'; script-src-elem https://www.axiom4.net/*.js https://*.googletagmanager.com 'self' 'unsafe-inline'; img-src https://img.shields.io  https://*.google-analytics.com https://*.googletagmanager.com https://www.axiom4.net 'self' data:; style-src 'self' 'nonce-$request_id';  style-src-elem 'self' https://www.axiom4.net 'unsafe-inline'; style-src-attr 'self' https://www.axiom4.net 'unsafe-inline' ; frame-src 'self'; frame-ancestors 'self'; font-src 'self'; media-src 'self'; manifest-src 'self' https://www.axiom4.net/manifest.webmanifest; form-action 'self'; worker-src  https://*.google-analytics.com https://*.googletagmanager.com https://www.axiom4.net/ngsw-worker.js 'self'; default-src 'none';" always;
+	add_header X-XSS-Protection "1; mode=block" always;
+	add_header X-Frame-Options "SAMEORIGIN" always;
+	add_header X-Content-Type-Options "nosniff" always;
+	add_header Referrer-Policy "strict-origin" always;
+	add_header Permissions-Policy "geolocation=(),midi=(),sync-xhr=(),microphone=(),camera=(),magnetometer=(),gyroscope=(),fullscreen=(self),payment=()" always;
+	expires $expires;
+
+	location / {
+		index index.html;
+		add_header Cache-Control "no-store" always;
+
+		try_files $uri $uri/ /index.html;
+		#proxy_pass http://localhost:4000;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+	}
+
+	location ~ ^/static/ {
+		root /home/axiom/www/axiom4.net/axiom4-api/;
+	}
+
+	location ~ ^/media/ {
+		root /home/axiom/www/axiom4.net/axiom4-api/;
+	}
+
+	#location ~ ^/api/admin {
+	#	allow   192.168.30.0/24;
+	#	allow   192.168.1.0/24;
+	#	allow    all;
+	#	proxy_pass http://channels-backend;
+	#        add_header Content-Security-Policy '';
+
+	#        proxy_http_version 1.1;
+	#        proxy_set_header Upgrade $http_upgrade;
+	#        proxy_set_header Connection "upgrade";
+	#        proxy_set_header SCRIPT_NAME /api;
+	#        proxy_set_header Daphne-Root-Path /api;
+
+	#        proxy_redirect off;
+	#        proxy_set_header Host $host;
+	#        proxy_set_header X-Real-IP $remote_addr;
+	#        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	#        proxy_set_header X-Forwarded-Host $server_name;
+	#}
+
+    location @spa_index {
+	rewrite            ^ /spa-index/ break;
+        proxy_pass         http://channels-backend;
         proxy_http_version 1.1;
         proxy_set_header   Host              $host;
         proxy_set_header   X-Real-IP         $remote_addr;
         proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
         proxy_set_header   X-Forwarded-Proto $scheme;
-        proxy_hide_header  Cache-Control;
-        add_header         Cache-Control "public, max-age=31536000";
+        proxy_read_timeout 10s;
     }
 
-    # ── Django API → proxy, stripping the /api prefix ────────────────────────
-    # Django runs with SCRIPT_NAME=/api so it generates URLs prefixed with /api,
-    # but its URL patterns are defined without that prefix. We strip /api here
-    # before forwarding (proxy_pass with trailing slash).
-    location /api/ {
-        proxy_pass         http://axiom4-api:8000/;
-        proxy_http_version 1.1;
-        proxy_set_header   Host              $host;
-        proxy_set_header   X-Real-IP         $remote_addr;
-        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header   X-Forwarded-Proto https;
-        proxy_set_header   X-Script-Name     /api;
-        proxy_read_timeout 60s;
-    }
+	location /api/ {
+		proxy_pass http://channels-backend;
 
-    # ── SPA homepage → no-cache ───────────────────────────────────────────────
-    location = / {
-        try_files          /index.html =404;
-        add_header         Cache-Control "no-store";
-    }
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+		proxy_set_header SCRIPT_NAME /api;
+		proxy_set_header Daphne-Root-Path /api;
+	        add_header Content-Security-Policy '';
 
-    # ── Angular SPA catch-all → no-cache ─────────────────────────────────────
-    # HTML responses must never be cached so the browser always fetches the
-    # latest bundle references.
-    location / {
-        try_files $uri $uri/ /index.html;
-        add_header Cache-Control "no-store";
-    }
+		proxy_redirect off;
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Host $server_name;
+		proxy_set_header X-Forwarded-Proto https;
+
+	}
+
+
+	# deny access to .htaccess files, if Apache's document root
+	# concurs with nginx's one
+	#
+	location ~ /\.ht {
+		deny all;
+	}
 }

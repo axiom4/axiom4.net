@@ -15,7 +15,7 @@ daphne==4.2.1
 Django==6.0.5
 django-cors-headers==4.9.0
 django-filter==25.2
-django-mdeditor==0.1.20
+martor
 djangorestframework==3.17.1
 drf-spectacular==0.29.0
 ecs-logging==2.3.0

@@ -4,7 +4,7 @@ from .models import Page, Post, Category
 from ImageUpload.models import ImageUpload
 
 from django.db import models
-from mdeditor.widgets import MDEditorWidget
+from martor.widgets import AdminMartorWidget
 
 from django import forms
 
@@ -25,6 +25,12 @@ class PageModelForm(forms.ModelForm):
 
 
 class PageAdmin(admin.ModelAdmin):
+    class Media:
+        css = {
+            'all': ('blog/css/admin-martor-fix.css',)
+        }
+        js = ('blog/js/admin-mermaid-v2.js',)
+
     fields = [
         ('title'),
         ('author', 'tag'),
@@ -34,7 +40,7 @@ class PageAdmin(admin.ModelAdmin):
     save_on_top = True
     search_fields = ['title',]
     formfield_overrides = {
-        models.TextField: {'widget': MDEditorWidget},
+        models.TextField: {'widget': AdminMartorWidget},
     }
 
     form = PageModelForm
@@ -58,6 +64,12 @@ class PostModelForm(forms.ModelForm):
 
 
 class PostAdmin(admin.ModelAdmin):
+    class Media:
+        css = {
+            'all': ('blog/css/admin-martor-fix.css',)
+        }
+        js = ('blog/js/admin-mermaid-v2.js',)
+
     save_on_top = True
     fields = [
         ('title', 'author', 'image', 'image_tag'),
@@ -69,7 +81,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ['title', 'summary']
     inlines = [ImageInline, ]
     formfield_overrides = {
-        models.TextField: {'widget': MDEditorWidget}
+        models.TextField: {'widget': AdminMartorWidget}
     }
     readonly_fields = ['image_tag']
     form = PostModelForm

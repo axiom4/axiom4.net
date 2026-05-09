@@ -28,7 +28,6 @@ from .permissions import AccessListPermission
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from ImageUpload.views import thumbnail
 from Blog.views import lcp_image
-from mdeditor.views import UploadView
 
 schema_url_patterns = [
     path('blog/', include(blog_urls.urlpatterns)),
@@ -37,7 +36,7 @@ schema_url_patterns = [
 urlpatterns = [
     path("blog/", include(blog_urls.urlpatterns)),
     path('admin/', admin.site.urls),
-    path('mdeditor/uploads/', staff_member_required(UploadView.as_view()), name='mdeditor_uploads'),
+    path('martor/', include('axiom4.martor_urls')),
     path('openapi', SpectacularAPIView().as_view(), name='schema'),
     path('',
          SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
