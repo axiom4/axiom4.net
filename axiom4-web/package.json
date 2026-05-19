@@ -35,7 +35,7 @@
     "@angular/compiler-cli": "^21.2.12",
     "@angular/localize": "^21.2.12",
     "@openapitools/openapi-generator-cli": "^2.32.0",
-    "@types/node": "^25.7.0",
+    "@types/node": "^25.9.0",
     "@types/prismjs": "^1.26.6",
     "purgecss": "^8.0.0",
     "typescript": "~5.9.3"
