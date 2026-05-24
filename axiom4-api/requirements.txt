@@ -1,4 +1,4 @@
-aiohappyeyeballs==2.6.1
+aiohappyeyeballs==2.6.2
 aiohttp==3.13.5
 aiosignal==1.4.0
 asgiref==3.11.1
@@ -6,8 +6,8 @@ attrs==26.1.0
 autobahn==25.12.2
 Automat==25.4.16
 bleach==6.3.0
-cbor2==6.1.0
-certifi==2026.4.22
+cbor2==6.1.1
+certifi==2026.5.20
 cffi==2.0.0
 charset-normalizer==3.4.7
 constantly==23.10.4
@@ -22,7 +22,7 @@ ecs-logging==2.3.0
 frozenlist==1.8.0
 geoip2==5.2.0
 hyperlink==21.0.0
-idna==3.15
+idna==3.16
 Incremental==24.11.0
 inflection==0.5.1
 jsonschema==4.26.0
@@ -33,7 +33,7 @@ maxminddb==3.1.1
 msgpack==1.1.2
 multidict==6.7.1
 mysqlclient==2.2.8
-numpy==2.4.4
+numpy==2.4.6
 packaging==26.2
 pillow==12.2.0
 propcache==0.5.2
@@ -50,7 +50,7 @@ pytz==2026.2
 PyYAML==6.0.3
 redis==7.4.0
 referencing==0.37.0
-requests==2.34.0
+requests==2.34.2
 rpds-py==0.30.0
 service-identity==24.2.0
 setuptools==82.0.1
@@ -64,7 +64,7 @@ ujson==5.12.1
 uritemplate==4.2.0
 urllib3==2.7.0
 webencodings==0.5.1
-wrapt==2.1.2
-yarl==1.23.0
-zipp==3.23.1
+wrapt==2.2.1
+yarl==1.24.2
+zipp==4.1.0
 zope.interface==8.4
