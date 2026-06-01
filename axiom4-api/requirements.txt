@@ -52,7 +52,7 @@ redis==8.0.0
 referencing==0.37.0
 requests==2.34.2
 rpds-py==2026.5.1
-service-identity==24.2.0
+service-identity==26.1.0
 setuptools==82.0.1
 six==1.17.0
 sqlparse==0.5.5
