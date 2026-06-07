@@ -68,15 +68,13 @@
     }
   </ul>
   @if (posts().length > 0) {
-  <ngb-pagination
+  <app-pagination
     class="d-flex justify-content-end"
-    size="sm"
     [collectionSize]="collectionSize()"
     [maxSize]="6"
     [page]="currentPage()"
     [pageSize]="pageSize"
     (pageChange)="onPageChange($event)"
-    aria-label="Default pagination"
-  ></ngb-pagination>
+  ></app-pagination>
   }
 </div>

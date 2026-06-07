@@ -11,7 +11,6 @@ import {
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { NgbModal, NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import {
   EMPTY,
   Subject,
@@ -24,18 +23,18 @@ import {
   BlogService,
   PostPreview,
 } from '../../../core/api/v1';
-import { ConfigService } from '../../../utils';
+import { ConfigService, ModalService, PaginationComponent } from '../../../utils';
 
 @Component({
   selector: 'app-post-search',
   templateUrl: './post-search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FormsModule, RouterLink, NgbPagination, DatePipe],
+  imports: [FormsModule, RouterLink, PaginationComponent, DatePipe],
 })
 export class PostSearchComponent {
   private blogService = inject(BlogService);
   private destroyRef = inject(DestroyRef);
-  public modal = inject(NgbModal);
+  public modal = inject(ModalService);
 
   pageSize = inject(ConfigService).getConfiguration()?.searchPageSize ?? 1;
 

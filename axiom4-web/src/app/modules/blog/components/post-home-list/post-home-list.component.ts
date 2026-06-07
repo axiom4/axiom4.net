@@ -1,14 +1,16 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
-import {
-  NgbCarousel,
-  NgbSlide,
-  NgbSlideEvent,
-} from '@ng-bootstrap/ng-bootstrap';
 import { map } from 'rxjs';
 import { BlogService, PostPreview } from '../../../core/api/v1';
-import { ConfigService, Configuration, ImageThumbPipe } from '../../../utils';
+import {
+  CarouselComponent,
+  CarouselSlideEvent,
+  ConfigService,
+  Configuration,
+  ImageThumbPipe,
+  SlideDirective,
+} from '../../../utils';
 import { PostSearchListComponent } from '../post-search-list/post-search-list.component';
 
 @Component({
@@ -16,8 +18,8 @@ import { PostSearchListComponent } from '../post-search-list/post-search-list.co
   templateUrl: './post-home-list.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    NgbCarousel,
-    NgbSlide,
+    CarouselComponent,
+    SlideDirective,
     RouterLink,
     PostSearchListComponent,
     ImageThumbPipe,
@@ -41,7 +43,7 @@ export class PostHomeListComponent {
     { initialValue: [] as PostPreview[] },
   );
 
-  onSlide(event: NgbSlideEvent) {
+  onSlide(event: CarouselSlideEvent) {
     this.activeSlideId = event.current;
   }
 }

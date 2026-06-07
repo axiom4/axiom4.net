@@ -7,14 +7,17 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { catchError, EMPTY, map, merge, Subject, switchMap, tap } from 'rxjs';
 import {
   BlogPostsListRequestParams,
   BlogService,
   PostPreview,
 } from '../../../core/api/v1';
-import { ConfigService, ImageThumbPipe } from '../../../utils';
+import {
+  ConfigService,
+  ImageThumbPipe,
+  PaginationComponent,
+} from '../../../utils';
 import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
 
 @Component({
@@ -23,7 +26,7 @@ import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,
-    NgbPagination,
+    PaginationComponent,
     TagCloudComponent,
     DatePipe,
     ImageThumbPipe,

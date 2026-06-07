@@ -1,0 +1,9 @@
+<div #carouselEl class="carousel slide" [attr.aria-label]="ariaLabel()">
+  <div class="carousel-inner">
+    @for (s of slides(); track s.id(); let i = $index) {
+      <div class="carousel-item" [class.active]="i === 0">
+        <ng-container [ngTemplateOutlet]="s.templateRef"></ng-container>
+      </div>
+    }
+  </div>
+</div>

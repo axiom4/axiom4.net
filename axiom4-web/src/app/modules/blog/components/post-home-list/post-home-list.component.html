@@ -1,17 +1,15 @@
 @if (posts().length > 0) {
   <section aria-labelledby="featured-posts-heading">
     <h2 id="featured-posts-heading" class="visually-hidden">Featured posts</h2>
-    <ngb-carousel
+    <app-carousel
       #carousel
       class="mt-4"
       [interval]="config?.carouselTime || 2000"
-      aria-label="Last Post List"
-      [showNavigationIndicators]="false"
-      [showNavigationArrows]="false"
+      ariaLabel="Last Post List"
       (slide)="onSlide($event)"
     >
       @for (post of posts(); track post.id) {
-        <ng-template ngbSlide [id]="'post-' + post.id">
+        <ng-template appSlide [id]="'post-' + post.id">
           <div class="picsum-img-wrapper text-center">
             <img
               class="carousel-img"
@@ -33,7 +31,7 @@
           </div>
         </ng-template>
       }
-    </ngb-carousel>
+    </app-carousel>
 
     @if (posts().length > 1) {
       <div class="d-flex align-items-center justify-content-between mt-2">

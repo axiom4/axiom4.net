@@ -4,7 +4,7 @@ import {
   HostListener,
   inject,
 } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { ModalRef, ModalService } from '../../../utils';
 
 @Component({
   selector: 'app-search',
@@ -13,9 +13,9 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
   standalone: true,
 })
 export class SearchComponent {
-  private modalService = inject(NgbModal);
+  private modalService = inject(ModalService);
 
-  modalRef: NgbModalRef | undefined;
+  modalRef: ModalRef | undefined;
   opened = false;
 
   @HostListener('window:keydown.control.f', ['$event'])
