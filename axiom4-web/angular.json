@@ -84,6 +84,17 @@
                   "with": "src/environments/environment.development.ts"
                 }
               ]
+            },
+            "testing": {
+              "aot": false,
+              "optimization": false,
+              "extractLicenses": false,
+              "assets": [
+                "src/favicon.ico",
+                "src/assets",
+                "src/manifest.webmanifest"
+              ],
+              "polyfills": []
             }
           },
           "defaultConfiguration": "production"
@@ -110,18 +121,11 @@
           }
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular/build:unit-test",
           "options": {
-            "polyfills": [],
             "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/assets",
-              "src/manifest.webmanifest"
-            ],
-            "styles": ["src/styles.scss"],
-            "scripts": []
+            "buildTarget": ":build:testing",
+            "runner": "vitest"
           }
         }
       }
