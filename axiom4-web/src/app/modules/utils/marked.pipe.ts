@@ -37,7 +37,7 @@ renderer.image = ({ href, title, text }) => {
 })
 export class MarkedPipe implements PipeTransform {
   transform(value: string | null | undefined): string {
-    if (!value) return value ?? '';
+    if (!value) return '';
 
     const marked_result = marked.parse(value, { async: false, renderer });
 
