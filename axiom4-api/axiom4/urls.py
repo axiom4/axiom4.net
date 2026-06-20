@@ -14,18 +14,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.contrib.admin.views.decorators import staff_member_required
 from django.urls import path, include
-from rest_framework.schemas import get_schema_view
 
-from rest_framework import permissions
 from Blog import urls as blog_urls
 
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .permissions import AccessListPermission
-from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView
 from ImageUpload.views import thumbnail
 from Blog.views import lcp_image
 

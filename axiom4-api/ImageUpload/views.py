@@ -2,7 +2,6 @@ from pathlib import Path
 
 from django.conf import settings
 from django.http import FileResponse, Http404
-from django.utils.http import http_date
 from django.views.decorators.cache import cache_control
 
 from PIL import Image
@@ -26,9 +25,7 @@ def thumbnail(request, width: int, image_path: str):
 
     # Security: reject any path that escapes MEDIA_ROOT
     original = (media_root / image_path).resolve()
-    try:
-        original.relative_to(media_root)
-    except ValueError:
+    if not original.is_relative_to(media_root):
         raise Http404
 
     if not original.is_file():
@@ -42,9 +39,7 @@ def thumbnail(request, width: int, image_path: str):
     stem = Path(image_path).stem
     cache_path = (media_root / 'thumb' / str(width) /
                   rel_dir / (stem + '.webp')).resolve()
-    try:
-        cache_path.relative_to(media_root)
-    except ValueError:
+    if not cache_path.is_relative_to(media_root):
         raise Http404
 
     if not cache_path.is_file() or cache_path.stat().st_mtime < original.stat().st_mtime:

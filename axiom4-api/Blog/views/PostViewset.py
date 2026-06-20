@@ -1,6 +1,5 @@
-import django_filters
 from rest_framework import viewsets
-from Blog.models import Post, Category
+from Blog.models import Post
 from rest_framework import permissions
 from Blog.serializers import PostSerializer, PostPreviewSerializer
 from rest_framework.filters import SearchFilter, OrderingFilter
