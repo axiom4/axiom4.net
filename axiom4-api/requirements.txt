@@ -17,7 +17,7 @@ Django==6.0.6
 django-cors-headers==4.9.0
 django-filter==25.2
 djangorestframework==3.17.1
-drf-spectacular==0.29.0
+drf-spectacular==0.30.0
 ecs-logging==2.3.0
 frozenlist==1.8.0
 geoip2==5.2.0
