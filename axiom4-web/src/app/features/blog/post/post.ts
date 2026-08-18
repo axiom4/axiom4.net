@@ -12,13 +12,13 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, filter, map, switchMap, tap } from 'rxjs';
 import { BlogService } from '../../../core/api/v1';
-import { MarkedPipe } from '../../../utils/marked.pipe';
-import { HighlightService } from '../../services/highlight.service';
-import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
+import { MarkedPipe } from '../../../shared/pipes/marked';
+import { HighlightService } from '../services/highlight';
+import { TagCloudComponent } from '../tag-cloud/tag-cloud';
 
 @Component({
   selector: 'app-post',
-  templateUrl: './post.component.html',
+  templateUrl: './post.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [TagCloudComponent, DatePipe, MarkedPipe],
   standalone: true,

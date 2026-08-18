@@ -4,12 +4,12 @@ export const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () =>
-      import('./modules/page/page.routes').then((m) => m.pageRoutes),
+      import('./features/page/page.routes').then((m) => m.pageRoutes),
   },
   {
     path: 'blog',
     loadChildren: () =>
-      import('./modules/blog/blog.routes').then((m) => m.blogRoutes),
+      import('./features/blog/blog.routes').then((m) => m.blogRoutes),
   },
   {
     // Lazy-loaded but immediately preloaded by PreloadAllModules, so
@@ -18,14 +18,14 @@ export const routes: Routes = [
     path: '',
     pathMatch: 'full',
     loadComponent: () =>
-      import('./modules/main/components/main-page/main-page.component').then(
+      import('./features/main/main-page/main-page').then(
         (m) => m.MainPageComponent,
       ),
   },
   {
     path: '404',
     loadComponent: () =>
-      import('./modules/main/components/page-not-found/page-not-found.component').then(
+      import('./features/main/page-not-found/page-not-found').then(
         (m) => m.PageNotFoundComponent,
       ),
   },

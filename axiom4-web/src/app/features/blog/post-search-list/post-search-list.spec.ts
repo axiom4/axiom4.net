@@ -1,6 +1,9 @@
+import { provideZonelessChangeDetection } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
-import { PostSearchListComponent } from './post-search-list.component';
+import { PostSearchListComponent } from './post-search-list';
 
 describe('PostSearchListComponent', () => {
   let component: PostSearchListComponent;
@@ -8,7 +11,12 @@ describe('PostSearchListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-    imports: [PostSearchListComponent]
+    imports: [PostSearchListComponent],
+    providers: [
+      provideZonelessChangeDetection(),
+      provideRouter([]),
+      provideHttpClient(),
+    ],
 });
     fixture = TestBed.createComponent(PostSearchListComponent);
     component = fixture.componentInstance;

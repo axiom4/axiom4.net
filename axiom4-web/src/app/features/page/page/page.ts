@@ -4,13 +4,13 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, EMPTY, filter, map, switchMap, tap } from 'rxjs';
-import { HighlightService } from '../../../blog/services/highlight.service';
+import { HighlightService } from '../../blog/services/highlight';
 import { BlogService } from '../../../core/api/v1';
-import { MarkedPipe } from '../../../utils/marked.pipe';
+import { MarkedPipe } from '../../../shared/pipes/marked';
 
 @Component({
   selector: 'app-page',
-  templateUrl: './page.component.html',
+  templateUrl: './page.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DatePipe, MarkedPipe],
   standalone: true,

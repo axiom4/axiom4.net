@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TagCloudComponent } from './tag-cloud.component';
+import { TagCloudComponent } from './tag-cloud';
 
 describe('TagCloudComponent', () => {
   let component: TagCloudComponent;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CookiePolicyComponent } from './cookie-policy.component';
+import { CookiePolicyComponent } from './cookie-policy';
 
 describe('CookiePolicyComponent', () => {
   let component: CookiePolicyComponent;

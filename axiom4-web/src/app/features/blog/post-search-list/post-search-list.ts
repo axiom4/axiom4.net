@@ -13,16 +13,13 @@ import {
   BlogService,
   PostPreview,
 } from '../../../core/api/v1';
-import {
-  ConfigService,
-  ImageThumbPipe,
-  PaginationComponent,
-} from '../../../utils';
-import { TagCloudComponent } from '../tag-cloud/tag-cloud.component';
+import { ConfigService } from '../../../core';
+import { ImageThumbPipe, PaginationComponent } from '../../../shared';
+import { TagCloudComponent } from '../tag-cloud/tag-cloud';
 
 @Component({
   selector: 'app-post-search-list',
-  templateUrl: './post-search-list.component.html',
+  templateUrl: './post-search-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     RouterLink,

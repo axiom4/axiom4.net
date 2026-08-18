@@ -3,11 +3,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { BlogService, Category } from '../../../core/api/v1';
-import { CloudTacCategory } from '../../models/cloud-tag-category';
+import { CloudTacCategory } from '../models/cloud-tag-category';
 
 @Component({
   selector: 'app-tag-cloud',
-  templateUrl: './tag-cloud.component.html',
+  templateUrl: './tag-cloud.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink],
 })

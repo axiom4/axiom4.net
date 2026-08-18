@@ -14,7 +14,7 @@ import {
   signal,
 } from '@angular/core';
 import { Carousel } from 'bootstrap';
-import { SlideDirective } from './slide.directive';
+import { SlideDirective } from './slide';
 
 export interface CarouselSlideEvent {
   prev: string;
@@ -25,7 +25,7 @@ export interface CarouselSlideEvent {
 @Component({
   selector: 'app-carousel',
   imports: [NgTemplateOutlet],
-  templateUrl: './carousel.component.html',
+  templateUrl: './carousel.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CarouselComponent implements AfterContentInit, OnDestroy {

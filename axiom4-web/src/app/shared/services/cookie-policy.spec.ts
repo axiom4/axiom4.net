@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CookiePolicyService } from './cookie-policy.service';
+import { CookiePolicyService } from './cookie-policy';
 
 describe('CookiePolicyService', () => {
   let service: CookiePolicyService;

@@ -21,8 +21,8 @@ import {
   ApiModule,
   Configuration,
   ConfigurationParameters,
-} from './modules/core/api/v1';
-import { ConfigService } from './modules/utils';
+} from './core/api/v1';
+import { ConfigService } from './core';
 
 let config: ConfigService;
 

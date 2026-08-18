@@ -9,12 +9,12 @@ import {
   ViewChild,
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ConfigService, Configuration } from '../../../utils';
-import { SearchComponent } from '../search/search.component';
+import { ConfigService, Configuration } from '../../../core';
+import { SearchComponent } from '../search/search';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
+  templateUrl: './header.html',
   imports: [RouterLink, SearchComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,

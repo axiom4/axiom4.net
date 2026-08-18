@@ -23,11 +23,12 @@ import {
   BlogService,
   PostPreview,
 } from '../../../core/api/v1';
-import { ConfigService, ModalService, PaginationComponent } from '../../../utils';
+import { ConfigService } from '../../../core';
+import { ModalService, PaginationComponent } from '../../../shared';
 
 @Component({
   selector: 'app-post-search',
-  templateUrl: './post-search.component.html',
+  templateUrl: './post-search.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [FormsModule, RouterLink, PaginationComponent, DatePipe],
 })

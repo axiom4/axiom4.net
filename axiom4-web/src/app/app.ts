@@ -3,12 +3,12 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { filter, startWith } from 'rxjs';
-import { HeaderComponent } from './modules/main/components/header/header.component';
-import { FooterComponent } from './modules/main/components/footer/footer.component';
+import { HeaderComponent } from './features/main/header/header';
+import { FooterComponent } from './features/main/footer/footer';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterModule, HeaderComponent, FooterComponent],

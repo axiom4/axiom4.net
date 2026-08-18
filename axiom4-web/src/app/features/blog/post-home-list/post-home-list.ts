@@ -3,19 +3,18 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { BlogService, PostPreview } from '../../../core/api/v1';
+import { ConfigService, Configuration } from '../../../core';
 import {
   CarouselComponent,
   CarouselSlideEvent,
-  ConfigService,
-  Configuration,
   ImageThumbPipe,
   SlideDirective,
-} from '../../../utils';
-import { PostSearchListComponent } from '../post-search-list/post-search-list.component';
+} from '../../../shared';
+import { PostSearchListComponent } from '../post-search-list/post-search-list';
 
 @Component({
   selector: 'app-post-home-list',
-  templateUrl: './post-home-list.component.html',
+  templateUrl: './post-home-list.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CarouselComponent,

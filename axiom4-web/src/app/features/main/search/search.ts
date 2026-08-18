@@ -4,11 +4,11 @@ import {
   HostListener,
   inject,
 } from '@angular/core';
-import { ModalRef, ModalService } from '../../../utils';
+import { ModalRef, ModalService } from '../../../shared';
 
 @Component({
   selector: 'app-search',
-  templateUrl: './search.component.html',
+  templateUrl: './search.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
@@ -27,7 +27,7 @@ export class SearchComponent {
 
   async open() {
     const { PostSearchComponent } =
-      await import('../../../blog/components/post-search/post-search.component');
+      await import('../../blog/post-search/post-search');
     this.modalRef = this.modalService.open(PostSearchComponent, { size: 'lg' });
     this.modalRef.dismissed.subscribe(() => {
       this.opened = false;

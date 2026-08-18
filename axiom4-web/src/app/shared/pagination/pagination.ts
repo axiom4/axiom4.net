@@ -8,7 +8,7 @@ import {
 
 @Component({
   selector: 'app-pagination',
-  templateUrl: './pagination.component.html',
+  templateUrl: './pagination.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PaginationComponent {

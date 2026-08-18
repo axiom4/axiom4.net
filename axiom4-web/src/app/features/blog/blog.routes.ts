@@ -4,10 +4,10 @@ export const blogRoutes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/404' },
   {
     path: 'posts/:id',
-    loadComponent: () => import('./components/post/post.component').then(m => m.PostComponent)
+    loadComponent: () => import('./post/post').then(m => m.PostComponent)
   },
   {
     path: 'search/:category',
-    loadComponent: () => import('./components/post-search-list/post-search-list.component').then(m => m.PostSearchListComponent)
+    loadComponent: () => import('./post-search-list/post-search-list').then(m => m.PostSearchListComponent)
   }
 ];
