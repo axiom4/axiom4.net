@@ -27,7 +27,7 @@ Incremental==24.11.0
 inflection==0.5.1
 jsonschema==4.26.0
 jsonschema-specifications==2025.9.1
-Markdown==3.10.3
+Markdown==3.11
 martor==1.8.2
 maxminddb==3.2.0
 msgpack==1.2.2
