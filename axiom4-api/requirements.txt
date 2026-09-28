@@ -46,7 +46,7 @@ Pygments==2.21.0
 pymemcache==4.0.0
 pyOpenSSL==26.4.0
 python-dotenv==1.2.3
-pytz==2026.3.post1
+pytz==2026.4
 PyYAML==6.0.3
 redis==8.1.0
 referencing==0.37.0
