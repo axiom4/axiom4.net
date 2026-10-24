@@ -26,7 +26,8 @@
               "debug",
               "vscode-jsonrpc/lib/common/events.js",
               "vscode-jsonrpc/lib/common/cancellation.js",
-              "vscode-languageserver-protocol"
+              "vscode-languageserver-protocol",
+              "elkjs"
             ],
             "outputPath": {
               "base": "dist/axiom4-web"
