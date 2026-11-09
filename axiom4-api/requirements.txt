@@ -4,7 +4,7 @@ bleach==6.4.0
 certifi==2026.10.23
 cffi==2.1.1
 charset-normalizer==3.5.2
-click==8.5.0
+click==8.5.1
 cryptography==50.0.2
 Django==6.1.2
 django-cors-headers==4.9.0
